@@ -7,10 +7,10 @@ This article is geared toward studies attempting to quantify observables and der
 
 # Key Definitions [to be refined]
 - Precision
--- The amount of variability in an estimate
+    - The amount of variability in an estimate
 - Accuracy
--- Vs nature/experiment
--- Vs. outcome of perfect/infinite simulation
+    - Vs nature/experiment
+    - Vs. outcome of perfect/infinite simulation
 - Raw data - the set of numbers that the computer program spits out as it runs
 - Derived observables - quantities derived based on ‘non-trivial’ analyses based on the raw data
 
