@@ -15,7 +15,7 @@ This article is geared toward studies attempting to quantify observables and der
 - Derived observables - quantities derived based on ‘non-trivial’ analyses based on the raw data
 
 # CHECKLIST 
-Pre-simulation sanity checks and planning tips: There is no guarantee that any method (enhanced or otherwise) can sample any given system
+- Pre-simulation sanity checks and planning tips: There is no guarantee that any method (enhanced or otherwise) can sample any given system
 See best-practices papers on simulation background and planning/setup [Link out to simulation background and preparation documents - github]
 Are system timescales known experimentally and feasible computationally based on published literature?
 If timescales are too long for straight-ahead MD, is an enhanced method being used for which there are precedents for systems of similar complexity?
@@ -25,25 +25,25 @@ Consider multiple runs vs. single run.  Multiple runs may be especially useful i
 Make initial configuration as diverse as possible  … but note that if results depend on initial configs, that implies insufficient sampling (to be pedantic, it always does if sampling is finite, but it’s about figuring out variability and confidence intervals
 Look for automated construction methods for reproducibility
 Check your code/method via a simple benchmark system.  [Link out to software validation doc]
-Perform a quick-and-dirty data checks which can rule out (but not ensure) sufficient sampling: Necessary vs. sufficient
+- Perform a quick-and-dirty data checks which can rule out (but not ensure) sufficient sampling: Necessary vs. sufficient
 Look at time series -- think in advance about what states should exist. How many transitions do you see? If you have 1 transition, you can’t talk about populations
 Plot as many properties as you can think of, even if they’re not interesting
 Visualize the trajectory -- look for slow motions.  BE SKEPTICAL!
 Compare observable different fractions of a run (DMZ thirds idea)
 Andrew: short vs. very short
 Daniel R: Compare runs from different initial conditions - be sure initial conditions are ‘different enough’
-Remove an ‘equilibration’/’burn in’/transient portion of a single MD or MC trajectory and perform analyses only on remaining ‘production’ portion of trajectory.
-Consider computing a quantitative measure of global sampling [biomolecular vs. materials problems] - i.e., how many statistically independent samples do you have?
-Quantifying error in specific observables of interest [general approaches]
+- Remove an ‘equilibration’/’burn in’/transient portion of a single MD or MC trajectory and perform analyses only on remaining ‘production’ portion of trajectory.
+- Consider computing a quantitative measure of global sampling [biomolecular vs. materials problems] - i.e., how many statistically independent samples do you have?
+- Quantifying error in specific observables of interest [general approaches]
 Key concept: Difference between between scale of variation (measured by variance) and statistical uncertainty
-If you’re using an enhanced sampling method, …
+- If you’re using an enhanced sampling method, …
 Key concept: Complexity of correlations in advanced methods
 
-Item 6 - Computing error in specific observables
-Basics: how to report, what goal to shoot for, significant figures
-When should you not trust uncertainties
+# Item 6 - Computing error in specific observables
+- Basics: how to report, what goal to shoot for, significant figures
+- When should you not trust uncertainties
 Unknown unknowns
-If calculating a derived quantity, consider error in conversion from raw data 
+- If calculating a derived quantity, consider error in conversion from raw data 
 Propagation of error (this doesn’t mean publishing your results!)
 Taylor series expansion can handle cases where derived quantity is a direct function of measured data
 Wikipedia: Propagation of uncertainty
@@ -54,29 +54,31 @@ used for cases where the derived quantity is not simple function of the measured
 An Introduction to the Bootstrap
 Need to know correlation to correctly estimate sample size
 Otherwise just gives relative uncertainty
-Correlation time analysis [Dan Z]
-Block averaging [Dan Z/Alan?/Dan S] Flyvjberg and Petersen 
+- Correlation time analysis [Dan Z]
+- Block averaging [Dan Z/Alan?/Dan S] Flyvjberg and Petersen 
 ‘Dark uncertainty’ analysis [Paul]
-MOST OF THESE ALGORITHMS FAIL IF THE TRAJECTORY IS WAY TOO SHORT
+- MOST OF THESE ALGORITHMS FAIL IF THE TRAJECTORY IS WAY TOO SHORT
 If you miss the timescale by enough, you can’t tell
 YOU HAVE TO THINK ABOUT THIS IN ADVANCE
-Link out to transport doc
+- Link out to transport doc
 
-Item 7 - Enhanced sampling [Write as supplements, which can later be broken out as separate documents]
-Compare to standard sampling (e.g., straight MD) for a simple system
-Complex correlation structures in complex methods indicate comparison of multiple independent runs will be useful
+# Item 7 - Enhanced sampling [Write as supplements, which can later be broken out as separate documents]
+- Compare to standard sampling (e.g., straight MD) for a simple system
+- Complex correlation structures in complex methods indicate comparison of multiple independent runs will be useful
 Explain what to compare [Dan Z]
-Replica exchange [Daniel Roe]
+- Replica exchange [Daniel Roe]
 Round-trips (necessary but not sufficient)
 Compare ‘coordinate trajectories’ - distributions from temperature/Hamiltonian-wandering trajectories should match
 Examine replica residence times
-Weighted ensemble (WE)
+- Weighted ensemble (WE)
 See this WE overview doc, particularly limitations section
 Key concept: ‘Tree’ of trajectories generated by WE leads to strong correlations, requiring care
 Key concept: WE simulation generically relaxes from the initial distribution toward the ultimate distribution which could be equilibrium (if no feedback/recycling or external driving) or a non-equilibrium steady state (if feedback from specified target to initial state)
 Safest approach: Use multiple runs, which are fully independent.  Perform as many runs as needed to reduce the statistical uncertainty (std err of mean) for quantity of interest
 For a single observable, the time course of the value can be analyzed using the usual methods of analyzing time-correlated data (see above - e.g., block-averaging)
 
+
+# Original notes/discussion below here ... needs to be harvested for text
 
 Questions
 Should our document be self-contained?  That is, should we write so that a graduate student could understand and implement all the methods noted, or do we rely on published works?
