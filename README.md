@@ -17,3 +17,8 @@ This article is geared toward studies attempting to quantify observables and der
 based on “standard” canonical sampling methods (e.g., molecular dynamics and Monte Carlo) and 
 associated “enhanced” sampling methods.  Some problems and systems may be better studied with 
 cruder techniques and analyses, which will not be covered here.
+
+
+
+Note: Edit in main.tex, or better yet in \include{} statements from main
+
