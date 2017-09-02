@@ -12,27 +12,31 @@
 \usepackage[version=4]{mhchem}
 \usepackage{siunitx}
 \DeclareSIUnit\Molar{M}
-\newcommand{\versionnumber}{0.1}  % you should update the minor version number in preprints and major version number of submissions.
+\newcommand{\versionnumber}{1.0}  % you should update the minor version number in preprints and major version number of submissions.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ARTICLE SETUP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{This is the title : v\versionnumber}
+\title{Best Practices for Quantification of Uncertainty and Sampling Quality in Molecular Simulations: v\versionnumber}
 
-\author[1*]{Firstname Middlename Surname}
-\author[1,2\authfn{1}\authfn{3}]{Firstname Middlename Familyname}
-\author[2\authfn{1}\authfn{4}]{Firstname Initials Surname}
-\author[2*]{Firstname Surname}
+% Everyone should put in their name properly, institution, email
+\author[1*\authfn{1}]{Alan Grossfield}
+\author[2*\authfn{1}]{Pascal Merz}
+\author[3*\authfn{1}]{Paul Patrone}
+\author[4*\authfn{1}]{Daniel Roe}
+\author[5*\authfn{1}]{Andrew Schultz}
+\author[6*\authfn{1}]{Daniel Siderius}
+\author[7*\authfn{1}]{Daniel M. Zuckerman}
 \affil[1]{Institution 1}
-\affil[2]{Institution 2}
+\affil[7]{Oregon Health \& Science University}
 
 \corr{email1@example.com}{FMS}  % Correspondence emails.  FMS and FS are the appropriate authors initials.
-\corr{email2@example.com}{FS}
+\corr{zuckermd@ohsu.edu}{DMZ}
 
-\contrib[\authfn{1}]{These authors contributed equally to this work}
-\contrib[\authfn{2}]{These authors also contributed equally to this work}
+\contrib[\authfn{1}]{These authors contributed equally to this work, we hope!}
 
-\presentadd[\authfn{3}]{Department, Institute, Country}
-\presentadd[\authfn{4}]{Department, Institute, Country}
+
+%\presentadd[\authfn{3}]{Department, Institute, Country}
+%\presentadd[\authfn{4}]{Department, Institute, Country}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ARTICLE START
@@ -41,6 +45,110 @@
 \begin{document}
 
 \maketitle
+
+\begin{abstract}
+The quantitative assessment of uncertainty and sampling quality is essential in molecular simulation.
+Many systems of interest are highly complex, at the edge the field's computational capacity, and it is important to understand and communicate statistical uncertainties so that `consumers' of the data understand the meaning and limitations of the simulation data.
+This article covers key analyses appropriate for trajectory data straightforward simulation methods such as molecular dynamics and (single Markov chain) Monte Carlo, as well as providing guidance for analyzing some `enhanced' sampling approaches.
+We do not discuss \emph{systematic} errors arising from inaccuracy in the chosen force field.
+\end{abstract}
+
+\section{Introduction: Scope and definitions}
+
+\subsection{Scope}
+This article is geared toward simulation studies attempting to quantify observables and derive reliable error bars based on `standard' canonical sampling methods (e.g., molecular dynamics and Monte Carlo) and associated “enhanced” sampling methods.  
+Some problems and systems may be better studied with cruder techniques and analyses, which will not be covered here.
+This article also will not cover issues of systematic error arising from inaccuracy in force field (underlying model) or even from the simulation setup.
+Rather, this article will take raw trajectory data and face value, assuming it is a valid outcome given the underlying model.
+We emphatically will \emph{not} assume that a trajectory has been sufficiently `equilibrated'.
+
+\subsection{Key Definitions [to be refined]}
+The reader should be familiar will a set of basic statistical and simulation concepts.
+[and we should provide links/refs for each.]
+
+\begin{itemize}
+   \item Precision: The amount of variability in an estimate (based on repeating a given simulation protocol multiple times).  
+      Better sampling in an individual simulation leads to higher precision.
+    \item Accuracy: The degree of agreement with a reference value, which be an experimental measurement or the result of a well-sampled simulation.
+    \item Raw data: The numbers that the computer program spits out as it runs
+    \item Derived observables:  Quantities derived from ‘non-trivial’ analyses of raw data
+\end{itemize}
+
+\section{Best Practices Checklist}
+\begin{enumerate}
+\item
+- Pre-simulation sanity checks and planning tips: There is no guarantee that any method (enhanced or otherwise) can sample any given system
+    \begin{itemize}
+    \item See best-practices papers on simulation background and planning/setup [Link out to simulation background and preparation documents - github]
+    \item Are system timescales known experimentally and feasible computationally based on published literature?
+    \item If timescales are too long for straight-ahead MD, is an enhanced method being used for which there are precedents for systems of similar complexity?
+    \item Read a good article or book on sampling assessment (this one or a reference herein).  Understanding error is a technical endeavor.
+    \item Key concept: Connection between the equilibrium ensemble and individual trajectory (may or may not reach equilibrium); equilibrium vs. non-equilibrium.
+    \item Consider multiple runs vs. single run.  Multiple runs may be especially useful in assessing uncertainty for enhanced sampling methods.
+    \item Make initial configuration as diverse as possible  … but note that if results depend on initial configs, that implies insufficient sampling (to be pedantic, it always does if sampling is finite, but it’s about figuring out variability and confidence intervals
+    - Look for automated construction methods for reproducibility
+    - Check your code/method via a simple benchmark system.  [Link out to software validation doc]
+    \end{itemize}
+\item
+- Perform a quick-and-dirty data checks which can rule out (but not ensure) sufficient sampling: Necessary vs. sufficient
+    \begin{itemize}
+    \item Look at time series -- think in advance about what states should exist. How many transitions do you see? If you have 1 transition, you can’t talk about populations
+    \item Plot as many properties as you can think of, even if they’re not interesting
+    \item Visualize the trajectory -- look for slow motions.  BE SKEPTICAL!
+    \item Compare observable different fractions of a run (DMZ thirds idea)
+    \item Andrew: short vs. very short
+    \item Daniel R: Compare runs from different initial conditions - be sure initial conditions are ‘different enough’
+    \end{itemize}    
+\item
+- Remove an ‘equilibration’/’burn in’/transient portion of a single MD or MC trajectory and perform analyses only on remaining ‘production’ portion of trajectory.
+\item
+- Consider computing a quantitative measure of global sampling [biomolecular vs. materials problems] - i.e., how many statistically independent samples do you have?
+\item
+- Quantifying error in specific observables of interest [general approaches]
+    - Key concept: Difference between between scale of variation (measured by variance) and statistical uncertainty
+\item
+- If you’re using an enhanced sampling method, …
+    - Key concept: Complexity of correlations in advanced methods
+\end{enumerate}
+
+\section{Computing error in specific observables}
+- Basics: how to report, what goal to shoot for, significant figures
+- When should you not trust uncertainties
+    - Unknown unknowns
+- If calculating a derived quantity, consider error in conversion from raw data 
+    - Propagation of error (this doesn’t mean publishing your results!)
+    - Taylor series expansion can handle cases where derived quantity is a direct function of measured data
+    - Wikipedia: Propagation of uncertainty
+    - Generate synthetic data with noise model [Paul]
+    - Data filtering [Paul]
+    - Bootstrapping [Andrew/Dan S]
+used for cases where the derived quantity is not simple function of the measured data.
+An Introduction to the Bootstrap
+    - Need to know correlation to correctly estimate sample size
+    - Otherwise just gives relative uncertainty
+- Correlation time analysis [Dan Z]
+- Block averaging [Dan Z/Alan?/Dan S] Flyvjberg and Petersen 
+- ‘Dark uncertainty’ analysis [Paul]
+- MOST OF THESE ALGORITHMS FAIL IF THE TRAJECTORY IS WAY TOO SHORT
+    - If you miss the timescale by enough, you can’t tell
+    - YOU HAVE TO THINK ABOUT THIS IN ADVANCE
+- Link out to transport doc
+
+\section{Enhanced sampling [Write as supplements, which can later be broken out as separate documents?]}
+- Compare to standard sampling (e.g., straight MD) for a simple system
+- Complex correlation structures in complex methods indicate comparison of multiple independent runs will be useful
+    - Explain what to compare [Dan Z]
+- Replica exchange [Daniel Roe]
+    - Round-trips (necessary but not sufficient)
+    - Compare ‘coordinate trajectories’ - distributions from temperature/Hamiltonian-wandering trajectories should match
+    - Examine replica residence times
+- Weighted ensemble (WE)
+    - See this WE overview doc, particularly limitations section
+    - Key concept: ‘Tree’ of trajectories generated by WE leads to strong correlations, requiring care
+    - Key concept: WE simulation generically relaxes from the initial distribution toward the ultimate distribution which could be equilibrium (if no feedback/recycling or external driving) or a non-equilibrium steady state (if feedback from specified target to initial state)
+    - Safest approach: Use multiple runs, which are fully independent.  Perform as many runs as needed to reduce the statistical uncertainty (std err of mean) for quantity of interest
+    - For a single observable, the time course of the value can be analyzed using the usual methods of analyzing time-correlated data (see above - e.g., block-averaging)
+
 
 % we will have a bunch of includes here
 
