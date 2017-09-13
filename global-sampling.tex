@@ -1,0 +1,15 @@
+\section{Quantification of Global Sampling}
+
+With ideal trajectory data, one would hope to be able compute arbitrary observables with reasonably small error bars.
+During a simulation, it is not uncommon to monitor specific observables of interest, but after the data is obtained, it may prove necessary to compute observables not previously considered.
+These points motivate the goal of estimating global sampling quality, which can be framed most simply in the context of single-trajectory data:
+``Among the very large number of simulation frames (snapshots), how many are statistically independent?''  
+From a dynamical perspective, which also applies to Monte Carlo data, how long must one wait before the system completely loses memory of its prior configuration?
+
+The discussion here will focus largely on biomolecular systems, or more precisely, on systems for which it is straightforward to define a meaningful scalar distance between configurations.
+
+A key caveat is needed before proceeding.  
+Analysis of trajectory data generally cannot make inferences about parts of configuration space not visited.
+It is generally impossible to know whether configurational states absent from a trajectory are appropriately absent because they are highly improbable (extremely high energy) or because the simulation simply failed to visit them because of a high barrier or bad luck.
+
+

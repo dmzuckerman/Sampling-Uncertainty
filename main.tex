@@ -90,11 +90,12 @@ The reader should be familiar will a set of basic statistical and simulation con
     - Check your code/method via a simple benchmark system.  [Link out to software validation doc]
     \end{itemize}
 \item
-- Perform a quick-and-dirty data checks which can rule out (but not ensure) sufficient sampling: Necessary vs. sufficient
+- Perform quick-and-dirty data checks which can rule out (but not ensure) sufficient sampling: Necessary vs. sufficient
     \begin{itemize}
     \item Look at time series -- think in advance about what states should exist. How many transitions do you see? If you have 1 transition, you can’t talk about populations
     \item Plot as many properties as you can think of, even if they’re not interesting
-    \item Visualize the trajectory -- look for slow motions.  BE SKEPTICAL!
+    \item Plot pairwise configurational distances (e.g., RMSD values for biomolecules) in greyscale for $\sim$100 evenly spaced frames
+    \item Visualize the trajectory graphically -- look for slow motions.  BE SKEPTICAL!
     \item Compare observable different fractions of a run (DMZ thirds idea)
     \item Andrew: short vs. very short
     \item Daniel R: Compare runs from different initial conditions - be sure initial conditions are ‘different enough’
@@ -110,6 +111,9 @@ The reader should be familiar will a set of basic statistical and simulation con
 - If you’re using an enhanced sampling method, …
     - Key concept: Complexity of correlations in advanced methods
 \end{enumerate}
+
+\input{quick-and-dirty.tex}
+\input{global-sampling.tex}
 
 \section{Computing error in specific observables}
 - Basics: how to report, what goal to shoot for, significant figures
