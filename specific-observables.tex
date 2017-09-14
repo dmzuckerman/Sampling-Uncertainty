@@ -1,0 +1,22 @@
+\section{Computing error in specific observables}
+- Basics: how to report, what goal to shoot for, significant figures
+- When should you not trust uncertainties
+    - Unknown unknowns
+- If calculating a derived quantity, consider error in conversion from raw data 
+    - Propagation of error (this doesn’t mean publishing your results!)
+    - Taylor series expansion can handle cases where derived quantity is a direct function of measured data
+    - Wikipedia: Propagation of uncertainty
+    - Generate synthetic data with noise model [Paul]
+    - Data filtering [Paul]
+    - Bootstrapping [Andrew/Dan S]
+used for cases where the derived quantity is not simple function of the measured data.
+An Introduction to the Bootstrap
+    - Need to know correlation to correctly estimate sample size
+    - Otherwise just gives relative uncertainty
+- Correlation time analysis [Dan Z]
+- Block averaging [Dan Z/Alan?/Dan S] Flyvjberg and Petersen 
+- ‘Dark uncertainty’ analysis [Paul]
+- MOST OF THESE ALGORITHMS FAIL IF THE TRAJECTORY IS WAY TOO SHORT
+    - If you miss the timescale by enough, you can’t tell
+    - YOU HAVE TO THINK ABOUT THIS IN ADVANCE
+- Link out to transport doc
