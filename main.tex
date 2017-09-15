@@ -26,7 +26,7 @@
 \author[5*\authfn{1}]{Andrew Schultz}
 \author[6*\authfn{1}]{Daniel Siderius}
 \author[7*\authfn{1}]{Daniel M. Zuckerman}
-\affil[1]{Institution 1}
+\affil[1]{University of Rochester Medical Center, Department of Biochemistry and Biophysics}
 \affil[7]{Oregon Health \& Science University}
 
 \corr{email1@example.com}{FMS}  % Correspondence emails.  FMS and FS are the appropriate authors initials.
@@ -56,7 +56,7 @@ We do not discuss \emph{systematic} errors arising from inaccuracy in the chosen
 \section{Introduction: Scope and definitions}
 
 \subsection{Scope}
-This article is geared toward simulation studies attempting to quantify observables and derive reliable error bars based on `standard' canonical sampling methods (e.g., molecular dynamics and Monte Carlo) and associated “enhanced” sampling methods.  
+This article is geared toward simulation studies attempting to quantify observables and derive reliable error bars based on `standard' canonical sampling methods (e.g., molecular dynamics and Monte Carlo) and associated “enhanced” sampling methods.
 Some problems and systems may be better studied with cruder techniques and analyses, which will not be covered here.
 This article also will not cover issues of systematic error arising from inaccuracy in force field (underlying model) or even from the simulation setup.
 Rather, this article will take raw trajectory data and face value, assuming it is a valid outcome given the underlying model.
@@ -67,7 +67,7 @@ The reader should be familiar will a set of basic statistical and simulation con
 [and we should provide links/refs for each.]
 
 \begin{itemize}
-   \item Precision: The amount of variability in an estimate (based on repeating a given simulation protocol multiple times).  
+   \item Precision: The amount of variability in an estimate (based on repeating a given simulation protocol multiple times).
       Better sampling in an individual simulation leads to higher precision.
     \item Accuracy: The degree of agreement with a reference value, which be an experimental measurement or the result of a well-sampled simulation.
     \item Raw data: The numbers that the computer program spits out as it runs
@@ -99,7 +99,7 @@ The reader should be familiar will a set of basic statistical and simulation con
     \item Compare observable different fractions of a run (DMZ thirds idea)
     \item Andrew: short vs. very short
     \item Daniel R: Compare runs from different initial conditions - be sure initial conditions are ‘different enough’
-    \end{itemize}    
+    \end{itemize}
 \item
 - Remove an ‘equilibration’/’burn in’/transient portion of a single MD or MC trajectory and perform analyses only on remaining ‘production’ portion of trajectory.
 \item
@@ -126,6 +126,6 @@ The reader should be familiar will a set of basic statistical and simulation con
 Funder and other information can be given here.
 
 \bibliography{refs}
-\bibliographystyle{vancouver-livecoms}
+%\bibliographystyle{vancouver-livecoms}
 
 \end{document}
