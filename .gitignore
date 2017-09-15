@@ -1,0 +1,19 @@
+# ignore the crap that latex generates
+
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.bib-stamp
+
+# ignore the crap that vim generates
+*.sw*
+
+
+# ignore the pdf that latex produces
+# can't say *.pdf because there will be pdfs in the figures directory
+# that we want to keep
+main.pdf
+
+
