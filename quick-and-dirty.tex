@@ -1,3 +1,5 @@
+% !TEX root = ./main.tex
+
 \section{Quick-and-Dirty checks that can rule out good sampling}
 
 It is difficult to establish with certainty that good sampling has been achieved, but it is not difficult to \emph{rule out} high-quality sampling.
@@ -5,13 +7,46 @@ Here we elaborate on some quick-and-dirty tests that quickly show inadequacies i
 
 \subsection{Tests based on configurational distance measures - e.g., RMSD for biomolecules}
 
+\begin{wrapfigure}{r}{6cm}
+  \includegraphics[width=5.8cm]{figures/rmsd/rmsd}
+  \includegraphics[width=5.8cm]{figures/rmsd/rmsds}
+  \caption{
+  \label{f:rmsd} RMSD as a measure of convergence.  The upper panel shows the
+  $\alpha$-carbon RMSD of the protein rhodopsin from its starting structure as a
+  function of time.  The lower panel shows the all-to-all RMSD map computed from the same
+  trajectory.  Data from Leioatts, et al \cite{Grossfield-2015}.
+  }
+\end{wrapfigure}
+
 We will use the standard biomolecular RMSD (root mean-squared difference) as a generic distance measure for illustrative purposes.
 Alternatives to RMSD could be a dihedral-angle distance or another measure specific to your system of interest.
-Note that RMSD, like any distance in a high-dimensional space, becomes ``degenerate'' for larger values: given a reference configuration, there are a large number of configurations which differ from the reference by a given large RMSD; this is analogous to the increasing number of points in three-dimensional space with increasing radial distance from a reference point, except much worse because of the dimensionality. 
+Note that RMSD, like any distance in a high-dimensional space, becomes ``degenerate'' for larger values: given a reference configuration, there are a large number of configurations which differ from the reference by a given large RMSD; this is analogous to the increasing number of points in three-dimensional space with increasing radial distance from a reference point, except much worse because of the dimensionality.
 
-Some qualitative tools for assessing global sampling based on RMSD were reviewed in prior work \cite{Grossfield2009}.  
-The classic plot of RMSD (with respect to a crystal or other single reference structure) vs.\ time (or MC steps) can give an immediate visual of the trajectory.  
-If the the RMSD value has not leveled off and fluctuated multiple times around some mean value, it is unlikely that true global equilibrium sampling has been achieved.  
-A generalization of this approach is to plot in greyscale the pairwise RMSD values for equally spaced frames of the trajectory.  
-In such a plot, one would like to see that different configurational states have been visited multiple times - i.e., low RMSD values repeatedly recur for most of the configurations.  
-This is a fairly strict, albeit qualitative, test.
+Some qualitative tools for assessing global sampling based on RMSD were reviewed
+in prior work \cite{Grossfield2009}.   The classic time series plot of RMSD with
+respect to a crystal or other single reference structure can immediately
+indicate whether the structure is still systematically changing.  Although this
+kind of plot was historically used as a sampling test, it's really more a test
+of equilibration, since the absence of increasing RMSD does not demonstrate
+anything about the quality of sampling.  Moreover, it's not even a particularly
+good test of equilibration, because the degeneracy of RMSD means you can't tell
+if the simulation is exploring new states that are equidistant from the chosen
+reference.  The upper panel of Figure \ref{f:rmsd} shows a typical curve of this
+sort, taken from a simulation of the G protein-coupled receptor rhodopsin
+\cite{Grossfield-2015}; the curve increases rapidly over the few nanoseconds and
+then roughly plateaus.  It is difficult to assign meaning to the other features
+on the curve.
+
+A better RMSD-based convergence measure is the all-to-all RMSD plot; taking the
+RMSD of each snapshot in the trajectory with respect to all others allows you to
+use RMSD for what it does best, identifying very similar structures.  The lower
+panel of Figure \ref{f:rmsd} shows an example of this kind of plot, applied to
+the same trajectory before.  By definition, all such plots have values of zero
+along the diagonal, and occupation of a given state shows up as a block of
+similar RMSD along the diagonal; in this case, there are 2 main states, with one
+transition occuring roughly 800 ns into the trajectory.  Off diagonal ``peaks''
+(regions of low RMSD between structures sampled far apart in time) indicate that
+the system is revisiting previously sampled states, a necessary condition for
+good statistics.  In this case, the initial state is never sampled after the
+first transition, but there are a number of small transitions within the second
+state.
