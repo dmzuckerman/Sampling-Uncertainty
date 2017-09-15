@@ -1,0 +1,21 @@
+set terminal pdfcairo enhanced font "Arial, 9" size 5cm,5cm
+set encoding iso_8859_1
+
+
+set output "rmsd.pdf"
+set xlabel "Time (ns)"
+set xrange [0:3000]
+set ylabel "RMSD (\305)"
+plot "rmsd.dat" u 1:2 notitle w l
+
+set output "rmsds.pdf"
+set xrange [0:150]
+set yrange [0:150]
+set xtics ("0" 0, "500" 25, "1000" 50, "1500" 75, "2000" 100, "2500" 125, "3000" 150)
+set ytics ("0" 0, "500" 25, "1000" 50, "1500" 75, "2000" 100, "2500" 125, "3000" 150)
+set xlabel "Time (ns)"
+set ylabel "Time (ns)"
+set view map
+set size square 
+splot "rmsds.dat" matrix notitle w image
+
