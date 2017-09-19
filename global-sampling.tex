@@ -5,11 +5,50 @@ During a simulation, it is not uncommon to monitor specific observables of inter
 These points motivate the goal of estimating global sampling quality, which can be framed most simply in the context of single-trajectory data:
 ``Among the very large number of simulation frames (snapshots), how many are statistically independent?''  
 From a dynamical perspective, which also applies to Monte Carlo data, how long must one wait before the system completely loses memory of its prior configuration?
+The methods noted in this section build on ideas already presented in the section on ``quick-and-dirty'' qualitative sampling analysis, but attempt to go a step further to quantify sampling quality.
 
+\subsection{Scope and a key caveat}
 The discussion here will focus largely on biomolecular systems, or more precisely, on systems for which it is straightforward to define a meaningful scalar distance between configurations.
 
 A key caveat is needed before proceeding.  
-Analysis of trajectory data generally cannot make inferences about parts of configuration space not visited.
+Analysis of trajectory data generally cannot make inferences about parts of configuration space not visited \cite{Grossfield2009}.
 It is generally impossible to know whether configurational states absent from a trajectory are appropriately absent because they are highly improbable (extremely high energy) or because the simulation simply failed to visit them because of a high barrier or bad luck.
 
+\subsection{Global sampling assessment for a single trajectory}
+Two methods applicable for a single trajectory have been previously introduced by some of the authors, exploiting the fact that trajectory correlations are sequential.
+That is, each configuration evolves from and is most similar to the immediately preceding configuration.
+This picture holds for standard MD and Markov-chain MC.
+
+Lyman and Zuckerman proposed a global ``decorrelation'' analysis by mapping a trajectory to a discretization of configuration space and analyzing the resulting statistics \cite{Lyman2007a}.
+Configuration space is discretized into bins based on Voronoi cells of structurally similar configurations - e.g., based on an RMSD criterion.
+The analysis method is based on the observation that the variance for any bin of a multinomial distribution is known, given a specified number of independent samples drawn from the discretized distribution.
+The knowledge of the expected variance allows testing of increasing waiting times between configurations drawn from the trajectory to determine when and if the variance approaches that expected for independent samples.
+The minimum waiting time yielding agreement with ideal statistics yields an estimate for the decorrelation/memory time, which implies an overall effective sample size.
+
+A second method, employing block covariance analysis, was presented by Romo and Grossfield \cite{Romo2011} building on ideas by Hess \cite{Hess2002}.
+The approach compares covariances calculated from sets of increasingly long segments (``blocks'') of a trajectory to the corresponding values exhibited by the full trajectory to yield estimates of convergence times.
+[ALAN PLEASE ELABORATE]
+
+Note LOOS implementations??
+
+\subsection{Global sampling assessment for multiple independent trajectories}
+When sampling is performed using multiple independent trajectories (whether MD or MC), additional care is required.
+Analyses based solely on the assumption of sequential correlations may break down because of the unknown relationship between separate trajectories.
+
+Zhang et al.\ extended the decorrelation/variance analysis noted above, while still retaining the basic strategy of inferring sample size based on variance \cite{Zhang2010}.
+To enable assessment of multiple trajectories, the new approach focused on conformational state populations, arguing that the states fundamentally underlie equilibrium observables.
+Employing a fairly simple kinetic-clustering technique to automatically define states, the approach then uses the variances in state populations among trajectories to estimate the effective sample size.
+
+[ALAN, CAN BLOCK COVARIANCE BE USED EQUALLY ON MULTIPLE TRAJECTORIES?]
+
+\subsection{Global sampling assessment for enhanced sampling methods}
+The family of enhanced equilibrium sampling methods, including replica exchange and variants [refs], metadynamics [refs], adaptive biasing force [ref], are complex and the resulting data may have a highly non-trivial correlation structure.
+In replica exchange, for example, the ensemble at a temperature of interest will be based on multiple return visits of different sequentially correlated trajectories.
+
+Given the subtleties of these sampling approaches, we suggest taking a 'bottom line' approach, and assessing sampling based on multiple independent runs.
+The variance among these runs, if the approach is not biased, should be a measure of the overall sampling.
+Hence any method applicable to multiple trajectories should be valid for analyzing multiple runs of an arbitrary method.
+A caveat for the approach of Zhang et al.\ \cite{Zhang2010} is that some dynamics trajectory segments would be required to perform state construction by kinetic clustering.
+
+[ALAN, CAN BLOCK COVARIANCE BE USED EQUALLY ON MULTIPLE INDEPENDENT ENHANCED SAMPLING RUNS?]
 
