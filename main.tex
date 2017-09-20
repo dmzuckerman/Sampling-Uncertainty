@@ -23,10 +23,11 @@
 \author[2*\authfn{1}]{Pascal Merz}
 \author[3*\authfn{1}]{Paul Patrone}
 \author[4*\authfn{1}]{Daniel Roe}
-\author[5*\authfn{1}]{Andrew Schultz}
+\author[5*\authfn{1}]{Andrew J. Schultz}
 \author[6*\authfn{1}]{Daniel Siderius}
 \author[7*\authfn{1}]{Daniel M. Zuckerman}
 \affil[1]{University of Rochester Medical Center, Department of Biochemistry and Biophysics}
+\affil[5]{Department of Chemical and Biological Engineering, University at Buffalo, The State University of New York}
 \affil[7]{Oregon Health \& Science University}
 
 \corr{email1@example.com}{FMS}  % Correspondence emails.  FMS and FS are the appropriate authors initials.
@@ -59,17 +60,17 @@ We do not discuss \emph{systematic} errors arising from inaccuracy in the chosen
 This article is geared toward simulation studies attempting to quantify observables and derive reliable error bars based on `standard' canonical sampling methods (e.g., molecular dynamics and Monte Carlo) and associated “enhanced” sampling methods.
 Some problems and systems may be better studied with cruder techniques and analyses, which will not be covered here.
 This article also will not cover issues of systematic error arising from inaccuracy in force field (underlying model) or even from the simulation setup.
-Rather, this article will take raw trajectory data and face value, assuming it is a valid outcome given the underlying model.
+Rather, this article will take raw trajectory data at face value, assuming it is a valid outcome given the underlying model.
 We emphatically will \emph{not} assume that a trajectory has been sufficiently `equilibrated'.
 
 \subsection{Key Definitions [to be refined]}
-The reader should be familiar will a set of basic statistical and simulation concepts.
+The reader should be familiar with a set of basic statistical and simulation concepts.
 [and we should provide links/refs for each.]
 
 \begin{itemize}
    \item Precision: The amount of variability in an estimate (based on repeating a given simulation protocol multiple times).
       Better sampling in an individual simulation leads to higher precision.
-    \item Accuracy: The degree of agreement with a reference value, which be an experimental measurement or the result of a well-sampled simulation.
+    \item Accuracy: The degree of agreement with a reference value, which may be an experimental measurement or the result of a well-sampled simulation.
     \item Raw data: The numbers that the computer program spits out as it runs
     \item Derived observables:  Quantities derived from ‘non-trivial’ analyses of raw data
 \end{itemize}
@@ -77,20 +78,20 @@ The reader should be familiar will a set of basic statistical and simulation con
 \section{Best Practices Checklist}
 \begin{enumerate}
 \item
-- Pre-simulation sanity checks and planning tips: There is no guarantee that any method (enhanced or otherwise) can sample any given system
+Pre-simulation sanity checks and planning tips: There is no guarantee that any method (enhanced or otherwise) can sample any given system
     \begin{itemize}
     \item See best-practices papers on simulation background and planning/setup [Link out to simulation background and preparation documents - github]
     \item Are system timescales known experimentally and feasible computationally based on published literature?
-    \item If timescales are too long for straight-ahead MD, is an enhanced method being used for which there are precedents for systems of similar complexity?
+      - If timescales are too long for straight-ahead MD, is an enhanced method being used for which there are precedents for systems of similar complexity?
     \item Read a good article or book on sampling assessment (this one or a reference herein).  Understanding error is a technical endeavor.
-    \item Key concept: Connection between the equilibrium ensemble and individual trajectory (may or may not reach equilibrium); equilibrium vs. non-equilibrium.
+      - Key concept: Connection between the equilibrium ensemble and individual trajectory (may or may not reach equilibrium); equilibrium vs. non-equilibrium.
     \item Consider multiple runs vs. single run.  Multiple runs may be especially useful in assessing uncertainty for enhanced sampling methods.
-    \item Make initial configuration as diverse as possible  … but note that if results depend on initial configs, that implies insufficient sampling (to be pedantic, it always does if sampling is finite, but it’s about figuring out variability and confidence intervals
-    - Look for automated construction methods for reproducibility
-    - Check your code/method via a simple benchmark system.  [Link out to software validation doc]
+      - Make initial configuration as diverse as possible  … but note that if results depend on initial configs, that implies insufficient sampling (to be pedantic, it always does if sampling is finite, but it’s about figuring out variability and confidence intervals
+      - Look for automated construction methods for reproducibility
+    \item Check your code/method via a simple benchmark system.  [Link out to software validation doc]
     \end{itemize}
 \item
-- Perform quick-and-dirty data checks which can rule out (but not ensure) sufficient sampling: Necessary vs. sufficient
+Perform quick-and-dirty data checks which can rule out (but not ensure) sufficient sampling: Necessary vs. sufficient
     \begin{itemize}
     \item Look at time series -- think in advance about what states should exist. How many transitions do you see? If you have 1 transition, you can’t talk about populations
     \item Plot as many properties as you can think of, even if they’re not interesting
@@ -101,14 +102,14 @@ The reader should be familiar will a set of basic statistical and simulation con
     \item Daniel R: Compare runs from different initial conditions - be sure initial conditions are ‘different enough’
     \end{itemize}
 \item
-- Remove an ‘equilibration’/’burn in’/transient portion of a single MD or MC trajectory and perform analyses only on remaining ‘production’ portion of trajectory.
+ Remove an ‘equilibration’/’burn in’/transient portion of a single MD or MC trajectory and perform analyses only on remaining ‘production’ portion of trajectory.
 \item
-- Consider computing a quantitative measure of global sampling [biomolecular vs. materials problems] - i.e., how many statistically independent samples do you have?
+ Consider computing a quantitative measure of global sampling [biomolecular vs. materials problems] - i.e., how many statistically independent samples do you have?
 \item
-- Quantifying error in specific observables of interest [general approaches]
+ Quantifying error in specific observables of interest [general approaches]
     - Key concept: Difference between between scale of variation (measured by variance) and statistical uncertainty
 \item
-- If you’re using an enhanced sampling method, …
+ If you’re using an enhanced sampling method, …
     - Key concept: Complexity of correlations in advanced methods
 \end{enumerate}
 
