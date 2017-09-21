@@ -3,12 +3,24 @@
 While recent advances in computational hardware have allowed MD simulations of systems with biological relevance to routinely reach timescales ranging from hundreds of \si{\nano\second} to \si{\micro\second}, in many cases this is still not long enough to obtain equilibrated (i.e. Boltzmann-weighted) structural populations. Enhanced sampling methods can be used to obtain well-converged ensembles faster than conventional MD. In general, enhanced sampling methods work through a combination of modifying the underlying energy landscape to increase the rate at which energy barriers are crossed with some form of reweighting to recover the unbiased ensemble. However, their use does not automatically guarantee a converged ensemble, and care must be taken when using and evaluating enhanced sampling methods.
 
 \subsection{Replica Exchange Molecular Dynamics}
-Before running replica exchange MD (REMD)\cite{Sugita1999} one should ask the following questions:
+Before running replica exchange MD (REMD)\citep{Sugita1999} one should ask the following questions:
 \begin{itemize}
   \item Is REMD needed? Can the process be observed multiple times via conventional MD?
   \item Is dynamic information needed (e.g. diffusion, etc). This information is not easily extracted from REMD simulations.
   \item Is REMD computationally feasible? Typical implementations of REMD require at least 1 computational node per replica. In general, the number of replicas needed to get reasonable exchange rates is proportional to the square root of the number of degrees of freedom that vary between different replicas.
   \item What system variable(s) should be modified to increase sampling? Consider what the barriers to sampling are. Temperature is probably the most commonly used variable, but can be problematic: 1) temperature is only good for accelerating certain processes (e.g. protein unfolding but not folding), 2) temperature affects all degrees of freedom of a system and so typically requires large numbers of replicas, especially for explicitly solvated systems. It may be worthwhile to consider a different modification of the Hamiltonian, such as scaling dihedral force constants.
+  \item Replica spacing and exchange acceptance percentage. Replicas need to be spaced such that the overlap in neighboring Hamiltonians is enough to ensure that a certain number of exchange attempts are accepted. Sugita and Okamoto\citep{Sugita1999} originally suggested exchange acceptance be no lower than 10\%, although it is more common in the literature to see target acceptance rate of 20\%. Procedures exist for generating replica temperature "ladders" to achieve a desired exchange acceptance, such as the one by Patriksson and van der Spoel.\citep{Patriksson2008}
+\end{itemize}
+
+When running REMD simulations, consider the following:
+\begin{itemize}
+  \item What exchange frequency to use. There is some debate in the literature. Sindhikara et al. have advocated exchanging as often as possible,\citep{Sindhikara2010} while Abraham and Gready have pointed out that exchanges shorter than then autocorrelation time of the potential energy of the system are not independent.\citep{Abraham2008} The general consensus in the literature appears to be that 1 ps per exchange attempt is reasonable.
+\end{itemize}
+
+In order to assess the results of a REMD simulation, consider the following:
+\begin{itemize}
+  \item Replica round-trip times.
+  \item Distributions from replica trajectories versus coordinate trajectories.
 \end{itemize}
 
 - Compare to standard sampling (e.g., straight MD) for a simple system
