@@ -5,6 +5,10 @@
 It is difficult to establish with certainty that good sampling has been achieved, but it is not difficult to \emph{rule out} high-quality sampling.
 Here we elaborate on some quick-and-dirty tests that quickly show inadequacies in sampling.
 
+\subsection{Zeroth-order system-wide tests}
+
+The simplest test for poor sampling is lack of equilibration: if the system is still noticeably relaxing from its starting conformation, statistical sampling has not even begun, and thus by definition is poor.  As a result, the very first test should be to verify that the basic equilibration has occurred.  To check for this, one should inspect the time series for a number of simple scalar values, such as potential energy, system size (and area, if you are simulating a membrane or other system where one dimension is distinct from the others), temperature (if you are simulating in the NVE ensemble).  Often, simple visual inspection is sufficient to determine that the simulation is systematically changing, although more sophisticated methods have been proposed by Chodera \cite{Chodera-2016}.  If \emph{any} value appears to be systematically changing, then the system is not equilibrated.
+
 \subsection{Tests based on configurational distance measures - e.g., RMSD for biomolecules}
 
 \begin{wrapfigure}{r}{6cm}
@@ -26,16 +30,15 @@ Some qualitative tools for assessing global sampling based on RMSD were reviewed
 in prior work \cite{Grossfield2009}.   The classic time series plot of RMSD with
 respect to a crystal or other single reference structure can immediately
 indicate whether the structure is still systematically changing.  Although this
-kind of plot was historically used as a sampling test, it's really more a test
-of equilibration, since the absence of increasing RMSD does not demonstrate
-anything about the quality of sampling.  Moreover, it's not even a particularly
-good test of equilibration, because the degeneracy of RMSD means you can't tell
-if the simulation is exploring new states that are equidistant from the chosen
-reference.  The upper panel of Figure \ref{f:rmsd} shows a typical curve of this
-sort, taken from a simulation of the G protein-coupled receptor rhodopsin
-\cite{Grossfield-2015}; the curve increases rapidly over the few nanoseconds and
-then roughly plateaus.  It is difficult to assign meaning to the other features
-on the curve.
+kind of plot was historically used as a sampling test, it should really be
+considered as another equilibration test like those discussed above.  Moreover,
+it's not even a particularly good test of equilibration, because the degeneracy
+of RMSD means you can't tell if the simulation is exploring new states that are
+equidistant from the chosen reference.  The upper panel of Figure \ref{f:rmsd}
+shows a typical curve of this sort, taken from a simulation of the G
+protein-coupled receptor rhodopsin \cite{Grossfield-2015}; the curve increases
+rapidly over the few nanoseconds and then roughly plateaus.  It is difficult to
+assign meaning to the other features on the curve.
 
 A better RMSD-based convergence measure is the all-to-all RMSD plot; taking the
 RMSD of each snapshot in the trajectory with respect to all others allows you to
