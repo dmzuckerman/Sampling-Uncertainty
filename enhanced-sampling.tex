@@ -1,4 +1,16 @@
 \section{Enhanced sampling [Write as supplements, which can later be broken out as separate documents?]}
+
+While recent advances in computational hardware have allowed MD simulations of systems with biological relevance to routinely reach timescales ranging from hundreds of \si{\nano\second} to \si{\micro\second}, in many cases this is still not long enough to obtain equilibrated (i.e. Boltzmann-weighted) structural populations. Enhanced sampling methods can be used to obtain well-converged ensembles faster than conventional MD. In general, enhanced sampling methods work through a combination of modifying the underlying energy landscape to increase the rate at which energy barriers are crossed with some form of reweighting to recover the unbiased ensemble. However, their use does not automatically guarantee a converged ensemble, and care must be taken when using and evaluating enhanced sampling methods.
+
+\subsection{Replica Exchange Molecular Dynamics}
+Before running replica exchange MD (REMD)\cite{Sugita1999} one should ask the following questions:
+\begin{itemize}
+  \item Is REMD needed? Can the process be observed multiple times via conventional MD?
+  \item Is dynamic information needed (e.g. diffusion, etc). This information is not easily extracted from REMD simulations.
+  \item Is REMD computationally feasible? Typical implementations of REMD require at least 1 computational node per replica. In general, the number of replicas needed to get reasonable exchange rates is proportional to the square root of the number of degrees of freedom that vary between different replicas.
+  \item What system variable(s) should be modified to increase sampling? Consider what the barriers to sampling are. Temperature is probably the most commonly used variable, but can be problematic: 1) temperature is only good for accelerating certain processes (e.g. protein unfolding but not folding), 2) temperature affects all degrees of freedom of a system and so typically requires large numbers of replicas, especially for explicitly solvated systems. It may be worthwhile to consider a different modification of the Hamiltonian, such as scaling dihedral force constants.
+\end{itemize}
+
 - Compare to standard sampling (e.g., straight MD) for a simple system
 - Complex correlation structures in complex methods indicate comparison of multiple independent runs will be useful
     - Explain what to compare [Dan Z]
