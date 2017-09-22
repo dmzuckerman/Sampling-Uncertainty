@@ -2,6 +2,8 @@
 
 While recent advances in computational hardware have allowed MD simulations of systems with biological relevance to routinely reach timescales ranging from hundreds of \si{\nano\second} to \si{\micro\second}, in many cases this is still not long enough to obtain equilibrated (i.e. Boltzmann-weighted) structural populations. Enhanced sampling methods can be used to obtain well-converged ensembles faster than conventional MD. In general, enhanced sampling methods work through a combination of modifying the underlying energy landscape to increase the rate at which energy barriers are crossed with some form of reweighting to recover the unbiased ensemble. However, their use does not automatically guarantee a converged ensemble, and care must be taken when using and evaluating enhanced sampling methods.
 
+Note that in the following sections, a "coordinate trajectory" follows a single set of starting coordinates as it traverses different Hamiltonians (i.e. replicas), while a "replica trajectory" follows all coordinates in a single Hamiltonian (i.e. replica).
+
 \subsection{Replica Exchange Molecular Dynamics}
 Before running replica exchange MD (REMD)\citep{Sugita1999} one should ask the following questions:
 \begin{itemize}
@@ -14,26 +16,31 @@ Before running replica exchange MD (REMD)\citep{Sugita1999} one should ask the f
 
 When running REMD simulations, consider the following:
 \begin{itemize}
-  \item What exchange frequency to use. There is some debate in the literature. Sindhikara et al. have advocated exchanging as often as possible,\citep{Sindhikara2010} while Abraham and Gready have pointed out that exchanges shorter than then autocorrelation time of the potential energy of the system are not independent.\citep{Abraham2008} The general consensus in the literature appears to be that 1 ps per exchange attempt is reasonable.
+  \item What exchange frequency to use. There is some debate in the literature. Sindhikara et al. have advocated exchanging as often as possible,\citep{Sindhikara2010} while Abraham and Gready have pointed out that exchanges shorter than then autocorrelation time of the potential energy of the system are not independent.\citep{Abraham2008} In addition, more frequent exchanges can lead to more parallel overhead, reducing computational efficiency. The general consensus in the literature appears to be that 1 ps per exchange attempt is reasonable.
+  \item What coordinate output frequency to use. Because REMD simulations generate coordinates from each replica they produce much more data than conventional MD simulations. As a result it is often beneficial to write trajectory information less frequently than you normally would (e.g. every 10 ps). 
 \end{itemize}
 
-In order to assess the results of a REMD simulation, consider the following:
+In order to assess the results of a REMD simulation, consider the following. Note that these are necessary but not sufficient conditions for determining convergence of REMD simulations.
 \begin{itemize}
-  \item Replica round-trip times.
-  \item Distributions from replica trajectories versus coordinate trajectories.
+  \item Replica sampling efficiency. In order for sampling to be efficient, coordinates must be able to move freely in replica space, i.e. the time each set of starting coordinates spend at each replica should be roughly equivalent. Over the course of a simulation, any given set of coordinates should traverse the entire replica space multiple times; this is sometimes referred to as a "round-trip". A corollary of this is that exchange acceptance percentages up and down should be roughly equivalent for all neighboring replica pairs.
+  \item Distributions from coordinate trajectories. If all coordinates are moving freely in replica space, they should eventually converge to the same ensemble of structures. Comparing distributions of various quantities from coordinate trajectories can provide a measure of how converged the simulation is. 
 \end{itemize}
 
-- Compare to standard sampling (e.g., straight MD) for a simple system
-- Complex correlation structures in complex methods indicate comparison of multiple independent runs will be useful
-    - Explain what to compare [Dan Z]
-- Replica exchange [Daniel Roe]
+All of the above quantities (replica residence time, round trip time, lifetimes etc) can be calculated with CPPTRAJ,\citep{Roe2013} which is freely available from \url{https://github.com/Amber-MD/cpptraj} or as part of AmberTools (\url{http://ambermd.org}).
+
+\subsection{NOTES-FIXME}
+\begin{itemize}
+  \item Compare to standard sampling (e.g., straight MD) for a simple system
+  \item Complex correlation structures in complex methods indicate comparison of multiple independent runs will be useful
+  \item Explain what to compare [Dan Z]
+  \item Replica exchange [Daniel Roe]
     - Round-trips (necessary but not sufficient)
     - Compare ‘coordinate trajectories’ - distributions from temperature/Hamiltonian-wandering trajectories should match
     - Examine replica residence times
-- Weighted ensemble (WE)
+  \item Weighted ensemble (WE)
     - See this WE overview doc, particularly limitations section
     - Key concept: ‘Tree’ of trajectories generated by WE leads to strong correlations, requiring care
     - Key concept: WE simulation generically relaxes from the initial distribution toward the ultimate distribution which could be equilibrium (if no feedback/recycling or external driving) or a non-equilibrium steady state (if feedback from specified target to initial state)
-    - Safest approach: Use multiple runs, which are fully independent.  Perform as many runs as needed to reduce the statistical uncertainty (std err of mean) for quantity of interest
+  \item Safest approach: Use multiple runs, which are fully independent.  Perform as many runs as needed to reduce the statistical uncertainty (std err of mean) for quantity of interest
     - For a single observable, the time course of the value can be analyzed using the usual methods of analyzing time-correlated data (see above - e.g., block-averaging)
-
+\end{itemize}
