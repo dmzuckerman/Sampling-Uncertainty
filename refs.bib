@@ -132,6 +132,15 @@ year = {2009}
   pages   = {31910},
 }
 
+@article{Swendsen-1986,
+author = {Swendsen, R H and Wang, J.-S.},
+journal = {Phys. Rev. Lett.},
+pages = {2607--2609},
+title = {{Replica {\{}M{\}}onte {\{}C{\}}arlo Simulation of Spin-Glasses}},
+volume = {57},
+year = {1986}
+}
+
 @Article{Sugita1999,
   author  = {Yuji Sugita and Yuko Okamoto},
   title   = {{Replica-exchange molecular dynamics method for protein folding}},
@@ -145,6 +154,89 @@ year = {2009}
   url     = {http://www.sciencedirect.com/science/article/pii/S0009261499011239},
 }
 
+@article{Okamoto-2000,
+author = {Sugita, Y and Kitao, A and Okamoto, Y},
+journal = {J. Chem. Phys.},
+pages = {6042--6051},
+title = {{Multidimensional replica-exchange method for free-energy calculations}},
+volume = {113},
+year = {2000}
+}
+
+@article{Bussi2006a,
+abstract = {In this Letter we propose a new formalism to map history-dependent metadynamics in a Markovian process. We apply this formalism to model Langevin dynamics and determine the equilibrium distribution of a collection of simulations. We demonstrate that the reconstructed free energy is an unbiased estimate of the underlying free energy and analytically derive an expression for the error. The present results can be applied to other history-dependent stochastic processes, such as Wang-Landau sampling.},
+author = {Bussi, Giovanni and Laio, Alessandro and Parrinello, Michele},
+institution = {Computational Science, Department of Chemistry and Applied Biosciences, Eidgen{\"{o}}ssische Technische Hochschule Z{\"{u}}rich, c/o USI Campus, Via Buffi 13, CH-6900 Lugano, Switzerland. gbussi@phys.chem.ethz.ch},
+journal = {Phys Rev Lett},
+month = {mar},
+number = {9},
+pages = {90601},
+pmid = {16606249},
+title = {{Equilibrium free energies from nonequilibrium metadynamics.}},
+volume = {96},
+year = {2006}
+}
+
+@article{Laio2008,
+abstract = {Metadynamics is a powerful algorithm that can be used both for reconstructing the free energy and for accelerating rare events in systems described by complex Hamiltonians, at the classical or at the quantum level. In the algorithm the normal evolution of the system is biased by a history-dependent potential constructed as a sum of Gaussians centered along the trajectory followed by a suitably chosen set of collective variables. The sum of Gaussians is exploited for reconstructing iteratively an estimator of the free energy and forcing the system to escape from local minima. This review is intended to provide a comprehensive description of the algorithm, with a focus on the practical aspects that need to be addressed when one attempts to apply metadynamics to a new system: (i) the choice of the appropriate set of collective variables; (ii) the optimal choice of the metadynamics parameters and (iii) how to control the error and ensure convergence of the algorithm.},
+author = {Laio, Alessandro and Gervasio, Francesco L},
+doi = {10.1088/0034-4885/71/12/126601},
+isbn = {0034-4885},
+issn = {0034-4885},
+journal = {Reports on Progress in Physics},
+number = {12},
+pages = {126601},
+pmid = {261185700002},
+title = {{Metadynamics: a method to simulate rare events and reconstruct the free energy in biophysics, chemistry and material science}},
+url = {http://stacks.iop.org/0034-4885/71/i=12/a=126601?key=crossref.2dcba907622222368898e968e8d42594},
+volume = {71},
+year = {2008}
+}
+
+@article{Darve2008,
+abstract = {In free energy calculations based on thermodynamic integration, it is necessary to compute the derivatives of the free energy as a function of one ͑scalar case͒ or several ͑vector case͒ order parameters. We derive in a compact way a general formulation for evaluating these derivatives as the average of a mean force acting on the order parameters, which involves first derivatives with respect to both Cartesian coordinates and time. This is in contrast with the previously derived formulas, which require first and second derivatives of the order parameter with respect to Cartesian coordinates. As illustrated in a concrete example, the main advantage of this new formulation is the simplicity of its use, especially for complicated order parameters. It is also straightforward to implement in a molecular dynamics code, as can be seen from the pseudocode given at the end. We further discuss how the approach based on time derivatives can be combined with the adaptive biasing force method, an enhanced sampling technique that rapidly yields uniform sampling of the order parameters, and by doing so greatly improves the efficiency of free energy calculations. Using the backbone dihedral angles ⌽ and ⌿ in N-acetylalanyl-NЈ-methylamide as a numerical example, we present a technique to reconstruct the free energy from its derivatives, a calculation that presents some difficulties in the vector case because of the statistical errors affecting the derivatives.},
+author = {Darve, Eric and Rodr{\'{i}}guez-G{\'{o}}mez, David and Pohorille, Andrew},
+doi = {10.1063/1.2829861},
+isbn = {0021-9606},
+issn = {00219606},
+journal = {Journal of Chemical Physics},
+number = {14},
+pmid = {18412436},
+title = {{Adaptive biasing force method for scalar and vector free energy calculations}},
+volume = {128},
+year = {2008}
+}
+
+@article{Comer2015,
+abstract = {In the host of numerical schemes devised to calculate free energy differences by way of geometric transformations, the adaptive biasing force algorithm has emerged as a promising route to map complex free-energy landscapes. It relies upon the simple concept that as a simulation progresses, a continuously updated biasing force is added to the equations of motion, such that in the long-time limit it yields a Hamiltonian devoid of an average force acting along the transition coordinate of interest. This means that sampling proceeds uniformly on a flat free-energy surface, thus providing reliable free-energy estimates. Much of the appeal of the algorithm to the practitioner is in its physically intuitive underlying ideas and the absence of any requirements for prior knowledge about free-energy landscapes. Since its inception in 2001, the adaptive biasing force scheme has been the subject of considerable attention, from in-depth mathematical analysis of convergence properties to novel developments and extensions. The method has also been successfully applied to many challenging problems in chemistry and biology. In this contribution, the method is presented in a comprehensive, self-contained fashion, discussing with a critical eye its properties, applicability, and inherent limitations, as well as introducing novel extensions. Through free-energy calculations of prototypical molecular systems, many methodological aspects are examined, from stratification strategies to overcoming the so-called hidden barriers in orthogonal space, relevant not only to the adaptive biasing force algorithm but also to other importance-sampling schemes. On the basis of the discussions in this paper, a number of good practices for improving the efficiency and reliability of the computed free-energy differences are proposed.},
+author = {Comer, Jeffrey and Gumbart, James C. and H{\'{e}}nin, J{\'{e}}r{\^{o}}me and Lelievre, Tony and Pohorille, Andrew and Chipot, Christophe},
+doi = {10.1021/jp506633n},
+isbn = {1520-6106},
+issn = {15205207},
+journal = {Journal of Physical Chemistry B},
+number = {3},
+pages = {1129--1151},
+pmid = {25247823},
+title = {{The adaptive biasing force method: Everything you always wanted to know but were afraid to ask}},
+volume = {119},
+year = {2015}
+}
+
+@article{Darve2001,
+abstract = {A new, general formula that connects the derivatives of the free energy along the selected, generalized coordinates of the system with the instantaneous force acting on these coordinates is derived. The instantaneous force is defined as the force acting on the coordinate of interest so that when it is subtracted from the equations of motion the acceleration along this coordinate is zero. The formula applies to simulations in which the selected coordinates are either unconstrained or constrained to fixed values. It is shown that in the latter case the formula reduces to the expression previously derived by den Otter and Briels [Mol. Phys. 98, 773 (2000)]. If simulations are carried out without constraining the coordinates of interest, the formula leads to a new method for calculating the free energy changes along these coordinates. This method is tested in two examples — rotation around the C–C bond of 1,2-dichloroethane immersed in water and transfer of fluoromethane across the water-hexane interface. The calculated free energies are compared with those obtained by two commonly used methods. One of them relies on determining the probability density function of finding the system at different values of the selected coordinate and the other requires calculating the average force at discrete locations along this coordinate in a series of constrained simulations. The free energies calculated by these three methods are in excellent agreement. The relative advantages of each method are discussed.},
+author = {Darve, Eric and Pohorille, Andrew},
+doi = {10.1063/1.1410978},
+isbn = {0021-9606},
+issn = {0021-9606},
+journal = {The Journal of Chemical Physics},
+number = {20},
+pages = {9169--9183},
+pmid = {172129300010},
+title = {{Calculating free energies using average force}},
+url = {http://aip.scitation.org/doi/10.1063/1.1410978},
+volume = {115},
+year = {2001}
+}
 @Book{Tibshirani1998,
   title     = {An introduction to the bootstrap},
   publisher = {Chapman and Hall/CRC},
@@ -254,7 +346,7 @@ day="01",
 volume="38",
 number="5",
 pages="750--763",
-abstract="Diffusion couple experiments between Ni and Re at 1200 and 1350 {\textdegree}C were performed. These experiments established the limits of the two-phase FCC + HCP region. No intermediate phase was observed at these temperatures. Composition-dependent interdiffusion coefficients and associated uncertainties were estimated by three methods. The first employed fitting of the penetration curves in conjunction with the Sauer-Freise (SF) method. The second method employed a numerical solution of the Boltzmann-Matano ordinary differential equation for composition-dependent interdiffusion coefficient functions whose parameters were optimized by a least squares fitting to the data. Discrepancies between the results of these methods indicate typical uncertainties in experimental determination of diffusion coefficients. To further assess such discrepancies, a third method was employed to perform an uncertainty quantification of the diffusion coefficients via a statistical analysis based on the SF method.",
+abstract="Diffusion couple experiments between Ni and Re at 1200 and 1350 {\textdegree}C were performed. These experiments established the limits of the two-phase FCC + HCP region. No intermediate phase was observed at these temperatures. Composition-dependent interdiffusion coefficients and associated uncertainties were estimated by three methods. The first employed fitting of the penetration curves in conjunction with the Sauer-Freise (SF) method. The second method employed a numerical solution of the Boltzmann-Matano ordinary differential equation for composition-dependent interdiffusion coefficient functions whose parameters were optimized by a least squares fitting to the data. Discrepancies between the results of these methods indicate typical uncertainties in experimental determination of diffusion coefficients. To further assess such discrepancies, a third method was employed to perform an uncertainty quantification of the diffusion coefficients via a statistical analysis based on the SF method.",
 issn="1863-7345",
 doi="10.1007/s11669-017-0562-7",
 url="https://doi.org/10.1007/s11669-017-0562-7"
