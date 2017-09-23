@@ -31,7 +31,11 @@ If a derived quantity is a function of multiple simulation observables, then cov
 
 Finally, because this approach is based on a first-order Taylor series, propagation of uncertianty can fail in cases where a non-linear formula is used and the uncertainty is very large.  For instance, the uncertainty in $\beta \Delta$ as prescribed by Eq.~\ref{eq:propagation_bDA} cannot exceed one no matter how short the simulation is or how bad the sampling is.  In such cases, it is necessary to use an alternate way to estimate the uncertainty or to simply use a different approach to computing the quantity of interest.
 
-[need a reference here.  I use https://en.wikipedia.org/wiki/Propagation_of_uncertainty but would be happy to cite a book or article that discusses basis for approach, handling complicated cases (covariance) and lists formulas for common cases]
+%[need a reference here.  I use https://en.wikipedia.org/wiki/Propagation_of_uncertainty but would be happy to cite a book or article that discusses basis for approach, handling complicated cases (covariance) and lists formulas for common cases]
+
+\subsection{Bootstrapping}
+
+In some cases, a derived quantity cannot be expressed as a function of the measured simulation data.  In such cases, bootstrapping may be able to yield an uncertainty \cite{EfronTibshiraniBootstrap}.  In simple bootsrapping.
 
 \subsection{Synthetic data models}
  %  - Generate synthetic data with noise model [Paul]
