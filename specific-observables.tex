@@ -18,18 +18,19 @@ In the context of materials science, understanding when a structural material fa
 
 \subsection{Propagation of uncertainty}
 
-The quantities we are most interested in may not be simulation observables.  For instance, the free energy difference between two states might be expressed as a function of an energy difference:
+The quantities we are most interested in may not be simulation observables.  For instance, the free energy difference between two states might be measured by free energy perturbation, expressed as a function of the average of another quantity.
 \begin{equation}
 \beta \Delta A = -\ln \left< \exp \left(-\beta \Delta U\right) \right>
 \end{equation}
-Although $\exp(-\beta \Delta U)$ can be measured during the simulation and its uncertainty can be estimated directly using block averages as described above, $\Delta A$ cannot be handled the same way.  Instead, a first-order Taylor series expansion can be used to express the uncertainty as
+Although $\exp(-\beta \Delta U)$ can be measured during the simulation and its uncertainty can be estimated directly using block averages as described above, $\beta \Delta A$ cannot be handled the same way.  If we compute $\beta \Delta A$ for each block, the values will tend to take extremely positive whenever the perturbation does poorly (where $\Delta U$ is consistently large).  In the pathological case, $\Delta U$ might be $\infty$ for every sample in a block and the $\beta \Delta A=-\ln 0$ cannot be computed. Instead of using block averages for $\beta \Delta A$, its uncertainty can be expressed as a first-order Taylor series expansion
 \begin{equation}
   \sigma_{\beta \Delta A} = \sigma_{\exp(\beta \Delta U)} / \left< \exp \left(-\beta \Delta U\right) \right>
   \label{eq:propagation_bDA}
 \end{equation}
-If a derived quantity is a function of multiple simulation observables, then covariance terms must be included.
 
-Finally, because this approach is based on a first-order Taylor series, propagation of uncertianty can fail in cases where a non-linear formula is used and the uncertainty is very large.  For instance, the uncertainty in $\beta \Delta$ as prescribed by Eq.~\ref{eq:propagation_bDA} cannot exceed one no matter how short the simulation is or how bad the sampling is.  In such cases, it is necessary to use an alternate way to estimate the uncertainty or to simply use a different approach to computing the quantity of interest.
+Propagation of uncertainty is needed whenever the derived quantity can be expressed only as a function of other averages.  It might also be needed when the derived quantity is of a function of quantities measured in separate simulations, such as $<U(T_2)>-<U(T_1)>$.  If a derived quantity is a function of multiple observables measured within a single simulation, then terms must be included to account for the correlation between those observables.
+
+Finally, because this approach is based on a first-order Taylor series, propagation of uncertianty can fail in cases where a non-linear formula is used and the uncertainty is very large.  For instance, the uncertainty in $\beta \Delta$ as prescribed by Eq.~\ref{eq:propagation_bDA} cannot exceed one no matter how short the simulation is or how bad the sampling is.  In such cases, it is necessary to use an alternate way to estimate the uncertainty or to simply use a different approach to compute the quantity of interest.
 
 %[need a reference here.  I use https://en.wikipedia.org/wiki/Propagation_of_uncertainty but would be happy to cite a book or article that discusses basis for approach, handling complicated cases (covariance) and lists formulas for common cases]
 
