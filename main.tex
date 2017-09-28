@@ -71,9 +71,11 @@ The reader should be familiar with a set of basic statistical and simulation con
 \begin{itemize}
    \item Precision: The amount of variability in an estimate (based on repeating a given simulation protocol multiple times).
       Better sampling in an individual simulation leads to higher precision.
+      The standard error of the mean is usually the key measure of the \emph{scale} of the statistical uncertainty - i.e., precision.
+    \item Confidence Interval: A statistically derived pair of minimum and maximum values within which the mean of an observable is likely to fall, as quantified by a percentage.  Note that useful confidence intervals (e.g., 90 or 95\%) tend to be roughly \emph{four times} the standard error of the mean (from minimum to maximum).
     \item Accuracy: The degree of agreement with a reference value, which may be an experimental measurement or the result of a well-sampled simulation.
-    \item Raw data: The numbers that the computer program spits out as it runs
-    \item Derived observables:  Quantities derived from ‘non-trivial’ analyses of raw data
+    \item Raw data: The numbers that the computer program directly generates as it runs -- typically configurations, and also velocities in molecular dynamics.
+    \item Derived observables:  Quantities derived from `non-trivial' analyses of raw data, such as free energies.
 \end{itemize}
 
 \section{Best Practices Checklist}
