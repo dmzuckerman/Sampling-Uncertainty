@@ -1,2 +1,28 @@
 \section{Determining and removing an equilibration or `burn-in' portion of a trajectory}
 \label{sec:equil}
+
+[Make figure: observable vs t, bias vs $t_{equil}$, variance vs $t_{equil}$]
+
+The 'equilibration' or 'burn-in' time $t_{\mathrm{equil}}$ represents the initial part of a single continuous trajectory (whether from MD or MC) that is \emph{discarded} for purposes of data analysis; 
+the remaining trajectory data is often called `production' data.
+Discarding data may seem counter-productive, but there is no reason to expect that the initial configurations of a trajectory will be important in the ensemble ultimately obtained.
+Including early-time data, therefore, can systematically \emph{bias} results.
+As a biomolecular example, consider the initial configuration of a protein, which has been energy-minimized and otherwise relaxed from a crystal structure.
+Such an initial structure might seem to be intrinsically valuable, but remember that configurations important in a crystal environment may not be equally pertinent to an aqueous environment;
+also, any minimization/relaxation that has been performed likely will be very local and keep the configuration within or nearby the initial basin.
+As another example pertinent in materials science, if a simulation is designed to study thermally induced fluctuations and defects in a (mostly) ordered system, 
+an initial fully ordered configuration is not likely to be representative of the targeted ensemble.
+
+Accepting that some data should be discarded, it is not hard to see that we want to avoid discarding too much data, given that many systems of interest are extremely expensive to simulate.
+Putting those two competing goals into statistical language, we want to remove bias but also minimize uncertainty (variance).
+
+Before briefly describing a procedure for estimating the optimal equilibration time, it should be emphasized that the very notion of separating a trajectory into equilibration and production segments
+only makes sense if the system has indeed reached configurations important in the equilibrium ensemble.
+While it is generally impossible to guarantee this has occurred, some easy checks for determining that this has not occurred are described in Sec.\ \ref{sec:quick}.
+\emph{It is essential to perform those basic checks before analyzing data with a more sophisticated approach} that may assume a trajectory has a substantial amount of true equilibrium sampling.
+
+The essential ideas of equilibration analysis are discussed carefully in \cite{Yang2004} and \cite{Chodera-2016}.
+The key procedure is to analyze data as a function of the amount of data removed - i.e., as $t_{\mathrm{equil}}$ increases from zero.
+As described by \cite{Chodera-2016}, both the bias and the variance can be monitored, as well as the effective sample size, which is roughly quantified by the total simulation time considered divided by the auto-correlation time.
+Chodera indicates that the effective sample size peaks at the optimal $t_{\mathrm{equil}}$, making the latter easy to discern.
+We caution that estimating the correlation time may require care, and readers may want to consider the global 'decrorrelation time' \cite{Lyman2007a} described in Sec.\ \ref{sec:gloabl}.
