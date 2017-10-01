@@ -1,6 +1,25 @@
 \section{Computing error in specific observables}
 \label{sec:specific}
 
+\subsection{Basics}
+We frequently perform molecular simulations to make quantitative estimates of quantities like pressure, free energy or yield strain.  When reporting these estimates, it is important to also provide an estimate of the uncertainty of the result, typically as a standard error.  The standard error is the standard deviation of the distribution of the results that would be obtained by repeating the simulation.  Several techniques to estimate the uncertainty are described below with varying levels of complexity and robustness.  Ultimately, a technique is robust if it can produce an uncertainty estimate that is consistent with the standard deviation of results from actually repeating the simulation and analysis of the data.  The standard deviation of results from independent results can also be used when other approaches fail.  When computing the uncertainty with this approach, it is important to ensure that each starting configuration is also independent.  The means to obtain independent starting configurations is system-dependent, but might involve repeating the protocol used to construct a configuration (solvating a protein, inserting liquid molecules in a box, etc.), using a new random seed.
+
+\begin{table}
+    \begin{tabular}{S S}
+      \toprule
+       {Pressure (MPa)} & {Density (mol/L)} \\
+      0.001 & 3.007(3)e-4 \\
+      0.010 & 0.003011(2) \\
+      0.100 & 0.03039(16) \\
+      1.000 & 52.1(5) \\
+      \bottomrule
+    \end{tabular}
+  \caption{Density as a function of pressure for water at a temperature of 400K}
+  \label{tab:uncertainties}
+\end{table}
+
+When reporting quantities with uncertainties, only the digits that are significant should be included and the standard error should be placed after the value in parenthesis as the uncertainty in the last digit.  In general only one digit of uncertainty need be reported unless the digit is 1, in which case, it is helpful to report two digits (in order to avoid up to 50\% roundoff error in the uncertainty).  See the \TABLE{uncertainties} for examples from hypothetical isobaric simulations of water.
+
 \subsection{Assessing quality of data}
 %    - Data filtering [Paul]
 Generally speaking, analysis routines that extract derived quantities from raw data are often formulated on the basis of physical intuition about how that data should behave.  Before proceeding to data analysis, it is therefore useful to assess the extent to which raw data conforms to these expectations and the requirements imposed by the analysis routines.  Such tasks help reduce subjectivity of predictions and offer insight into when a simulation protocol should be revisited to better understand their meaningfulness \cite{patrone1}.  Unfortunately, general recipes for assessing data quality are impossible to formulate, owing to the range of physical quantities of interest to modelers.  Nonetheless, a short example will help clarify the matter.
@@ -35,7 +54,7 @@ Although $\exp(-\beta \Delta U)$ can be measured during the simulation and its u
 
 Propagation of uncertainty is needed whenever the derived quantity can be expressed only as a function of other averages.  It might also be needed when the derived quantity is of a function of quantities measured in separate simulations, such as $<U(T_2)>-<U(T_1)>$.  If a derived quantity is a function of multiple observables measured within a single simulation, then terms must be included to account for the correlation between those observables.
 
-The Taylor series approach works well in most cases and easy to use, but does have limitations.  Because this approach is based on a first-order Taylor series, propagation of uncertianty can fail in cases where a non-linear formula is used and the uncertainty is very large or the distribution of input averages is not Gaussian.  For instance, the uncertainty in $\beta \Delta A$ as prescribed by Eq.~\ref{eq:propagation_bDA} cannot exceed unity no matter how short the simulation is or how bad the sampling is.  If there is doubt as to the quality of the computed uncertainty, the uncertainty can be computed with alternative approaches such as bootstrapping to verify the Taylor series results or to identify an alternative approach that works better.
+The Taylor series approach works well in most cases and easy to use, but does have limitations.  Because this approach is based on a first-order Taylor series, propagation of uncertainty can fail in cases where a non-linear formula is used and the uncertainty is very large or the distribution of input averages is not Gaussian.  For instance, the uncertainty in $\beta \Delta A$ as prescribed by Eq.~\ref{eq:propagation_bDA} cannot exceed unity no matter how short the simulation is or how bad the sampling is.  If there is doubt as to the quality of the computed uncertainty, the uncertainty can be computed with alternative approaches such as bootstrapping to verify the Taylor series results or to identify an alternative approach that works better.
 
 \subsection{Bootstrapping}
 
