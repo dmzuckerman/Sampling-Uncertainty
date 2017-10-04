@@ -15,5 +15,6 @@
 # can't say *.pdf because there will be pdfs in the figures directory
 # that we want to keep
 main.pdf
+*JCGM*.pdf
 
 
