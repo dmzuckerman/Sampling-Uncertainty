@@ -1,29 +1,36 @@
 \subsection{Key Definitions}
 
-In order to make the discussion that follows more precise, we define key terms used in subsequent sections.  We caution that while many of these concepts are familiar, our terminology largely follows the {\it International Vocabulary of Metrology}, a standard that sometimes differs from the conventional language of older works. \cite{JCGM:GUM2008,JCGM:VIM2012}  Such differences are highlighted in the section following the glossary.
+In order to make the discussion that follows more precise, we define key terms used in subsequent sections.
+We caution that while many of these concepts are familiar, our terminology largely follows the {\it International Vocabulary of Metrology}, a standard that sometimes differs from the conventional language of older works\cite{JCGM:GUM2008,JCGM:VIM2012}.
+Such differences are highlighted in the section following the glossary.
 
 %The reader should be familiar with a set of basic statistical and simulation concepts.
 %[and we should provide links/refs for each.]
 
 %NOTE FOR DAN S.  In some places I comment on definitions using ``Remarks'' that immediately follow the definition.  Not sure how well this format jibes with the rest of the doc.  Anyways, feel free to merge these remarks into the definitions if you think appropriate.
 
+%NOTE FOR PAUL P. I've restructed the document a bit, applying the "one sentence per line" rule, which makes diff'ing the document easier.
+
 \subsubsection{Glossary of Statistical Terms}
 \begin{itemize}
 %terms added by PNP and DWS
 
-\item {\bf True value:}  The value of a quantity that is consistent with its definition and is the objective of an ``idealized'' measurement or simulation.  Often the adjective ``true'' is dropped when reference to the definition is clear by context.  \cite{JCGM:GUM2008,JCGM:VIM2012}
+\item {\bf True value:}  The value of a quantity that is consistent with its definition and is the objective of an ``idealized'' measurement or simulation.
+Often the adjective ``true'' is dropped when reference to the definition is clear by context.  \cite{JCGM:GUM2008,JCGM:VIM2012}
 %Not sure that the last phrase is entirely consistent with GUM, although I'm not sure this is necessarily a problem.  To a certain extent, we may need to tailor the language of GUM/VIM to the audience at hand.
 
 \medskip
 
-{\bf Remark:} Generally speaking, we use the descriptor ``true value'' in reference to quantities such as the expected value and standard deviation of a simulation output (were we able to run infinitely many simulations).  As these quantities are inherently unknowable, we can only estimate their values and associated uncertainties.
+{\bf Remark:} Generally speaking, we use the descriptor ``true value'' in reference to quantities such as the expected value and standard deviation of a simulation output (were we able to run infinitely many simulations).
+As these quantities are inherently unknowable, we can only estimate their values and associated uncertainties.
 
 
 \item {\bf Standard Uncertainty}: Uncertainty in a result (e.g.\ prediction of a true result) as expressed in terms of a standard deviation.
 
 \medskip 
 
-{\bf Remark:} The definition of standard uncertainty does not specify how to calculate the standard deviation.  This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.  
+{\bf Remark:} The definition of standard uncertainty does not specify how to calculate the standard deviation.
+This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.  
 
 \item {\bf Arithmetic mean}: An estimate of the (true) expectation value of a random quantity. The arithmetic mean is given by the formula
   %
@@ -54,13 +61,15 @@ In order to make the discussion that follows more precise, we define key terms u
   
   \medskip
   
-  {\bf Remark:}  The experimental standard deviation of the mean characterizes the dispersion of the arithmetic mean relative to its expectation.  See \hyperref[def:exp_st_dev]{example link to definition of the experimental standard deviation}.
+  {\bf Remark:} The experimental standard deviation of the mean characterizes the dispersion of the arithmetic mean relative to its expectation.
+See \hyperref[def:exp_st_dev]{example link to definition of the experimental standard deviation}.
   
 \item {\bf Precision}: The amount of variability in an estimate (e.g.\ based on repeating a given simulation protocol multiple times).  %Better sampling in an individual simulation leads to higher precision.  
 %I commented out the last phrase because ``better'' seems a bit vague to me in this context.  Should this comment be placed elsewhere?  
   
   
-\item {\bf Accuracy}: The degree to which a result agrees with a reference value.  The latter may be an experimental measurement or the result of a well-sampled simulation.  
+\item {\bf Accuracy}: The degree to which a result agrees with a reference value.
+The latter may be an experimental measurement or the result of a well-sampled simulation.  
   
 \item {\bf Raw data}: The numbers that the computer program directly generates as it runs -- typically configurations, and also velocities in molecular dynamics.  
 %NOTE FOR DAN S.  Programs also directly compute things like pressure, temperature, volume, etc., which are necessary for controlling thermostats, barostats, etc.  Should we include these in the list of raw data?
@@ -79,7 +88,10 @@ where $\langle \star \rangle$ denotes the (true) expectation value.
 
 \medskip
 
-{\bf Remark:} Generally speaking, MC and MD trajectories generate new configurations from preceding ones.  Thus, the correlation time can be interpreted as the time over which the system retains memory of its previous states.  Such correlations are often {\bf stationary}, meaning that $\tau$ is independent of $t$.  Roughly speaking, the total simulation time divided by the longest correlation time yields an estimate of the number of {\it independent} samples generated by a simulation.
+{\bf Remark:} Generally speaking, MC and MD trajectories generate new configurations from preceding ones.
+Thus, the correlation time can be interpreted as the time over which the system retains memory of its previous states.
+Such correlations are often {\bf stationary}, meaning that $\tau$ is independent of $t$.
+Roughly speaking, the total simulation time divided by the longest correlation time yields an estimate of the number of {\it independent} samples generated by a simulation.
 
 
 %The time over which realizations of a random quantity indexed by a time-series  (e.g.\ a physical property from a Monte Carlo or molecular dynamics trajectory) retain ``memory'' of one another, since each configuration is generated from the preceding one.  Roughly, the total simulation time divided by the (longest) correlation time gives an estimate of the number of \emph{independent} samples that will govern overall statistical quality of the data.
@@ -104,11 +116,20 @@ where $\langle \star \rangle$ denotes the (true) expectation value.
 
 \subsubsection{Discussion of terminology}
 
-As surveyed by Refs.~\cite{JCGM:GUM2008,JCGM:VIM2012}, the discussion that originally motivated many of theses definitions is rather philosophical.  Nonetheless, it bears repeating here, if only to force a level of honesty regarding what we can actually hope to achieve with simulations.  
+As surveyed by Refs.~\cite{JCGM:GUM2008,JCGM:VIM2012}, the discussion that originally motivated many of theses definitions is rather philosophical.
+Nonetheless, it bears repeating here, if only to force a level of honesty regarding what we can actually hope to achieve with simulations.  
 
-The fundamental idea underpinning this disucssion is the observation that true values are inherently unknowable.  As an added twist, the {\it Uncertainty Approach} advocated by Ref.~\cite{JCGM:GUM2008} also points out that the {\it definitions of true values may be imprecise,} so that the latter are in fact not even uniquely defined.\footnote{The Guide to the Expression of Uncertainty in Measurement (GUM) treats this definitional uncertainty as negligible compared to other sources.  However, the notion of definitional uncertainty is worth revisiting in the context of simulated data.  For example, we are aware of at least one situation in which the large scale of noise in simulated data (as compared with experiments) induces subjectivity in the definition of the glass-transition temperature, which ultimately affects uncertainties in a non-trivial way.  See Ref.~\cite{Patrone1} and \textcolor{red}{Cite TG doc}.} As such, assignments of ``error'' are impossible to make, since these are defined relative to the true value.  Rather, statistical analyses are better interpreted as quantifying our state of knowledge, e.g.\ our ability to confidently state that the the ``true'' mean is within some interval.  
+The fundamental idea underpinning this disucssion is the observation that true values are inherently unknowable.
+As an added twist, the {\it Uncertainty Approach} advocated by Ref.~\cite{JCGM:GUM2008} also points out that the {\it definitions of true values may be imprecise,} so that the latter are in fact not even uniquely defined.\footnote{The Guide to the Expression of Uncertainty in Measurement (GUM) treats this definitional uncertainty as negligible compared to other sources.
+However, the notion of definitional uncertainty is worth revisiting in the context of simulated data.
+For example, we are aware of at least one situation in which the large scale of noise in simulated data (as compared with experiments) induces subjectivity in the definition of the glass-transition temperature, which ultimately affects uncertainties in a non-trivial way.
+See Ref.~\cite{Patrone1} and \textcolor{red}{Cite TG doc}.} As such, assignments of ``error'' are impossible to make, since these are defined relative to the true value.
+Rather, statistical analyses are better interpreted as quantifying our state of knowledge, e.g.\ our ability to confidently state that the the ``true'' mean is within some interval.  
 
-From a practical standpoint, this leads one to revisit definitions of uncertainty as defined, for example, by Eqs.~\eqref{eq:def:exp_st_dev_mean}.  Conventionally this has gone by the name ``standard error,'' but in keeping with the perspective already laid out, we advocate the use of experimental standard deviation of the mean.  To maintain consistency with the VIM and GUM, we also use ``sample mean'' and ``sample standard deviation'' with their counterparts ``arithmetic mean'' and ``experimental standard deviation.''  The reader should be aware that this older language is still used frequently throughout the literature.
+From a practical standpoint, this leads one to revisit definitions of uncertainty as defined, for example, by Eqs.~\eqref{eq:def:exp_st_dev_mean}.
+Conventionally this has gone by the name ``standard error,'' but in keeping with the perspective already laid out, we advocate the use of experimental standard deviation of the mean.
+To maintain consistency with the VIM and GUM, we also use ``sample mean'' and ``sample standard deviation'' with their counterparts ``arithmetic mean'' and ``experimental standard deviation.''
+The reader should be aware that this older language is still used frequently throughout the literature.
 
 
 %Table of equivalencies
