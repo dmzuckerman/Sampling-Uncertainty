@@ -20,30 +20,30 @@
 
 % Everyone should put in their name properly, institution, email
 \author[1*\authfn{1}]{Alan Grossfield}
-\author[2*\authfn{1}]{Pascal T. Merz}
-\author[3*\authfn{1}]{Paul N. Patrone}
-\author[4*\authfn{1}]{Daniel R. Roe}
-\author[5*\authfn{1}]{Andrew J. Schultz}
-\author[6*\authfn{1}]{Daniel W. Siderius}
-\author[7*\authfn{1}]{Daniel M. Zuckerman}
+%\author[2*\authfn{1}]{Pascal T. Merz}
+\author[2*\authfn{1}]{Paul N. Patrone}
+\author[3*\authfn{1}]{Daniel R. Roe}
+\author[4*\authfn{1}]{Andrew J. Schultz}
+\author[5*\authfn{1}]{Daniel W. Siderius}
+\author[6*\authfn{1}]{Daniel M. Zuckerman}
 \affil[1]{University of Rochester Medical Center, Department of Biochemistry and Biophysics}
-\affil[2]{Department of Chemical and Biological Engineering, University of Colorado Boulder}
-\affil[3]{Applied Computational and Mathematics Division, National Institute of Standards and Technology}
-\affil[4]{Laboratory of Computational Biology, National Heart Lung and Blood Institute, National Institutes of Health}
-\affil[5]{Department of Chemical and Biological Engineering, University at Buffalo, The State University of New York}
-\affil[6]{Chemical Sciences Division, National Institute of Standards and Technology}
-\affil[7]{Oregon Health \& Science University}
+%\affil[2]{Department of Chemical and Biological Engineering, University of Colorado Boulder}
+\affil[2]{Applied Computational and Mathematics Division, National Institute of Standards and Technology}
+\affil[3]{Laboratory of Computational Biology, National Heart Lung and Blood Institute, National Institutes of Health}
+\affil[4]{Department of Chemical and Biological Engineering, University at Buffalo, The State University of New York}
+\affil[5]{Chemical Sciences Division, National Institute of Standards and Technology}
+\affil[6]{Department of Biomedical Engineering, Oregon Health \& Science University}
 
 %\corr{email1@example.com}{FMS}  % Correspondence emails.  FMS and FS are the appropriate authors initials.
 \corr{alan_grossfield@urmc.rochester.edu}{AG}
-\corr{Pascal.Merz@colorado.edu}{PTM}
+%\corr{Pascal.Merz@colorado.edu}{PTM}
 \corr{paul.patrone@nist.gov}{PNP}
 \corr{daniel.roe@nih.gov}{DRR}
 \corr{ajs42@buffalo.edu}{AJS}
 \corr{daniel.siderius@nist.gov}{DWS}
 \corr{zuckermd@ohsu.edu}{DMZ}
 
-\contrib[\authfn{1}]{These authors contributed equally to this work, we hope!}
+\contrib[\authfn{1}]{These authors contributed equally to this work.}
 
 
 %\presentadd[\authfn{3}]{Department, Institute, Country}
@@ -116,15 +116,13 @@ Perform quick-and-dirty data checks which can rule out (but not ensure) sufficie
     \item Daniel R: Compare runs from different initial conditions - be sure initial conditions are ‘different enough’
     \end{itemize}
 \item
- Remove an ‘equilibration’/’burn in’/transient portion of a single MD or MC trajectory and perform analyses only on remaining ‘production’ portion of trajectory.
+ Remove an ‘equilibration’/’burn in’/transient portion of a single MD or MC trajectory and perform analyses only on remaining ‘production’ portion of trajectory.  \emph{Underlying concept:} An initial configuration is unlikely to be representative of the desired ensemble and the resulting relaxation process must be accounted for.
 \item
- Consider computing a quantitative measure of global sampling [biomolecular vs. materials problems] - i.e., how many statistically independent samples do you have?
+ Consider computing a quantitative measure of global sampling, particularly for a biomolecular system - i.e., attempt to estimate the number of statistically independent samples in a trajectory.  \emph{Underlying concept:} Trajectory 'frames'/configurations are highly correlated because one frame is generated from the preceding one, and estimating the degree of correlation is essential to understanding overall simulation quality.
 \item
- Quantifying error in specific observables of interest [general approaches]
-    - Key concept: Difference between between scale of variation (measured by variance) and statistical uncertainty
+ Quantify uncertainty in specific observables of interest.  \emph{Underlying concept:} The statistical uncertainty in the estimate of an observable's \emph{average} decreases as more independent samples are obtained, and it can be much smaller than the standard deviation -- which measures the range of variation in the observable.
 \item
- If you’re using an enhanced sampling method, …
-    - Key concept: Complexity of correlations in advanced methods
+ Use special care and uncertainty analyses for enhanced sampling methods.  \emph{Underlying concept:} The use of multiple, potentially correlated trajectories within a single enhanced-sampling simulation can invalidate the assumptions underpinning traditional analyses of uncertainty.
 \end{enumerate}
 
 % we will have a bunch of includes here
@@ -137,8 +135,10 @@ Perform quick-and-dirty data checks which can rule out (but not ensure) sufficie
 
 
 \section{Acknowledgments}
+%Funder and other information can be given here.
+The authors appreciate helpful discussions with Pascal T. Merz.
+DMZ acknowledges support from NIH Grant GM115805.
 
-Funder and other information can be given here.
 
 \bibliography{refs}
 %\bibliographystyle{vancouver-livecoms}
