@@ -74,20 +74,8 @@ This article also will not cover issues of systematic error arising from inaccur
 Rather, this article will take raw trajectory data at face value, assuming it is a valid outcome given the underlying model.
 We emphatically will \emph{not} assume that a trajectory has been sufficiently `equilibrated'.
 
-\subsection{Key Definitions [to be refined]}
-The reader should be familiar with a set of basic statistical and simulation concepts.
-[and we should provide links/refs for each.]
-
-\begin{itemize}
-   \item Precision: The amount of variability in an estimate (based on repeating a given simulation protocol multiple times).
-      Better sampling in an individual simulation leads to higher precision.
-      The standard error of the mean is usually the key measure of the \emph{scale} of the statistical uncertainty - i.e., precision.
-    \item Confidence Interval: A statistically derived pair of minimum and maximum values within which the mean of an observable is likely to fall, as quantified by a percentage.  Note that useful confidence intervals (e.g., 90 or 95\%) tend to be roughly \emph{four times} the standard error of the mean (from minimum to maximum).
-    \item Accuracy: The degree of agreement with a reference value, which may be an experimental measurement or the result of a well-sampled simulation.
-    \item Raw data: The numbers that the computer program directly generates as it runs -- typically configurations, and also velocities in molecular dynamics.
-    \item Derived observables:  Quantities derived from `non-trivial' analyses of raw data, such as free energies.
-    \item Correlation time: The time over which samples/configurations in a MC or MD trajectory retain some "memory" of one another, since each configuration is generated from the preceding one.  Roughly, the total simulation time divided by the (longest) correlation time gives an estimate of the number of \emph{independent} samples that will govern overall statistical quality of the data.
-\end{itemize}
+%\subsection{Key Definitions [to be refined]}
+\input{definitions}
 
 \section{Best Practices Checklist}
 \begin{enumerate}
