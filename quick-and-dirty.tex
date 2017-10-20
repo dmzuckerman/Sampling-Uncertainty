@@ -56,8 +56,19 @@ first transition, but there are a number of small transitions within the second
 state.
 
 \subsection{Assessing Convergence}
+
+\begin{wrapfigure}{r}{6cm}
+  \includegraphics[width=5.8cm]{figures/combinedcluster/combinedcluster}
+  \caption{
+  \label{f:combinedcluster} Combined clustering between two independent trajectories as a measure of convergence. The X axis is the population of a cluster from trajectory 1, while the Y axis is the population of that cluster from trajectory 2. Cluster populations are show after 20, 100, and 800 ns of sampling. The simulations used to generate the data used in this plot are described in Roe et al.\citep{Roe2014}
+  }
+\end{wrapfigure}
+
 Convergence in the context of biomolecular simulations typically refers to the overlap of two independent measurements of the same property. If a measure is not converged it is a strong indication that sampling is poor. There are two common ways to try to obtain independent measurements. Arguably the best way is to have multiple independent simulations, each with varying initial starting conditions. Ideally these starting conditions should in some way span the space to be sampled; this way one can have confidence that simulations are not being trapped in a local minimum. For example, say the goal is to sample the phi and psi torsions of alanine dipeptide: the phi and psi angles for one simulation could be started from an alpha-helical conformation, while another simulation could be started from a polyproline II conformation. It is important to note that the starting conditions only need to be varied enough so that the desired space is sampled. For example, if the goal is to sample protein folding and unfolding, there should be some simulations started from the folded conformation and some from the unfolded, but if it is not important to consider protein folding no initial conformation needs to be unfolded.
 
 Another way to obtain independent measurements is to divide a single simulation into two or more subsets. However this can at times be problematic because it can be more difficult to tell if the system is trapped in a local minimum since there is a single starting point. Those employing this approach should take extra care to assess their results (see in particular sections on 'block averaging' below).
 
 There are two simple ways to compare independent measurements of a property. The simplest is to compare the arithmetic means and standard deviations. If these values do not overlap then convergence has not been achieved. However, since this assumes that the values are normally distributed, a better way is compare the overlap of the probability distributions (i.e. the histograms). This can be done via Kullback-Leibler or Jensen-Shannon divergence.
+
+\subsubsection{Combined Clustering}
+One useful technique for evaluating convergence of structure populations is so-called "combined clustering". Briefly, in this method two or more independent trajectories are combined into a single trajectory, on which cluster analysis is performed. The resulting clusters are then split according to the trajectory they originally came from. If simulations are converged then each simulation will have the same population for any given cluster. Figure \ref{f:combinedcluster} shows results from combined clustering of two independent trajectories as a plot of cluster population fraction from the first trajectory compared to the second. If the two independent trajectories are perfectly converged then all points should fall on the X=Y line. As simulation time increases the cluster populations from the independent trajectories are in better agreement, which indicates the simulation is converging. For another example of performing combined cluster analysis see Bergonzo et al.
