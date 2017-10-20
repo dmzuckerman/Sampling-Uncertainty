@@ -13,6 +13,8 @@ In cases of lexical ambiguity, we hold to the definition of terms as given in th
 
 %NOTE FOR PAUL P. I've restructed the document a bit, applying the "one sentence per line" rule, which makes diff'ing the document easier.
 
+% Reply to Dan S.: One sentence rule works for me
+
 \subsubsection{Glossary of Statistical Terms}
 \begin{itemize}
 %terms added by PNP and DWS
@@ -37,8 +39,9 @@ This choice ultimately rests with the modeler and should be dictated by the deta
     \bar{q} = \dfrac{1}{n} \sum_{k=1}^{n} q_k \label{def:arith_mean}
   \end{equation}
   %
-  where $q_j$ is an experimental realization of the random variable and $n$ is the number of samples. 
+  where $q_j$ is an experimental or simulated realization of the random variable and $n$ is the number of samples. 
 \smallskip 
+%PNP Note: I added "or simulated" after "experimental" in the line above
 
 \textbf{\textit{Remark:}} It is straightforward to show that the arithmetic mean is a random quantity whose expectation value is that same as that of the $q_j$, provided the latter have a common mean.
 
@@ -69,9 +72,10 @@ See \hyperref[def:exp_st_dev]{example link to definition of the experimental sta
 The latter may be an experimental measurement or the result of a well-sampled simulation.  
   
 \item {\bf Raw data}: The numbers that the computer program directly generates as it proceeds through a sequence of states [the phase-space trajectory for molecular dynamics (MD) or the Markov chain for Monte Carlo (MC)].
-For example, a Monte Carlo simulation generates a sequence of configurations, for which there are associated properties such as the instantaneous pressure, temperature, volume, etc.
+For example, a MD simulation generates a sequence of configurations, for which there are associated properties such as the instantaneous pressure, temperature, volume, etc.
 % NOTE FOR DAN S.  Programs also directly compute things like pressure, temperature, volume, etc., which are necessary for controlling thermostats, barostats, etc.  Should we include these in the list of raw data?
 % DWS REPLY: How is this modification?
+% PNP REPLY: Overall fine.  I changed Monte Carlo to MD in the last sentence.  Do MC simulations have associated pressures?  I always thought that could only be computed in the context of a dynamical simulation.    
   
 \item {\bf Derived observables}: Quantities derived from `non-trivial' (and often non-linear) analyses of raw data, e.g., properties that may not be computed for a single configuration such as free energies.
   
