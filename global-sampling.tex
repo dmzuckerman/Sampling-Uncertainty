@@ -36,6 +36,10 @@ Zhang et al.\ extended the decorrelation/variance analysis noted above, while st
 To enable assessment of multiple trajectories, the new approach focused on conformational state populations, arguing that the states fundamentally underlie equilibrium observables.
 Employing a fairly simple kinetic-clustering technique to automatically define states, the approach then uses the variances in state populations among trajectories to estimate the effective sample size.
 
+Nemec and Hoffmann proposed related sampling measures geared specifically for analyzing and comparing multiple trajectories \cite{Nemec2017}.
+These measures again do not require user input of specific observables but only a measure of the difference between conformations, which was taken to the be the RMSD.  
+Nemec and Hoffmann provide formulas for quantifying the conformational overlap among trajectories (were the same configurational states sampled?) and the density agreement (were conformational regions sampled with equal probabilties?).
+
 % TODO
 %[ALAN, CAN BLOCK COVARIANCE BE USED EQUALLY ON MULTIPLE TRAJECTORIES?]
 % Dan: probably yes, but we haven't really worked on it yet.  Instead, what I'd
