@@ -72,10 +72,11 @@ See \hyperref[def:exp_st_dev]{example link to definition of the experimental sta
 The latter may be an experimental measurement or the result of a well-sampled simulation.  
   
 \item {\bf Raw data}: The numbers that the computer program directly generates as it proceeds through a sequence of states [the phase-space trajectory for molecular dynamics (MD) or the Markov chain for Monte Carlo (MC)].
-For example, a MD simulation generates a sequence of configurations, for which there are associated properties such as the instantaneous pressure, temperature, volume, etc.
+For example, a MC simulation generates a sequence of configurations, for which there are associated properties such as the instantaneous pressure, temperature, volume, etc.
 % NOTE FOR DAN S.  Programs also directly compute things like pressure, temperature, volume, etc., which are necessary for controlling thermostats, barostats, etc.  Should we include these in the list of raw data?
 % DWS REPLY: How is this modification?
-% PNP REPLY: Overall fine.  I changed Monte Carlo to MD in the last sentence.  Do MC simulations have associated pressures?  I always thought that could only be computed in the context of a dynamical simulation.    
+% PNP REPLY: Overall fine.  I changed Monte Carlo to MD in the last sentence.  Do MC simulations have associated pressures?  I always thought that could only be computed in the context of a dynamical simulation.
+% DWS REPLY2: I switched it back to MC - one of my objectives in this paper to make sure it is not too MD-centric. Aside: yes, you can calculate an instantaneous pressure in MC via the molecular virial if using a fixed-N ensemble.
   
 \item {\bf Derived observables}: Quantities derived from `non-trivial' (and often non-linear) analyses of raw data, e.g., properties that may not be computed for a single configuration such as free energies.
   
