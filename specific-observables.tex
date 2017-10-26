@@ -2,7 +2,27 @@
 \label{sec:specific}
 
 \subsection{Basics}
-We frequently perform molecular simulations to make quantitative estimates of quantities like pressure, free energy or yield strain.  When reporting these estimates, it is important to also provide an estimate of the uncertainty of the result, typically as a standard error.  The standard error is the standard deviation of the distribution of the results that would be obtained by repeating the simulation.  Several techniques to estimate the uncertainty are described below with varying levels of complexity and robustness.  Ultimately, a technique is robust if it can produce an uncertainty estimate that is consistent with the standard deviation of results from actually repeating the simulation and analysis of the data.  The standard deviation of results from independent results can also be used when other approaches fail.  When computing the uncertainty with this approach, it is important to ensure that each starting configuration is also independent.  The means to obtain independent starting configurations is system-dependent, but might involve repeating the protocol used to construct a configuration (solvating a protein, inserting liquid molecules in a box, etc.), using a new random seed.
+``What error bar should I put?''
+This simple but critical question is addressed here in some detail.
+Indeed, the authors of this article found themselves in a drawn-out discussion in order to reach a consensus on what to recommend.
+
+In brief, we recommend the following:
+(a) in fields where there is a definitive standard for reporting uncertainty, the authors should follow existing conventions;
+(b) otherwise, such as for biomolecular simulations, \emph{authors should report (and graph) their best estimates for 90\% confidence intervals.}
+
+Reporting a confidence interval as proposed has important advantages over reporting a scale of uncertainty such as \emph{standard uncertainty} (informally known as the standard error of the mean).  
+(i) Confidence intervals will enable authors to better understand the uncertainty in their own data.  
+Perhaps more importantly, (ii) downstream users/readers of a given paper, which are likely to include individuals lacking statistical expertise, will have a more accurate picture of the true uncertainty in a reported value, which can easily be under-estimated based on the standard uncertainty.  
+
+In recommending 90\% confidence intervals, we are attempting to account for phenomena which arguably are not quatifiable, but nevertheless important in science.  
+First, the authors of a study and the reputation of their field of science will not benefit in the long run by under-representing uncertainty, as incorrect conclusions may be drawn.  
+For example, overly small error bars on two estimates which appear not to overlap can mask insufficient statistical power to distinguish between the two data points (i.e., two simulations, conditions, ...).
+Second, we believe visual impressions conveyed by figures in a paper are of primary importance; regardless of what a research paper may explain carefully in text, error bars on graphs create a lasting impression and must be as informative and accurate as possible.
+If 90\% confidence intervals are reported, the expert reader can easily estimate the smaller standard uncertainty (especially if it is noted in the text), but showing a graph with overly small error bars is bound to mislead most readers -- even experts who do not search out the fine print.
+
+%We frequently perform molecular simulations to make quantitative estimates of quantities like pressure, free energy or yield strain.  When reporting these estimates, it is important to also provide an estimate of the uncertainty of the result, typically as a standard error.  
+
+A 90\% confidence interval, as explained in the glossary above, is a range of values which is expected to bracket 90\% of the observable values \emph{if the identical simulation is repeated a large number of times.}  Of course, the interval is estimated based on a single simulation, and so it is only approximate; nevertheless, as explained below, there are statistically sound means for estimating the interval from a single simulation.  If additional simulations are performed and used to estimate the confidence interval, one is then trying to estimate the confidence interval for the set of simulations -- and the corresponding interval should be smaller, in general, than that for a single simulation.
 
 \begin{table}
     \begin{tabular}{S S}
@@ -18,9 +38,31 @@ We frequently perform molecular simulations to make quantitative estimates of qu
   \label{tab:uncertainties}
 \end{table}
 
+[DMZ: SHOULD WE INCLUDE THIS (AND TABLE) GIVEN THAT IT SEEMS FIELD-SPECIFIC?  IF SO, WE SHOULD BE SPECIFIC ABOUT WHICH FIELDS USE THIS CONVENTION - CERTAINLY NOT BIOMOLECULAR SIMULATION.]
 When reporting quantities with uncertainties, only the digits that are significant should be included and the standard error should be placed after the value in parenthesis as the uncertainty in the last digit.  In general only one digit of uncertainty need be reported unless the digit is 1, in which case, it is helpful to report two digits (in order to avoid up to 50\% roundoff error in the uncertainty).  See the \TABLE{uncertainties} for examples from hypothetical isobaric simulations of water.
 
-\subsection{Assessing quality of data}
+
+\subsection{Overview of procedures for computing a confidence interval}
+We remind readers that before attempting to quantify uncertainty via an error bar, the ``quick-and-dirty'' checks on sampling should be performed.
+If the observable of interest is not fluctuating about a mean value but largely increasing or decreasing during the course of a simulation, it is unlikely that a reliable quantitative estimate for the observable (or an error bar) can be obtained.
+
+For observables passing the qualitative tests noted above in Sec.\ \ref{sec:quick}, we advocate obtaining confidence intervals in one of two ways:
+\begin{itemize}
+\item For observables that are approximately Gaussian-distributed, an appropriately chosen \emph{coverage factor} $k$ (typically about 2, but see below) multiplying the standard uncertainty $\stdunc$ yields an estimate for a 90\% confidence interval.  
+\item For non-Gaussian observables, a \emph{bootstrapping} approach (described below) should be used.  An example of a potentially non-Gaussian observable is a rate-constant, which must be positive but could exhibit significant variance, so a confidence interval estimated with a coverage factor may lead to an unphysical negative lower limit.  Multimodal distributions certainly are not Gaussian.  Bootstrapping does not assume an underlying distribution but instead constructs a confidence interval based on the recorded data values, and the limits cannot fall outside the extreme data values.
+\end{itemize}
+
+%The standard error is the standard deviation of the distribution of the results that would be obtained by repeating the simulation.  Several techniques to estimate the uncertainty are described below with varying levels of complexity and robustness.  Ultimately, a technique is robust if it can produce an uncertainty estimate that is consistent with the standard deviation of results from actually repeating the simulation and analysis of the data.  
+
+Below we describe approaches for estimating the standard uncertainty $\stdunc$ and coverage factor $k$ from a single trajectory, as well as discussing the bootstrapping approach for direct confidence-interval estimation.
+
+Whether using a coverage factor and standard uncertainty or bootstrapping, one requires an estimate for the independent number of observations in a given simulation.  This requires care, but may be accomplished based on the effective sample size described in Sec.\ \ref{sec:global} or via block averaging, described below.
+
+In the absence of a reliable estimate for the number of independent observations, one can perform $n$ independent simulations and calculate the standard deviation $\sigma$ among these, yielding a standard uncertainty of $\stdunc = \sigma / \sqrt{n}$.  When computing the uncertainty with this approach, it is important to ensure that each starting configuration is also independent - or else to recognize and indicate in publication that the uncertainty refers to simulations started from a particular configuration.  The means to obtain independent starting configurations is system-dependent, but might involve repeating the protocol used to construct a configuration (solvating a protein, inserting liquid molecules in a box, etc.), using a new random seed.  However, readers are cautioned that \emph{for complex systems, it may be effectively impossible to generate truly independent starting configurations pertinent to the ensemble of interest.}
+
+\subsection{Assessing qualitative behavior of data}
+
+[DMZ: SINCE THIS IS A QUALITATIVE ISSUE, SHOULDN'T IT GO IN THE QUICK-AND-DIRTY SECTION?]
 
 Generally speaking, analysis routines that extract derived quantities from raw data are often formulated on the basis of physical intuition about how that data should behave.  Before proceeding to data analysis, it is therefore useful to assess the extent to which raw data conforms to these expectations and the requirements imposed by either the modeler or the analysis routines.  Such tasks help reduce subjectivity of predictions and offer insight into when a simulation protocol should be revisited to better understand their meaningfulness \cite{patrone1}.  Unfortunately, general recipes for assessing data quality are impossible to formulate, owing to the range of physical quantities of interest to modelers.  Nonetheless, a short example will help clarify the matter.
 
@@ -30,15 +72,15 @@ In the context of materials science, understanding when a structural material fa
 \includegraphics[width=8cm]{hyperbola.png}\caption{Yield strain tn $\epsilon_r$ as a function of applied strain $\epsilon$.  Blue $\times$ denote simulated data, whereas the smooth curve is a hyperbola fit to the data.  The green lines are asymptotes; their intersection can be taken as an estimate of $\epsilon_y$.    Bounds on yield are computed by the synthetic data method discussed in the next section.  {\it From, ``Estimation and uncertainty quantification of yield via strain recovery simulations,'' P.\ Patrone, CAMX 2016 Conference Proceedings.  Reprinted courtesy of the National Institute of Standards and Technology, U.S. Department of Commerce. Not copyrightable in the United States.}}\label{fig:yield}
 \end{figure}
 
-\subsection{Block averaging}
+\subsection{Block averaging for estimating the standard uncertainty}
 
-The uncertainty of a simulation obsverable can be estimated from the fluctuations in the quantity along with the fact that (in the absence of correlation) the squared uncertainty will be inversely proportional to the number of samples.  Block averages can be used instead of individual samples to avoid correlation in the samples while using all the data so long as the block averages are large enough to be uncorrelated \cite{Friedberg1970,FrenkelSmit2002}.  The uncertainty is expressed as
+The standard uncertainty of a simulation observable can be estimated from the fluctuations in the quantity along with the fact that (in the absence of correlation) the squared uncertainty will be inversely proportional to the number of samples.  Block averages can be used instead of individual samples to avoid correlation in the samples while using all the data so long as the trajectory ``blocks'' (i.e., segments) are long enough to be essentially uncorrelated \cite{Friedberg1970,Flyvbjerg-1989,FrenkelSmit2002,Grossfield2009}.  The uncertainty is expressed as
 \begin{equation}
-  \sigma = \sigma_{\rm blocks}/M^{1/2}
+  \stdunc = \sigma_{\rm blocks}/M^{1/2}
 \end{equation}
-where $\sigma_{\rm blocks}$ is the standard deviation of the block averages and $M$ is the number of blocks.
+where $\sigma_{\rm blocks}$ is the standard deviation of the block averages and $M$ is the number of \emph{independent} blocks.
 
-Since the approach assumes that the blocks are uncorrelated, it is important to check for correlation and try to eliminate it (by using longer blocks) or account for it.  One approach is to consider the uncertainty computed with blocks of increasing size and look for a plateau.  Another approach is to measure the block correlation and to use it to improve the uncertainty estimate \cite{Kolafa1986}.
+Since the approach assumes that the blocks are uncorrelated, it is important to check for correlation and try to eliminate it (by using longer blocks) or account for it.  One approach is to consider the uncertainty computed with blocks of increasing size and look for a plateau \cite{Flyvbjerg-1989,Grossfield2009}.  Another approach is to measure the block correlation and to use it to improve the uncertainty estimate \cite{Kolafa1986}.
 
 \subsection{Propagation of uncertainty}
 
@@ -59,9 +101,38 @@ Propagation of uncertainty is needed whenever the derived quantity can be expres
 
 The Taylor series approach works well in most cases and easy to use, but does have limitations.  Because this approach is based on a first-order Taylor series, propagation of uncertainty can fail in cases where a non-linear formula is used and the uncertainty is very large or the distribution of input averages is not Gaussian.  For instance, the uncertainty in $\beta \Delta A$ as prescribed by Eq.~\ref{eq:propagation_bDA} cannot exceed unity no matter how short the simulation is or how bad the sampling is.  If there is doubt as to the quality of the computed uncertainty, the uncertainty can be computed with alternative approaches such as bootstrapping to verify the Taylor series results or to identify an alternative approach that works better.
 
+\subsection{From standard uncertainty to confidence interval for Gaussian variables}
+Once a standard uncertainty value is obtained for a Gaussian-distributed random variable with mean $\langle x \rangle$, and the number of independent samples $n$ has been estimated, the 90\%-confidence interval ($\langle x \rangle -k \, \stdunc, \langle x \rangle + k \, \stdunc$) can be constructed on the basis of an established look-up table for the coverage factor $k$ based on $n$.  The theoretical basis for the table is the ``Student'' or ``$t$'' distribution, which is \emph{not} a Gaussian, but governs the behavior of an \emph{average} derived from $n$ independent Gaussian variables  \cite{JCGM:GUM2008}.  See Table \ref{tab:coveragefactors}.
+
+When $n \leq 5$ [SHOULD THIS BE 10?], we recommend showing all data points, as a confidence interval is likely not statistically meaningful.
+
+\begin{table}
+    \begin{tabular}{S S}
+      \toprule
+       {$n$ (independent samples)} & {$k$ (coverage factor)} \\
+       \hline
+      6 & 2.02 \\
+      11 & 1.81 \\
+      16 & 1.75 \\
+      21 &  1.03\\
+      26 & 1.71 \\
+      51 & 1.68 \\
+      101 & 1.66 \\
+      \bottomrule
+    \end{tabular}
+  \caption{Coverage factors $k$ required for a 90\% confidence interval for a Gaussian variable \cite{JCGM:GUM2008}.}
+  \label{tab:coveragefactors}
+\end{table}
+
+As a reminder, multi-modally distributed variables with multiple peaks in their distributions cannot be considered Gaussian random variables.  Variables with a strict upper or lower limit (such as a positive-definite quantity) and long-tailed distributions likely are not Gaussian.  These cases should be treated with bootstrapping.
+
 \subsection{Bootstrapping}
 
-The Taylor series approach may fail in some situations, either because a derived quantity cannot be expressed as a function of the measured simulation data or because the first-order truncation of the series is too severe.  Bootstrapping may still be able to yield an uncertainty for these more complicated cases because it does not need to understand the nature of the relationship between the derived quantity and the simulation observables \cite{Tibshirani1998}.  In nonparametric bootsrapping, new, ``synthetic'' data sets (corresponding to hypothetical simulation runs) are created by drawing samples from the original collection that was generated during the actual run.  The same sample may be selected twice, while others may not be selected at all (thus, this is sometimes called the replacement method).  In doing so, these synthetic sets will be different even though they all have the same number of samples and draw from the same pool of data.  Having created a new set, the data is analyzed to determine the derived quantity of interest.  This process is repeated to produce multiple estimates of the quantity; the uncertainty is the standard deviation of the computed quantities from the generated sets. Because the process uses original simulation samples, it does not need to make assumptions about the distribution of samples and works well even when the Taylor series approach fails.
+%The Taylor series approach may fail in some situations, either because a derived quantity cannot be expressed as a function of the measured simulation data or because the first-order truncation of the series is too severe.  
+Bootstrapping is an approach to uncertainty estimation that does not assume a particular distribution for the observable of interest or a particular kind of relationship between the observable and variables directly obtained from simulation \cite{Tibshirani1998}.  In nonparametric bootsrapping, new, ``synthetic'' data sets (corresponding to hypothetical simulation runs) are created by drawing $n$ samples (configurations) from the original collection that was generated during the actual run.  The same sample may be selected twice, while others may not be selected at all in a process called ``sampling with replacement.''  In doing so, these synthetic sets will be different even though they all have the same number of samples and draw from the same pool of data.  Having created a new set, the data is analyzed to determine the derived quantity of interest, and this process is repeated to produce multiple estimates of the quantity.  The distribution of `synthetic' observables can be directly used to construct a 90\% confidence interval from the 5\%ile to the 95\%ile value.
+
+As with bootstrapping, the key issue is how many samples to draw from the original collection - what value of $n$ should be used?  It should be clear that a larger $n$ will yield less variation and hence a tighter confidence interval: implicitly all $n$ samples will be regarded as independent.  Hence, $n$ should be chosen to represent the number of \emph{independent} samples present in the original simulation, which can be gauged using a correlation-time method \cite{Chodera-2016,Lyman2007a} or implicitly using a block-averaging procedure -- see above.
+%the uncertainty is the standard deviation of the computed quantities from the generated sets. Because the process uses original simulation samples, it does not need to make assumptions about the distribution of samples and works well even when the Taylor series approach fails.
 
 The process described above assumes that the original simulation data is uncorrelated.  If this is not the case, then the resampling method can be reformulated in one of two ways.  The first option is to estimate the number of independent samples in the original set and to pull only that many samples to create the new data sets.  The second option is to group the samples into blocks that are uncorrelated and to then use the block averages as the samples for bootstrapping.  
 
