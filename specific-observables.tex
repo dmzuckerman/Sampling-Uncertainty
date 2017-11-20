@@ -2,28 +2,28 @@
 \label{sec:specific}
 
 \subsection{Basics}
-%``What error bar should I put?''
-``What error bar should I report?''
-This simple but critical question is addressed here in some detail.
-Indeed, the authors of this article found themselves in a drawn-out discussion in order to reach a consensus on what to recommend.
+``What error bar should I report?'' 
+Here we address this simple but critical question.
 
-In brief, we recommend the following:
-(a) in fields where there is a definitive standard for reporting uncertainty, the authors should follow existing conventions;
-(b) otherwise, such as for biomolecular simulations, \emph{authors should report (and graph) their best estimates for 90\% confidence intervals.}
+In general, there is no one-best practice for choosing error bars. However, in the context of simulations, we can nonetheless identify common goals when reporting such estimates: (i) to help authors and readers better understand uncertainty in data; and (ii) to provide readers with realistic information about the reproducibility of a given result.
 
-Reporting a confidence interval as proposed has important advantages over reporting a scale of uncertainty such as \emph{standard uncertainty} (informally known as the standard error of the mean).  
-(i) Confidence intervals will enable authors to better understand the uncertainty in their own data.  
-Perhaps more importantly, (ii) downstream users/readers of a given paper, which are likely to include individuals lacking statistical expertise, will have a more accurate picture of the true uncertainty in a reported value, which can easily be under-estimated based on the standard uncertainty.  
+With this in mind, we recommend the following: (a) in fields where there is a definitive standard for reporting uncertainty, the authors should follow existing conventions; (b) otherwise, such as for biomolecular simulations, \emph{authors should report (and graph) their best estimates of 90\% confidence intervals.} As explained in the glossary above, a 90\% confidence interval is a range of values that is expected to bracket 90\% of the computed predictions \emph{if statistically equivalent simulations are repeated a large number of times.}
 
-In recommending 90 \% confidence intervals, we are attempting to account for phenomena which arguably are not quatifiable, but nevertheless important in science.  
-First, the authors of a study and the reputation of their field of science will not benefit in the long run by under-representing uncertainty, as incorrect conclusions may be drawn.  
-For example, overly small error bars on two estimates which appear not to overlap can mask insufficient statistical power to distinguish between the two data points (i.e., two simulations, conditions, ...).
-Second, we believe visual impressions conveyed by figures in a paper are of primary importance; regardless of what a research paper may explain carefully in text, error bars on graphs create a lasting impression and must be as informative and accurate as possible.
-If 90\% confidence intervals are reported, the expert reader can easily estimate the smaller standard uncertainty (especially if it is noted in the text), but showing a graph with overly small error bars is bound to mislead most readers -- even experts who do not search out the fine print.
+
+We emphasize that as opposed to standard uncertainties (reported as a standard deviation $\sigma$), confidence intervals have several practical benefits that justify their usage. In particular, they directly quantify the statistical frequency with which we expect a given outcome, which is more relatable to everyday experience than moments of a probability distribution. As such, confidence intervals can help authors and readers better understand the implications of an uncertainty analysis. Moreover, downstream users/readers of a given paper may include less statistically-oriented readers for whom confidence intervals are a more meaningful measure of variation. 
+
+In a related vein, error bars expressed in terms of $n$ $\sigma$ can be misinterpreted as unrealistically under or overestimating uncertainty if taken at face value. For example, reporting $3$ $\sigma$ uncertainties for a normal random variable amounts to a $99.7$ \% confidence interval, which is likely to be a significant overestimate for many applications. On the other hand, $1$ $\sigma$ uncertainties only correspond to a $68$ \% confidence interval, which may be too low. Given that many readers may not take the time to make such conversions in their heads, we feel that it is safest for modelers to do this work up front.
+
+In recommending 90 \% confidence intervals, we are admittedly attempting to address a social issue that nevertheless has important implications for science as a whole. In particular, the authors of a study and the reputation of their field do not benefit in the long run by under-representing uncertainty, since this may lead to incorrect conclusions. But perhaps just as importantly, many of the same problems can arise if uncertainties are reported in a technically correct but obscure and difficult-to-interpret manner. For example, 1 $\sigma$ error bars may not overlap and thereby mask the inability to statistically distinguish two quantities, since the corresponding confidence intervals are only 68 \%. With this in mind, we therefore wish to emphasize that visual impressions conveyed by figures in a paper are of primary importance. Regardless of what a research paper may explain carefully in text, error bars on graphs create a lasting impression and must be as informative and accurate as possible. If 90\% confidence intervals are reported, the expert reader can easily estimate the smaller standard uncertainty (especially if it is noted in the text), but showing a graph with overly small error bars is bound to mislead most readers -- even experts who do not search out the fine print.
+
+
+
+
+
 
 %We frequently perform molecular simulations to make quantitative estimates of quantities like pressure, free energy or yield strain.  When reporting these estimates, it is important to also provide an estimate of the uncertainty of the result, typically as a standard error.  
 
-A 90\% confidence interval, as explained in the glossary above, is a range of values which is expected to bracket 90\% of the observable values \emph{if the identical simulation is repeated a large number of times.}  Of course, the interval is estimated based on a single simulation, and so it is only approximate; nevertheless, as explained below, there are statistically sound means for estimating the interval from a single simulation.  If additional simulations are performed and used to estimate the confidence interval, one is then trying to estimate the confidence interval for the set of simulations -- and the corresponding interval should be smaller, in general, than that for a single simulation.
+%A 90\% confidence interval, as explained in the glossary above, is a range of values which is expected to bracket 90\% of the observable values \emph{if the identical simulation is repeated a large number of times.}  Of course, the interval is estimated based on a single simulation, and so it is only approximate; nevertheless, as explained below, there are statistically sound means for estimating the interval from a single simulation.  If additional simulations are performed and used to estimate the confidence interval, one is then trying to estimate the confidence interval for the set of simulations -- and the corresponding interval should be smaller, in general, than that for a single simulation.
 
 \begin{table}
     \begin{tabular}{S S}
