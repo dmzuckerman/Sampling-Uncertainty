@@ -19,13 +19,32 @@ In cases of lexical ambiguity, we hold to the definition of terms as given in th
 \begin{itemize}
 %terms added by PNP and DWS
 
+\item {\bf Random quantity}: A quantity whose numerical value is inherently unknowable or unpredictable.
+
+\smallskip
+
+\textbf{\textit{Remark:}}  Informally speaking, we assume that a random quantity can be described in terms of a mean (or expected) value and a dispersion.  The latter characterizes the extent to which a {\it realization} of the random quantity differs from the mean.  More formally, we assume that the probability of a random variable $X$ taking value $x$ is given by $P(x)dx$, where $P(x)$ is a probably density and $dx$ is an infinitesimal width about $x$.
+
+\smallskip
+
+\textbf{\textit{Remark:}} Virtually all simulation tools (even those using quasi-random number generators) are deterministic.  As such, the output of any given simulation is never truly random, since it is the composition of knowable and predictable calculations.  However, it is generally infeasible to reproduce simulated calculations by hand, so that these are {\it in practice} unknowable.  
+
+
+
 \item {\bf True value:}  The value of a quantity that is consistent with its definition and is the objective of an idealized measurement or simulation.
-Often the adjective ``true'' is dropped when reference to the definition is clear by context. \citep{JCGM:GUM2008,JCGM:VIM2012}
+
+\smallskip
+\textbf{\textit{Remark:}} Often the adjective ``true'' is dropped when reference to the definition is clear by context. \citep{JCGM:GUM2008,JCGM:VIM2012}
 %Not sure that the last phrase is entirely consistent with GUM, although I'm not sure this is necessarily a problem.  To a certain extent, we may need to tailor the language of GUM/VIM to the audience at hand.
 \smallskip
 
 \textbf{\textit{Remark:}} Generally speaking, we use the descriptor ``true value'' in reference to quantities such as the expected value and standard deviation of a simulation output (were we able to run infinitely many simulations).
 As these quantities are inherently unknowable, we can only estimate their values and associated uncertainties.
+
+\smallskip
+
+\textbf{\textit{Remark:}} The definition of standard uncertainty does not specify how to calculate the standard deviation.
+This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.  
 
 \item {\bf Standard Uncertainty}: Uncertainty in a result (e.g.\ prediction of a true value) as expressed in terms of a standard deviation.
 \smallskip 
