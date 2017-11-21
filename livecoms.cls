@@ -123,7 +123,7 @@
 % \captionsetup*[table]{skip=\medskipamount}
 
 
-\RequirePackage[super,sort&compress]{natbib}
+\RequirePackage[square,numbers,sort&compress]{natbib}
 \RequirePackage{natmove}
 \renewcommand{\bibfont}{\small}
 % modifed from https://github.com/gbhutani/vancouver_authoryear_bibstyle/
@@ -218,8 +218,8 @@
 % nothing
 \fi
 
-\ifdocumenttype
 \fancyhf{}
+\ifdocumenttype
 \chead{%
 \setlength{\fboxsep}{3pt}
 \colorbox{LiveCoMSMediumGrey}{\begin{minipage}{\headwidth}\centering\color{white} A LiveCoMS \documenttype\end{minipage}}%
@@ -405,14 +405,14 @@
   \newcommand{\featurefig}[1]{%
     \refstepcounter{featurefigure}%
     \vskip\smallskipamount%
-    {\small\textbf{\color{eLifeDarkBlue}Box \arabic{featurebox} Figure \arabic{featurefigure}.}\space #1\par}\medskip}
+    {\small\textbf{\color{LiveCoMSDarkBlue}Box \arabic{featurebox} Figure \arabic{featurefigure}.}\space #1\par}\medskip}
   \newcommand{\featuretable}[1]{%
     \refstepcounter{featuretable}%
     \vskip\smallskipamount%
-    {\small\textbf{\color{eLifeDarkBlue}Box \arabic{featurebox} Table \arabic{featuretable}.}\space #1\par}\medskip}
+    {\small\textbf{\color{LiveCoMSDarkBlue}Box \arabic{featurebox} Table \arabic{featuretable}.}\space #1\par}\medskip}
 }
 \expandafter\apptocmd\csname featurebox*\endcsname{%
-  \begin{mdframed}[linewidth=0pt,backgroundcolor=eLifeLightBlue!10,fontcolor=eLifeDarkBlue]
+  \begin{mdframed}[linewidth=0pt,backgroundcolor=LiveCoMSLightBlue!10,fontcolor=LiveCoMSDarkBlue]
   \if@reqslineno\addtolength{\linenumbersep}{1em}\internallinenumbers\fi%
 }{}{}
 \expandafter\pretocmd\csname endfeaturebox*\endcsname{\end{mdframed}}{}{}
@@ -536,7 +536,7 @@
 \RequirePackage{fontawesome}
 \DeclareFloatingEnvironment[placement=hbtp,name=Checklists]{Checklists}
 \newcounter{checklist}
-\xapptocmd{\Checklists}{%
+\AtBeginEnvironment{Checklists}{%
   \setcounter{checklist}{0}
   \mdfsetup{skipabove=0pt,skipbelow=0pt,
     frametitleaboveskip=12pt,innerbottommargin=12pt,
@@ -544,7 +544,7 @@
     frametitlefont=\Large\bfseries\color{LiveCoMSLightBlue}}
 }{}{}
 
-\xapptocmd{\Checklists*}{
+\AtBeginEnvironment{Checklists*}{%
   \setcounter{checklist}{0}
   \mdfsetup{skipabove=0pt,skipbelow=0pt,
     frametitleaboveskip=12pt,innerbottommargin=12pt,
@@ -593,7 +593,7 @@
 %   \end{mdframed}
 % }
 
-\RequirePackage[colorlinks=true,allcolors=black,citecolor=LiveCoMSMediumGrey,linkcolor=LiveCoMSMediumGrey,urlcolor=LiveCoMSLightBlue]{hyperref}
+\RequirePackage[colorlinks=true,allcolors=black,citecolor=LiveCoMSLightBlue,linkcolor=LiveCoMSMediumGrey,urlcolor=LiveCoMSLightBlue]{hyperref}
 \urlstyle{sf}
 
 % Other desired commands
