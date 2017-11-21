@@ -15,7 +15,7 @@ Also, it is essential to realize that a system may possess states (regions of co
 What are the pertinent timescales?
 That's a question which has to be answered individually for each system.
 You will want to study the experimental and computational literature for your particular system, although we warn that a published prior simulation of a given length does not in itself validate a new simulation of a similar or slightly increased length.
-In the end, your data must be validated by statistical analyses, such as those described below.
+In the end, your data must be validated by statistical analyses, such as those described below. Note "system" here does not necessarily refer to a complete biological simulation (e.g. protein, solvent, ions, etc) - it can also refer to some subset of the simulation for which data is desired. For example, if one is only interested in the dynamics of a binding site in a protein, it is not necessary to observe the unfolding and refolding of that protein as well.
 
 \begin{figure}
   \centering
@@ -32,9 +32,9 @@ In the end, your data must be validated by statistical analyses, such as those d
 A toy model can generically illustrate timescales and their effects on sampling.
 Consider the double-well free energy landscape shown in Fig.\ \ref{fig:landscape}, noting the slowest timescale is for crossing the largest barrier.
 Generally, you should expect that the value of \emph{any} observable (e.g., $x$ itself or another coordinate not shown or a function of those coordinates) will depend on which of the two dominant basins the system occupies; and, in turn, the equilibrium average of an observable will require sampling the two basins according to their equilibrium populations.
-In order to directly sample the equilibrium populations of the two basins, a trajectory will have to be many times the slowest timescale.
+In order to directly sample the equilibrium populations of the two basins, the length of a trajectory will have to be many times the slowest timescale, i.e. the largest barrier should be crossed multiple times.
 The relative populations of states are inferred from time spent in each state, which only will be representative if there are many transitions;
-put another way, the equilibrium populations follow from the transition rates \cite{Zuckerman2011} which can be estimated from mulitple events.
+put another way, the equilibrium populations follow from the transition rates \cite{Zuckerman2011} which can be estimated from multiple events.
 For completeness, we note that there is no guarantee that sampling of a given system will be limited by a dominant barrier.  
 Instead, a system could exhibit a generally rough landscape with many pathways between states of interest.
 Nevertheless, the same cautions apply.
