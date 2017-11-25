@@ -19,13 +19,30 @@ In cases of lexical ambiguity, we hold to the definition of terms as given in th
 \begin{itemize}
 %terms added by PNP and DWS
 
+\item {\bf Random quantity}: A quantity whose numerical value is inherently unknowable or unpredictable.
+
+\smallskip
+
+\textbf{\textit{Remark:}}  Informally speaking, we assume that a random quantity can be described in terms of a mean (or expected) value and a dispersion.  The latter characterizes the extent to which a {\it realization} of the random quantity differs from the mean.  More formally, we assume that the probability of a random variable $X$ taking value $x$ is given by $P(x)dx$, where $P(x)$ is a probably density and $dx$ is an infinitesimal width about $x$.
+
+\smallskip
+
+\textbf{\textit{Remark:}} Virtually all simulation tools (even those using quasi-random number generators) are deterministic.  As such, the output of any given simulation is never truly random, since it is the composition of knowable and predictable calculations.  However, it is generally infeasible to reproduce simulated calculations by hand, so that these are {\it in practice} unknowable.  Moreover, the chaotic nature of typical simulated systems leads to a situation in which the frequency of a given system configuration is well described by probability densities of statistical mechanics.  See Ref.~\cite{Leimkuhler} for more discussion of this rather deep point.
+
 \item {\bf True value:}  The value of a quantity that is consistent with its definition and is the objective of an idealized measurement or simulation.
-Often the adjective ``true'' is dropped when reference to the definition is clear by context. \citep{JCGM:GUM2008,JCGM:VIM2012}
+
+\smallskip
+\textbf{\textit{Remark:}} Often the adjective ``true'' is dropped when reference to the definition is clear by context. \citep{JCGM:GUM2008,JCGM:VIM2012}
 %Not sure that the last phrase is entirely consistent with GUM, although I'm not sure this is necessarily a problem.  To a certain extent, we may need to tailor the language of GUM/VIM to the audience at hand.
 \smallskip
 
 \textbf{\textit{Remark:}} Generally speaking, we use the descriptor ``true value'' in reference to quantities such as the expected value and standard deviation of a simulation output (were we able to run infinitely many simulations).
 As these quantities are inherently unknowable, we can only estimate their values and associated uncertainties.
+
+\smallskip
+
+\textbf{\textit{Remark:}} The definition of standard uncertainty does not specify how to calculate the standard deviation.
+This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.  
 
 \item {\bf Standard Uncertainty}: Uncertainty in a result (e.g.\ prediction of a true value) as expressed in terms of a standard deviation.
 \smallskip 
@@ -80,9 +97,9 @@ For example, a MC simulation generates a sequence of configurations, for which t
   
 \item {\bf Derived observables}: Quantities derived from `non-trivial' (and often non-linear) analyses of raw data, e.g., properties that may not be computed for a single configuration such as free energies.
   
-
-\item {\bf Uncorrelated observables}:  Random quantities that are uncorrelated.
-Mathematically, quantities $q_j$ and $q_k$ having mean values $\left< q_j \right> $ and $\left< q_k \right>$ are uncorrelated if
+\item {\bf Indepent observables}: Random quantities $x$ and $y$ for which the joint probability density can be written as a product of individual probability densities $P(x,y)=P(x)P(y)$.  
+  
+\item {\bf (Linearly) Uncorrelated observables}:  If quantities $q_j$ and $q_k$ have mean values $\left< q_j \right> $ and $\left< q_k \right>$, then $q_j$ and $q_k$ are linearly uncorrelated if
 % 
 \begin{equation}
   \left< \left(q_j - \left<q_j\right> \right) \left(q_k - \left<q_k\right> \right) \right>=0
@@ -90,16 +107,27 @@ Mathematically, quantities $q_j$ and $q_k$ having mean values $\left< q_j \right
 %
 where $\left< \star \right>$ denotes the (true) expectation value.
 
+\smallskip
+
+\textbf{\textit{Remark:}} Independence of random variables implies that they are linearly uncorrelated.  The converse, however, is not true.  
+
+\smallskip
+
+\textbf{\textit{Remark:}} In practice, it is easier to (empirically) show that random variables are uncorrelated than independent.  However, linear correlations are often all that are needed to arrive at uncertainty estimates for various quantities.  See, e.g.\ the discussion of correlation times and autocorrelation analyses.
+%PNP: where is that discussion?
+
+
+
 \item {\bf Correlated observables}: Random quantities that are not independent.
 
-\item {\bf Correlation time}: In time-series data of a random quantity $q(t)$ (e.g.\ a physical property from a MC or MD trajectory), this is the time $\tau$ over which $q(t)$ and $q(t+\tau)$ remain correlated.
+\item {\bf Correlation time}: In time-series data of a random quantity $q(t)$ (e.g.\ a physical property from a MC or MD trajectory), this is the time $\tau$ over which $q(t)$ and $q(t+\tau)$ remain (linearly) correlated.
 
 \smallskip
 
 \textbf{\textit{Remark:}} Generally speaking, MC and MD trajectories generate new configurations from preceding ones.
 Thus, the correlation time can be interpreted as the time over which the system retains memory of its previous states.
 Such correlations are often {\bf stationary}, meaning that $\tau$ is independent of $t$.
-Roughly speaking, the total simulation time divided by the longest correlation time yields an estimate of the number of {\it independent} samples generated by a simulation.
+Roughly speaking, the total simulation time divided by the longest correlation time yields an estimate of the number of {\it uncorrelated} samples generated by a simulation.
 
 
 %The time over which realizations of a random quantity indexed by a time-series (e.g.\ a physical property from a Monte Carlo or molecular dynamics trajectory) retain ``memory'' of one another, since each configuration is generated from the preceding one. Roughly, the total simulation time divided by the (longest) correlation time gives an estimate of the number of \emph{independent} samples that will govern overall statistical quality of the data.
@@ -132,7 +160,7 @@ As such, assignments of ``error'' are impossible to make, since these are define
 Rather, statistical analyses are better interpreted as quantifying our state of knowledge, e.g., our ability to confidently state that the the ``true'' mean is within some interval.
 
 From a practical standpoint, this leads one to revisit definitions of uncertainty as defined, for example, by Eqs.~\ref{def:exp_st_dev} and \ref{def:exp_st_dev_mean}.
-Conventionally this has gone by the name ``standard error,'' but in keeping with the perspective already laid out, we advocate the use of experimental standard deviation of the mean.
+Conventionally this has gone by the name ``standard error,'' but in keeping with the perspective already laid out, we advocate the use of \hyperref[def:exp_st_dev_mean]{experimental standard deviation of the mean}.
 To maintain consistency with the VIM and GUM, we also use ``sample mean'' and ``sample standard deviation'' with their counterparts ``arithmetic mean'' and ``experimental standard deviation.''
 The reader should be aware that this older language is still used frequently throughout the literature.
 
