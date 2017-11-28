@@ -9,13 +9,19 @@ Thus we strongly advise understanding the concepts presented here as well as in 
 
 In a generic sense, the overall goal is to be able to draw statistically significant conclusions regarding a particular phenomenon or question of interest.
 And ``good statistics'' follow from repeated observations of a phenomenon, which can only happen if the simulation length \emph{exceeds} the pertinent timescales.
-One generic strategy that will allow you to at least understand your data in a self-consistent way is to perform several repeats of the same simulation protocol: as described below, repeats can be used to assess variance in \emph{any} observable, within the time you have run your simulation.
-Also, it is essential to realize that a system may possess states (regions of configuration space) that, although important, are \emph{never} visited in a given simulation set because of insufficient computational time \cite{Grossfield2009}.
+
+One general strategy that will allow you to at least understand your data in a self-consistent way is to perform several repeats of the same simulation protocol: as described below, repeats can be used to assess variance in \emph{any} observable, within the time you have run your simulation.
+When performing simulation repeats, it is sometimes suggested to use different starting states which are as diverse as possible; then, differences among the runs can be an indicator of inadequate sampling of the equilibrium distribution.
+Alternatively, performing multiple runs from the same starting state will yield behavior particular to that starting state and potentially equilibrium if the runs are long enough.
 
 What are the pertinent timescales?
 That's a question which has to be answered individually for each system.
 You will want to study the experimental and computational literature for your particular system, although we warn that a published prior simulation of a given length does not in itself validate a new simulation of a similar or slightly increased length.
-In the end, your data must be validated by statistical analyses, such as those described below. Note "system" here does not necessarily refer to a complete biological simulation (e.g. protein, solvent, ions, etc) - it can also refer to some subset of the simulation for which data is desired. For example, if one is only interested in the dynamics of a binding site in a protein, it is not necessary to observe the unfolding and refolding of that protein as well.
+In the end, your data must be validated as well as possible by statistical analyses, such as those described below. 
+Be warned that a system may possess states (regions of configuration space) that, although important, are \emph{never} visited in a given simulation set because of insufficient computational time \cite{Grossfield2009} -- and this type of error will not be discovered through the analyses presented below.
+Finally, note that "system" here does not necessarily refer to a complete biological simulation (e.g. protein, solvent, ions, etc) - it can also refer to some subset of the simulation for which data is desired. 
+For example, if one is only interested in the dynamics of a binding site in a protein, it probably is not necessary to observe the unfolding and refolding of that protein as well.
+
 
 \begin{figure}
   \centering
@@ -42,7 +48,7 @@ Nevertheless, the same cautions apply.
 What should be done if a determination is made that a system's timescales are too long for direct simulation?
 The two main options would be to consider a more simplified (``coarse-grained'') model or an enhanced sampling technique, bearing in mind that enhanced sampling methods are not foolproof but have their own limitations which should be considered carefully.
 
-Lastly, whatever simulation protocol you pursue, be sure to use a well-validated piece of software.
+Lastly, whatever simulation protocol you pursue, be sure to use a well-validated piece of software [\url{https://github.com/shirtsgroup/software-physical-validation}].
 If you are using your own code, check it against independent simulations on other software for a system that can be readily sampled.
-[benchmark systems???]
+%[benchmark systems???]
 

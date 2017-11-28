@@ -354,7 +354,10 @@
 
 \renewenvironment{abstract}{%
    \setlength{\parindent}{0pt}\raggedright
-   \raisebox{-16pt-\baselineskip}[0pt][0pt]{\makebox[0pt][r]{\parbox[t]{3cm}{\raggedright\itshape\footnotesize\@blurb}\hspace*{1cm}}}%
+   \raisebox{-16pt-\baselineskip}[0pt][0pt]{\makebox[0pt][r]{\parbox[t]{3cm}{%
+     \raggedright\itshape\footnotesize\@blurb\par\medskip%
+     This version dated \@date%
+   }\hspace*{1cm}}}%
    \textcolor{LiveCoMSMediumGrey}{\rule{\textwidth}{2pt}}
    \vskip16pt
    \textcolor{LiveCoMSLightBlue}{\large\bfseries\abstractname\space}
