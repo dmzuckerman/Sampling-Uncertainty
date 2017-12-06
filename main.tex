@@ -87,6 +87,9 @@ We do not discuss \emph{systematic} errors arising from inaccuracy in the chosen
 \input{definitions}
 
 \section{Best Practices Checklist}
+
+The self-contained checklist is presented on the following page.
+
 \begin{Checklists*}[p!]
 \begin{checklist}{Quantifying Uncertainty and Sampling Quality in Molecular Simulation}
 \begin{itemize}
@@ -117,7 +120,7 @@ We do not discuss \emph{systematic} errors arising from inaccuracy in the chosen
     %\item Daniel R: Compare runs from different initial conditions - be sure initial conditions are ‘different enough’
     \end{itemize}
 \item
- \textbf{Remove an ‘equilibration' (a.k.a. `burn in', or transient) portion of a single MD or MC trajectory} and perform analyses only on remaining ‘production’ portion of trajectory.  \emph{Underlying concept:} An initial configuration is unlikely to be representative of the desired ensemble and the resulting relaxation process must be accounted for.  See Sec.\ \ref{sec:equil}.
+ \textbf{Remove an ‘equilibration' (a.k.a. `burn in', or transient) portion of a single MD or MC trajectory} and perform analyses only on the remaining ‘production’ portion of trajectory.  \emph{Underlying concept:} An initial configuration is unlikely to be representative of the desired ensemble and the resulting relaxation process must be accounted for.  See Sec.\ \ref{sec:equil}.
 \item
  \textbf{Consider computing a quantitative measure of global sampling, particularly for a biomolecular system} - i.e., attempt to estimate the number of statistically independent samples in a trajectory.  \emph{Underlying concept:} Trajectory 'frames' (configurations) are highly correlated because one frame is generated from the preceding one, and estimating the degree of correlation is essential to understanding overall simulation quality.  See Sec.\ \ref{sec:global}.
 \item
