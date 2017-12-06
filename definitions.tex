@@ -171,6 +171,26 @@ Roughly speaking, the total simulation time divided by the longest correlation t
 
 \subsubsection{Discussion of terminology}
 
+
+
+
+
+%DWS NOTE: I think that this following discussion is entirely accurate, but is so philosophical that it doesn't help the article. Hence my preceding rewrite.
+
+%PNP response: I disagree with some elements of the rewrite.  
+
+%Let me paraphrase my understanding of how you see this; correct me if I'm wrong.  It seems that the two points you highlight are (i) the need to connect the language to the actual task of estimating uncertainties, and (ii) the need to connect VIM language to more common terminology.  I agree with the second task, but I see the first as the goal of the entire manuscript, not just this section.
+
+% In more detail, I feel like the goal of this section (in addition to helping us standardize the manuscript) should be to get readers to think about the words they are using.  At the risk of sounding like a hippie (or something), I think the ultimate hope (which may be unrealistic) is really to induce a mindset change.  Right now I see folks blindly going around computing standard deviations without really thinking about why or what they're trying to express.  In my original draft of this section, I highlighted the definitional uncertainty precisely because (i) folks typically don't think about it, and (ii) it's a type of uncertainty that can lead to order-of-magnitude differences in estimates coming out of simulations.  (My favorite example of this is bilinear-fits versus hyperbola center estimates of bilinear data).  Moreover, I think definitional uncertainty is exactly the type of ``unknowable truth'' that the vocabulary in VIM is trying to get people to think about, or at least recognize and appreciate.  The corresponding discussion of definitional uncertainty was intended to fit in with the theme of "understand the implications of the words."
+
+% So, in this vein, it seems that there are really two related issues at stake in the definition section:
+%1) We can never actually compute the true value of any statistical quantity;
+%2) VIM adopts a distinct language that is intended to reflect this fact.
+% To that end, I think what you've written is correct in pointing out, e.g., that the true and sample means are different.  But I think that this section should shy away from offering guidelines on what to calculate and how, and focus more on what the terminology is actually trying to communicate.  In particular, I can name several cases where I don't think the arithmetic mean should be used, and likewise where the experimental standard deviation of the mean is an inappropriate measure of uncertainty.  I think we will confuse the reader by trying to be so definite in the absence of concrete examples, and later sections try to address some of these questions anyways.
+
+%Rather, I think the emphasis should be on making the conection between points 1 and 2 above.  Admittedly my version was a little philosophical, so it makes sense to compromise on language.  What are your thoughts though?  Do you see this section differently?
+
+
 As we recognize that the glossary of statistical terms is overly pedantic, it is valuable to subsequently connect those formal terms to the ultimate goal of this guide, to enable the estimation of uncertainty in thermophysical properties obtained via molecular simulation.
 Additionally, this section will connect the formal VIM definitions to more common usages for accessibility.
 We again reiterate here that the statistical definitions in the VIM\cite{JCGM:VIM2012} are chosen to both minimize ambiguity in the particular word choice and honestly restrict the statistical capability of their associated mathematical quantities.
@@ -184,7 +204,7 @@ Calculation of the confidence interval, which requires preselection of a confide
 
 %While the glossary of statistical terms is (arguably) overly pedantic, the terms are chosen\cite{JCGM:VIM2012} to best describe the connection between their intended usage and the underlying statistical concepts.
 
-%DWS NOTE: I think that this following discussion is entirely accurate, but is so philosophical that it doesn't help the article. Hence my preceding rewrite.
+
 
 %As surveyed by Refs.~\citep{JCGM:GUM2008,JCGM:VIM2012}, the discussion that originally motivated many of theses definitions is rather philosophical.
 %Nonetheless, it bears repeating here, if only to force a level of honesty regarding what we can actually hope to achieve with simulations.
