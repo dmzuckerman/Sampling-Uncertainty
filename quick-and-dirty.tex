@@ -1,9 +1,11 @@
 % !TEX root = ./main.tex
 
-\section{Quick-and-Dirty checks that can rule out good sampling}
+\section{Qualitative and semi-quantitative checks that can rule out good sampling}
 \label{sec:quick}
 
-\begin{wrapfigure}{r}{6cm}
+\begin{figure}
+\centering
+%\begin{wrapfigure}{r}{6cm}
   \includegraphics[width=5.8cm]{figures/rmsd}
 %  \includegraphics[width=5.8cm]{figures/rmsd/rmsd}
   \includegraphics[width=5.8cm]{figures/rmsds}
@@ -14,10 +16,11 @@
   function of time.  The lower panel shows the all-to-all RMSD map computed from the same
   trajectory.  Data from Leioatts, et al \cite{Grossfield-2015}.
   }
-\end{wrapfigure}
+\end{figure}
+%\end{wrapfigure}
 
 It is difficult to establish with certainty that good sampling has been achieved, but it is not difficult to \emph{rule out} high-quality sampling.
-Here we elaborate on some quick-and-dirty tests that quickly show inadequacies in sampling.
+Here we elaborate on some relatively simple tests that can quickly bring out inadequacies in sampling.
 
 \subsection{Zeroth-order system-wide tests}
 
@@ -26,7 +29,7 @@ The simplest test for poor sampling is lack of equilibration: if the system is s
 \subsection{Tests based on configurational distance measures - e.g., RMSD for biomolecules}
 We will use the standard biomolecular RMSD (root mean-squared difference) as a generic distance measure for illustrative purposes.
 Alternatives to RMSD could be a dihedral-angle distance or another measure specific to your system of interest.
-Note that RMSD, like any distance in a high-dimensional space, becomes ``degenerate'' for larger values: given a reference configuration, there are a large number of configurations which differ from the reference by a given large RMSD. This is analogous to the increasing number of points in three-dimensional space with increasing radial distance from a reference point, except much worse because of the dimensionality. For a detailed exploration of expected RMSD distributions for biomolecular systems see the work of Pitera.\citep{Pitera2014}
+Note that RMSD, like any distance in a high-dimensional space, becomes ``degenerate'' for larger values: given a reference configuration, there are a large number of configurations which differ from the reference by a given large RMSD. This is analogous to the increasing number of points in three-dimensional space with increasing radial distance from a reference point, except much worse because of the dimensionality. For a detailed exploration of expected RMSD distributions for biomolecular systems see the work of Pitera \citep{Pitera2014}.
 
 Some qualitative tools for assessing global sampling based on RMSD were reviewed
 in prior work \cite{Grossfield2009}.   The classic time series plot of RMSD with
@@ -46,7 +49,7 @@ A better RMSD-based convergence measure is the all-to-all RMSD plot; taking the
 RMSD of each snapshot in the trajectory with respect to all others allows you to
 use RMSD for what it does best, identifying very similar structures.  The lower
 panel of Figure \ref{f:rmsd} shows an example of this kind of plot, applied to
-the same trajectory before.  By definition, all such plots have values of zero
+the same rhodopsin trajectory.  By definition, all such plots have values of zero
 along the diagonal, and occupation of a given state shows up as a block of
 similar RMSD along the diagonal; in this case, there are 2 main states, with one
 transition occuring roughly 800 ns into the trajectory.  Off diagonal ``peaks''
@@ -56,15 +59,29 @@ good statistics.  In this case, the initial state is never sampled after the
 first transition, but there are a number of small transitions within the second
 state.
 
+\subsection{Assessing qualitative behavior of data}
+
+%[DMZ: SINCE THIS IS A QUALITATIVE ISSUE, SHOULDN'T IT GO IN THE QUICK-AND-DIRTY SECTION?]
+
+Generally speaking, analysis routines that extract derived quantities from raw data are often formulated on the basis of physical intuition about how that data should behave.  Before proceeding to data analysis, it is therefore useful to assess the extent to which raw data conforms to these expectations and the requirements imposed by either the modeler or the analysis routines.  Such tasks help reduce subjectivity of predictions and offer insight into when a simulation protocol should be revisited to better understand their meaningfulness \cite{patrone1}.  Unfortunately, general recipes for assessing data quality are impossible to formulate, owing to the range of physical quantities of interest to modelers.  Nonetheless, a short example will help clarify the matter.
+
+In the context of materials science, understanding when a structural material fails is critical for many engineering applications.  In the past decade, scientists have increasingly focused on modeling the yield-strain $\epsilon_y$, which is (loosely speaking) the amount of stretching (or strain) at which it deforms irreversibly.  Intuition and experiments tells us that upon deforming a material by a fraction $1+\epsilon$, it should recover its original dimensions if $\epsilon \le \epsilon_y$ and have a residual strain $\epsilon_r = \epsilon - \epsilon_y$ if $\epsilon \ge \epsilon_y$ \cite{patrone2}.  Owing to the time-scale limitations of MD, it is also reasonable to expect that the transition in $\epsilon_r$ around yield will be smooth and not piecewise linear.  Thus, if we fit residual strain to a hyperbola, the proximity of data to the asymptotes illustrates the extent to which simulated $\epsilon_r$ conforms to the expectation that $\epsilon_r=0$ when $\epsilon < \epsilon_y$.  See Fig.~\ref{fig:yield}.
+
+\begin{figure}
+\includegraphics[width=8cm]{hyperbola.png}\caption{Yield strain tn $\epsilon_r$ as a function of applied strain $\epsilon$.  Blue $\times$ denote simulated data, whereas the smooth curve is a hyperbola fit to the data.  The green lines are asymptotes; their intersection can be taken as an estimate of $\epsilon_y$.    Bounds on yield are computed by the synthetic data method discussed in the next section.  {\it From, ``Estimation and uncertainty quantification of yield via strain recovery simulations,'' P.\ Patrone, CAMX 2016 Conference Proceedings.  Reprinted courtesy of the National Institute of Standards and Technology, U.S. Department of Commerce. Not copyrightable in the United States.}}\label{fig:yield}
+\end{figure}
+
 \subsection{Assessing Convergence}
 
-\begin{wrapfigure}{r}{6cm}
+\begin{figure}
+%\begin{wrapfigure}{r}{6cm}
   \includegraphics[width=5.8cm]{figures/combinedcluster}
 %  \includegraphics[width=5.8cm]{figures/combinedcluster/combinedcluster}
   \caption{
   \label{f:combinedcluster} Combined clustering between two independent trajectories as a measure of convergence. The X axis is the population of a cluster from trajectory 1, while the Y axis is the population of that cluster from trajectory 2. Cluster populations are show after 20, 100, and 800 ns of sampling. The simulations used to generate the data used in this plot are described in Roe et al.\citep{Roe2014}
   }
-\end{wrapfigure}
+%\end{wrapfigure}
+\end{figure}
 
 Convergence in the context of biomolecular simulations typically refers to the overlap of two independent measurements of the same property. If a measure is not converged it is a strong indication that sampling is poor. There are two common ways to try to obtain independent measurements. Arguably the best way is to have multiple independent simulations, each with varying initial starting conditions. Ideally these starting conditions should in some way span the space to be sampled; this way one can have confidence that simulations are not being trapped in a local minimum. For example, say the goal is to sample the phi and psi torsions of alanine dipeptide: the phi and psi angles for one simulation could be started from an alpha-helical conformation, while another simulation could be started from a polyproline II conformation. It is important to note that the starting conditions only need to be varied enough so that the desired space is sampled. For example, if the goal is to sample protein folding and unfolding, there should be some simulations started from the folded conformation and some from the unfolded, but if it is not important to consider protein folding no initial conformation needs to be unfolded.
 

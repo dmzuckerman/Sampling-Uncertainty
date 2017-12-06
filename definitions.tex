@@ -3,9 +3,16 @@
 In order to make the discussion that follows more precise, we define key terms used in subsequent sections.
 We caution that while many of these concepts are familiar, our terminology follows the {\it International Vocabulary of Metrology} (VIM)\citep{JCGM:VIM2012}, a standard that sometimes differs from the conventional or common language of engineering statistics. 
 For additional information about or clarification of the statistical meaning of terms in the VIM, we suggest that readers consult the {\it Guide to the expression of uncertainty in measurement} (GUM)\citep{JCGM:GUM2008}.
-For clarity, we highlight differences between conventional terms and the VIM in the section following the glossary.
+
+For clarity, we highlight differences between conventional terms and the VIM usage employed throughout this article.
+We particularly suggest readers study the term ``standard uncertainty'' which is often estimated by (in common parlance) the ``standard error of the mean''; however, the VIM term for the latter is the ``experimental standard deviation of the mean.''
 In cases of lexical ambiguity, we hold to the definition of terms as given in the VIM.
 
+The glossary is presented in a logical, rather than alphabetical order, in that each definition requires only those preceding it.
+We strongly encourage reading through the full glossary because of its structure and potentially unfamiliar terminology.
+
+In the section following the glossary, we briefly describe the motivation for the modern terminology, which otherwise may be confusing.
+ 
 %The reader should be familiar with a set of basic statistical and simulation concepts.
 %[and we should provide links/refs for each.]
 
@@ -27,7 +34,8 @@ In cases of lexical ambiguity, we hold to the definition of terms as given in th
 
 \smallskip
 
-\textbf{\textit{Remark:}} Virtually all simulation tools (even those using quasi-random number generators) are deterministic.  As such, the output of any given simulation is never truly random, since it is the composition of knowable and predictable calculations.  However, it is generally infeasible to reproduce simulated calculations by hand, so that these are {\it in practice} unknowable.  Moreover, the chaotic nature of typical simulated systems leads to a situation in which the frequency of a given system configuration is well described by probability densities of statistical mechanics.  See Ref.~\cite{Leimkuhler} for more discussion of this rather deep point.
+\textbf{\textit{Remark:}} Virtually all simulation tools (even those using quasi-random number generators) are deterministic.  As such, the output of any given simulation is never truly random, since it is the composition of knowable and predictable calculations.  However, it is generally infeasible to reproduce simulated calculations by hand, so that these are {\it in practice} unknowable.  Moreover, the chaotic nature of typical simulated systems leads to a situation in which the frequency of a given system configuration in a sufficiently long simulation is well described by probability densities of statistical mechanics.  See Ref.~\cite{Leimkuhler} for more discussion of this rather deep point.
+
 
 \item {\bf True value:}  The value of a quantity that is consistent with its definition and is the objective of an idealized measurement or simulation.
 
@@ -39,11 +47,6 @@ In cases of lexical ambiguity, we hold to the definition of terms as given in th
 \textbf{\textit{Remark:}} Generally speaking, we use the descriptor ``true value'' in reference to quantities such as the expected value and standard deviation of a simulation output (were we able to run infinitely many simulations).
 As these quantities are inherently unknowable, we can only estimate their values and associated uncertainties.
 
-\item {\bf Standard Uncertainty}: Uncertainty in a result (e.g.\ prediction of a true value) as expressed in terms of a standard deviation.
-\smallskip 
-
-\textbf{\textit{Remark:}} The definition of standard uncertainty does not specify how to calculate the standard deviation.
-This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.  
 
 \item {\bf Arithmetic mean}: An estimate of the (true) expectation value of a random quantity. The arithmetic mean is given by the formula
   %
@@ -57,6 +60,7 @@ This choice ultimately rests with the modeler and should be dictated by the deta
 
 \textbf{\textit{Remark:}} It is straightforward to show that the arithmetic mean is a random quantity whose expectation value is that same as that of the $q_j$, provided the latter have a common mean.
 
+
 \item {\bf Experimental standard deviation}: An estimate of the (true) standard deviation of a random variable, given by the formula
   % 
   \begin{equation}
@@ -65,6 +69,10 @@ This choice ultimately rests with the modeler and should be dictated by the deta
   %
   where $q_j$, $\bar{q}$, and $n$ are as defined previously. 
   
+\smallskip
+\textbf{\textit{Remark:}} ``Experimental'' here and below can mean simulated data, which is considered to result from a numerical experiment -- in contrast to analytical results derived mathematically.
+
+
 \item {\bf Experimental standard deviation of the mean}: An estimate of the standard deviation of the distribution of the arithmetic mean, given by the formula
   % 
   \begin{equation}
@@ -73,9 +81,18 @@ This choice ultimately rests with the modeler and should be dictated by the deta
   %
   \smallskip
   
-\textbf{\textit{Remark:}} The experimental standard deviation of the mean characterizes the dispersion of the arithmetic mean relative to its expectation.
+\textbf{\textit{Remark:}} The experimental standard deviation of the mean, familiarly known as the ``standard error of the mean'' characterizes the dispersion of the arithmetic mean relative to its expectation.
 See \hyperref[def:exp_st_dev]{example link to definition of the experimental standard deviation}.
   
+  
+\item {\bf Standard Uncertainty}: Uncertainty in a result (e.g.\ prediction of a true value) as expressed in terms of a standard deviation.
+\smallskip 
+
+\textbf{\textit{Remark:}} The definition of standard uncertainty does not specify how to calculate the standard deviation.
+This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.  
+In cases where data is approximately normally distributed, the standard uncertainty is computed as the experimental standard deviation of the mean.
+
+
 \item {\bf Precision}: The amount of variability in an estimate (e.g., based on repeating a given simulation protocol multiple times).  %Better sampling in an individual simulation leads to higher precision.  
 %I commented out the last phrase because ``better'' seems a bit vague to me in this context.  Should this comment be placed elsewhere?  
   
@@ -92,7 +109,10 @@ For example, a MC simulation generates a sequence of configurations, for which t
   
 \item {\bf Derived observables}: Quantities derived from `non-trivial' (and often non-linear) analyses of raw data, e.g., properties that may not be computed for a single configuration such as free energies.
   
-\item {\bf Indepent observables}: Random quantities $x$ and $y$ for which the joint probability density can be written as a product of individual probability densities $P(x,y)=P(x)P(y)$.  
+\item {\bf Indepent observables}: Random quantities $x$ and $y$ for which the joint probability density can be written as a product of individual probability densities $P(x,y)=P(x)P(y)$.
+
+\smallskip
+\textbf{\textit{Remark:}} Independence of two variables means that the value of one variable does not affect distribution of the other.
   
 \item {\bf (Linearly) Uncorrelated observables}:  If quantities $q_j$ and $q_k$ have mean values $\left< q_j \right> $ and $\left< q_k \right>$, then $q_j$ and $q_k$ are linearly uncorrelated if
 % 
@@ -108,7 +128,7 @@ where $\left< \star \right>$ denotes the (true) expectation value.
 
 \smallskip
 
-\textbf{\textit{Remark:}} In practice, it is easier to (empirically) show that random variables are uncorrelated than independent.  However, linear correlations are often all that are needed to arrive at uncertainty estimates for various quantities.  See, e.g.\ the discussion of correlation times and autocorrelation analyses.
+\textbf{\textit{Remark:}} In practice, it is easier to (empirically) show that random variables are linearly uncorrelated than independent.  However, linear correlations are often all that are needed to arrive at uncertainty estimates for various quantities.  See, e.g.\ the discussion of correlation times and autocorrelation analyses.
 %PNP: where is that discussion?
 
 
@@ -127,7 +147,7 @@ Roughly speaking, the total simulation time divided by the longest correlation t
 
 %The time over which realizations of a random quantity indexed by a time-series (e.g.\ a physical property from a Monte Carlo or molecular dynamics trajectory) retain ``memory'' of one another, since each configuration is generated from the preceding one. Roughly, the total simulation time divided by the (longest) correlation time gives an estimate of the number of \emph{independent} samples that will govern overall statistical quality of the data.
 
-\item {\bf Two-sided confidence interval}: A statistically derived bound pair of lower and upper bounds between which the (true) expectation value of a random quantity is likely to fall, as quantified by a {\it confidence level} (typically given as a percentage, e.g., 95~\%). The confidence level, in conjunction with the sample size, determines the {\it coverage factor}, which is multiplied by \hyperref[def:exp_st_dev_mean]{$s\left(\bar{q}\right)$} to assign the bounds of the confidence interval.
+\item {\bf Two-sided confidence interval}: A statistically derived pair of lower and upper bounds between which the (true) expectation value of a random quantity is likely to fall, as quantified by a {\it confidence level} (typically given as a percentage, e.g., 95~\%). For Gaussian-distributed data, the confidence level, in conjunction with the sample size, determines the {\it coverage factor} which multiplies the experimental standard deviation of the mean \hyperref[def:exp_st_dev_mean]{$s\left(\bar{q}\right)$} to assign the bounds of the confidence interval.
 
 % Older versions
 %\item Precision: The amount of variability in an estimate (based on repeating a given simulation protocol multiple times).
@@ -147,12 +167,12 @@ As surveyed by Refs.~\citep{JCGM:GUM2008,JCGM:VIM2012}, the discussion that orig
 Nonetheless, it bears repeating here, if only to force a level of honesty regarding what we can actually hope to achieve with simulations.
 
 The fundamental idea underpinning this discussion is the observation that true values are inherently unknowable.
-As an added twist, the {\it Uncertainty Approach} advocated by Ref.~\citep{JCGM:GUM2008} also points out that the {\it definitions of true values may be imprecise,} so that the latter are in fact not even uniquely defined.\footnote{The GUM treats this definitional uncertainty as negligible compared to other sources.
+As an added twist, the {\it uncertainty approach} advocated by Ref.~\citep{JCGM:GUM2008} also points out that the {\it definitions of true values may be imprecise,} so that the latter are in fact not even uniquely defined.\footnote{The GUM treats this definitional uncertainty as negligible compared to other sources.
 However, the notion of definitional uncertainty is worth revisiting in the context of simulated data.
 For example, we are aware of at least one situation in which the large scale of noise in simulated data (as compared with experiments) induces subjectivity in the definition of the glass-transition temperature, which ultimately affects uncertainties in a non-trivial way.
 See Ref.~\citep{patrone1} and \textcolor{red}{Cite TG doc}.}
 As such, assignments of ``error'' are impossible to make, since these are defined relative to the true value.
-Rather, statistical analyses are better interpreted as quantifying our state of knowledge, e.g., our ability to confidently state that the the ``true'' mean is within some interval.
+Rather, statistical analyses are better interpreted as quantifying our state of knowledge, e.g., our ability to confidently state that the ``true'' mean is within some interval.
 
 From a practical standpoint, this leads one to revisit definitions of uncertainty as defined, for example, by Eqs.~\ref{def:exp_st_dev} and \ref{def:exp_st_dev_mean}.
 Conventionally this has gone by the name ``standard error,'' but in keeping with the perspective already laid out, we advocate the use of \hyperref[def:exp_st_dev_mean]{experimental standard deviation of the mean}.
