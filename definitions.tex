@@ -3,8 +3,16 @@
 In order to make the discussion that follows more precise, we define key terms used in subsequent sections.
 We caution that while many of these concepts are familiar, our terminology follows the {\it International Vocabulary of Metrology} (VIM)\citep{JCGM:VIM2012}, a standard that sometimes differs from the conventional or common language of engineering statistics. 
 For additional information about or clarification of the statistical meaning of terms in the VIM, we suggest that readers consult the {\it Guide to the expression of uncertainty in measurement} (GUM)\citep{JCGM:GUM2008}.
+
+For clarity, we highlight differences between conventional terms and the VIM usage employed throughout this article.
+We particularly suggest readers study the term ``standard uncertainty'' which is often estimated by (in common parlance) the ``standard error of the mean''; however, the VIM term for the latter is the ``experimental standard deviation of the mean.''
 In cases of lexical ambiguity, the reader should assume that we hold to the definition of terms as given in the VIM.
-For clarity, we highlight differences between the VIM and conventional terms in the following glossary and then discuss the statistical terms more generally in the subsequent section.
+
+The glossary is presented in a logical, rather than alphabetical order, in that each definition requires only those preceding it.
+We strongly encourage reading through the full glossary because of its structure and potentially unfamiliar terminology.
+
+%In the section following the glossary, we briefly describe the motivation for the modern terminology, which otherwise may be confusing.
+%For clarity, we highlight differences between the VIM and conventional terms in the following glossary and then discuss the statistical terms more generally in the subsequent section.
 
 
 \subsubsection{Glossary of Statistical Terms}
@@ -51,7 +59,7 @@ In the case that $x$ adopts discrete values $x_1,x_2,...$, we instead write
 \langle x \rangle = \sum_i x_i P(x_i).
 \end{align}
 
-\item {\bf Variance}:\footnote{The probability density $P(x)$ is inherently unknowable, given that we can only collect a finite amount of data about $x$.  As such, we can only estimate the expectation value of $x$ and its variance.} Taking $P(x)$ as defined previously, the variance of a random quantity is a measure of how much it can fluctuate, given by the formula
+\item {\bf Variance}:\footnote{The true probability density $P(x)$ is inherently unknowable, given that we can only collect a finite amount of data about $x$.  As such, we can only estimate the expectation value of $x$ and its variance.} Taking $P(x)$ as defined previously, the variance of a random quantity is a measure of how much it can fluctuate, given by the formula
 \begin{align}
 \sigma^2 = \int {\rm d}x\, P(x) \left( x  - \langle x \rangle \right)^2.
 \end{align}
@@ -69,13 +77,13 @@ If $x$ assume discrete values, the coresponding definition becomes
   %
   where $q_j$ is an experimental or simulated realization of the random variable and $n$ is the number of samples. 
 \smallskip 
-%DWS Note: Do we need to define "expectation value"?
 
 %\textbf{\textit{Remark:}} It is straightforward to show that the arithmetic mean is a random quantity whose expectation value is that same as that of the $q_j$, provided the latter have a common mean.
 \textbf{\textit{Remark:}} This quantity is often called the ``sample mean.''
 
 \item {\bf Experimental standard deviation\footnote{
-      The adjective ``experimental'' does not necessarily refer to a physical measurement.  In more detail, the VIM\cite{JCGM:VIM2012} treats the word ``experiment'' and its grammatical derivatives as non-defined, primitive, concepts that have assumed meanings. For the purposes, it is meaningful to treat a molecular simulation as an experiment, albeit a numerical one. %Thus, the variation in measurements taken in a simulation may be appropriately called the ``experimental standard deviation.'' 
+      ``Experimental'' here and below can mean simulated data, which is considered to result from a numerical experiment – in contrast to analytical results derived mathematically.
+%      The adjective ``experimental'' does not necessarily refer to a physical measurement.  In more detail, the VIM\cite{JCGM:VIM2012} treats the word ``experiment'' and its grammatical derivatives as non-defined, primitive, concepts that have assumed meanings. For the purposes, it is meaningful to treat a molecular simulation as an experiment, albeit a numerical one. %Thus, the variation in measurements taken in a simulation may be appropriately called the ``experimental standard deviation.'' 
 %The same applies to other terms that include the adjective ``experimental.''
 }
   }: An estimate of the (true) standard deviation of a random variable, given by the formula
@@ -158,7 +166,7 @@ Roughly speaking, the total simulation time divided by the longest correlation t
 %The time over which realizations of a random quantity indexed by a time-series (e.g.\ a physical property from a Monte Carlo or molecular dynamics trajectory) retain ``memory'' of one another, since each configuration is generated from the preceding one. Roughly, the total simulation time divided by the (longest) correlation time gives an estimate of the number of \emph{independent} samples that will govern overall statistical quality of the data.
 
 \item {\bf Two-sided confidence interval}: A statistically derived pair of lower and upper bounds between which the (true) expectation value of a random quantity is likely to fall, as quantified by a {\it confidence level} (typically given as a percentage, e.g.\ 95~\%).
-  The confidence level, in conjunction with the sample size, determines the {\it coverage factor}, which is multiplied by \hyperref[def:exp_st_dev_mean]{$s\left(\bar{q}\right)$} to assign the bounds of the confidence interval.
+  For Gaussian-distributed data, the confidence level, in conjunction with the sample size, determines the {\it coverage factor}, which is multiplied by \hyperref[def:exp_st_dev_mean]{$s\left(\bar{q}\right)$} to assign the bounds of the confidence interval.
   \label{def:conf_int}
 
 \end{itemize}
