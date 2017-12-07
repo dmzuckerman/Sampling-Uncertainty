@@ -7,7 +7,7 @@ Here we address this simple but critical question.
 
 In general, there is no one-best practice for choosing error bars. However, in the context of simulations, we can nonetheless identify common goals when reporting such estimates: (i) to help authors and readers better understand uncertainty in data; and (ii) to provide readers with realistic information about the reproducibility of a given result.
 
-With this in mind, we recommend the following: (a) in fields where there is a definitive standard for reporting uncertainty, the authors should follow existing conventions; (b) otherwise, such as for biomolecular simulations, \emph{authors should report (and graph) their best estimates of 90\% confidence intervals.} As explained in the glossary above, a 90\% confidence interval is a range of values that is expected to bracket 90\% of the computed predictions \emph{if statistically equivalent simulations are repeated a large number of times;} (c) when feasible, consider plotting all of the points or a histogram instead of an average with error bars.
+With this in mind, we recommend the following: (a) in fields where there is a definitive standard for reporting uncertainty, the authors should follow existing conventions; (b) otherwise, such as for biomolecular simulations, \emph{authors should report (and graph) their best estimates of 90\% confidence intervals.} As explained in the glossary above, a 90\% confidence interval is a range of values that is expected to bracket 90\% of the computed predictions \emph{if statistically equivalent simulations are repeated a large number of times;} (c) when feasible and especially for a small number of independent measurements ($n < 10$), consider plotting all of the points or a histogram instead of an average with error bars.
 
 
 We emphasize that as opposed to standard uncertainties (reported as a standard deviation $\sigma$), confidence intervals have several practical benefits that justify their usage. In particular, they directly quantify the statistical frequency with which we expect a given outcome, which is more relatable to everyday experience than moments of a probability distribution. As such, confidence intervals can help authors and readers better understand the implications of an uncertainty analysis. Moreover, downstream users/readers of a given paper may include less statistically-oriented readers for whom confidence intervals are a more meaningful measure of variation.
@@ -61,17 +61,17 @@ Whether using a coverage factor and standard uncertainty or bootstrapping, one r
 
 In the absence of a reliable estimate for the number of independent observations, one can perform $n$ independent simulations and calculate the standard deviation $\sigma$ among these, yielding a standard uncertainty of $\stdunc = \sigma / \sqrt{n}$.  When computing the uncertainty with this approach, it is important to ensure that each starting configuration is also independent - or else to recognize and indicate in publication that the uncertainty refers to simulations started from a particular configuration.  The means to obtain independent starting configurations is system-dependent, but might involve repeating the protocol used to construct a configuration (solvating a protein, inserting liquid molecules in a box, etc.), using a new random seed.  However, readers are cautioned that \emph{for complex systems, it may be effectively impossible to generate truly independent starting configurations pertinent to the ensemble of interest.}  For example, a simulation of a protein in water will nearly always start from the experimental structure, which introduces some correlation in the resulting simulations even when the remaining simulation components (water, salt, etc) are regenerated de novo.
 
-\subsection{Assessing qualitative behavior of data}
+%\subsection{Assessing qualitative behavior of data}
 
-[DMZ: SINCE THIS IS A QUALITATIVE ISSUE, SHOULDN'T IT GO IN THE QUICK-AND-DIRTY SECTION?]
+%[DMZ: moved to QUICK-AND-DIRTY SECTION
 
-Generally speaking, analysis routines that extract derived quantities from raw data are often formulated on the basis of physical intuition about how that data should behave.  Before proceeding to data analysis, it is therefore useful to assess the extent to which raw data conforms to these expectations and the requirements imposed by either the modeler or the analysis routines.  Such tasks help reduce subjectivity of predictions and offer insight into when a simulation protocol should be revisited to better understand their meaningfulness \cite{patrone1}.  Unfortunately, general recipes for assessing data quality are impossible to formulate, owing to the range of physical quantities of interest to modelers.  Nonetheless, a short example will help clarify the matter.
+%Generally speaking, analysis routines that extract derived quantities from raw data are often formulated on the basis of physical intuition about how that data should behave.  Before proceeding to data analysis, it is therefore useful to assess the extent to which raw data conforms to these expectations and the requirements imposed by either the modeler or the analysis routines.  Such tasks help reduce subjectivity of predictions and offer insight into when a simulation protocol should be revisited to better understand their meaningfulness \cite{patrone1}.  Unfortunately, general recipes for assessing data quality are impossible to formulate, owing to the range of physical quantities of interest to modelers.  Nonetheless, a short example will help clarify the matter.
 
-In the context of materials science, understanding when a structural material fails is critical for many engineering applications.  In the past decade, scientists have increasingly focused on modeling the yield-strain $\epsilon_y$, which is (loosely speaking) the amount of stretching (or strain) at which it deforms irreversibly.  Intuition and experiments tells us that upon deforming a material by a fraction $1+\epsilon$, it should recover its original dimensions if $\epsilon \le \epsilon_y$ and have a residual strain $\epsilon_r = \epsilon - \epsilon_y$ if $\epsilon \ge \epsilon_y$ \cite{patrone2}.  Owing to the time-scale limitations of MD, it is also reasonable to expect that the transition in $\epsilon_r$ around yield will be smooth and not piecewise linear.  Thus, if we fit residual strain to a hyperbola, the proximity of data to the asymptotes illustrates the extent to which simulated $\epsilon_r$ conforms to the expectation that $\epsilon_r=0$ when $\epsilon < \epsilon_y$.  See Fig.~\ref{fig:yield}.
+%In the context of materials science, understanding when a structural material fails is critical for many engineering applications.  In the past decade, scientists have increasingly focused on modeling the yield-strain $\epsilon_y$, which is (loosely speaking) the amount of stretching (or strain) at which it deforms irreversibly.  Intuition and experiments tells us that upon deforming a material by a fraction $1+\epsilon$, it should recover its original dimensions if $\epsilon \le \epsilon_y$ and have a residual strain $\epsilon_r = \epsilon - \epsilon_y$ if $\epsilon \ge \epsilon_y$ \cite{patrone2}.  Owing to the time-scale limitations of MD, it is also reasonable to expect that the transition in $\epsilon_r$ around yield will be smooth and not piecewise linear.  Thus, if we fit residual strain to a hyperbola, the proximity of data to the asymptotes illustrates the extent to which simulated $\epsilon_r$ conforms to the expectation that $\epsilon_r=0$ when $\epsilon < \epsilon_y$.  See Fig.~\ref{fig:yield}.
 
-\begin{figure}
-\includegraphics[width=8cm]{hyperbola.png}\caption{Yield strain tn $\epsilon_r$ as a function of applied strain $\epsilon$.  Blue $\times$ denote simulated data, whereas the smooth curve is a hyperbola fit to the data.  The green lines are asymptotes; their intersection can be taken as an estimate of $\epsilon_y$.    Bounds on yield are computed by the synthetic data method discussed in the next section.  {\it From, ``Estimation and uncertainty quantification of yield via strain recovery simulations,'' P.\ Patrone, CAMX 2016 Conference Proceedings.  Reprinted courtesy of the National Institute of Standards and Technology, U.S. Department of Commerce. Not copyrightable in the United States.}}\label{fig:yield}
-\end{figure}
+%\begin{figure}
+%\includegraphics[width=8cm]{hyperbola.png}\caption{Yield strain tn $\epsilon_r$ as a function of applied strain $\epsilon$.  Blue $\times$ denote simulated data, whereas the smooth curve is a hyperbola fit to the data.  The green lines are asymptotes; their intersection can be taken as an estimate of $\epsilon_y$.    Bounds on yield are computed by the synthetic data method discussed in the next section.  {\it From, ``Estimation and uncertainty quantification of yield via strain recovery simulations,'' P.\ Patrone, CAMX 2016 Conference Proceedings.  Reprinted courtesy of the National Institute of Standards and Technology, U.S. Department of Commerce. Not copyrightable in the United States.}}\label{fig:yield}
+%\end{figure}
 
 \subsection{Block averaging for estimating the standard uncertainty}
 
@@ -163,21 +163,21 @@ where $T_i$ is the prediction from the $i$th simulation, $\sigma_i^2$ is its ass
 
 
 
-- Basics: how to report, what goal to shoot for, significant figures
-- When should you not trust uncertainties
-    - Unknown unknowns
-- If calculating a derived quantity, consider error in conversion from raw data
-    - Propagation of error (this doesn’t mean publishing your results!)
-    - Taylor series expansion can handle cases where derived quantity is a direct function of measured data
-    - Wikipedia: Propagation of uncertainty
-    - Bootstrapping [Andrew/Dan S]
-used for cases where the derived quantity is not simple function of the measured data.
-An Introduction to the Bootstrap
-    - Need to know correlation to correctly estimate sample size
-    - Otherwise just gives relative uncertainty
-- Correlation time analysis [Dan Z]
-- Block averaging [Dan Z/Alan?/Dan S] Flyvjberg and Petersen
-- MOST OF THESE ALGORITHMS FAIL IF THE TRAJECTORY IS WAY TOO SHORT
-    - If you miss the timescale by enough, you can’t tell
-    - YOU HAVE TO THINK ABOUT THIS IN ADVANCE
-- Link out to transport doc
+%- Basics: how to report, what goal to shoot for, significant figures
+%- When should you not trust uncertainties
+%    - Unknown unknowns
+%- If calculating a derived quantity, consider error in conversion from raw data
+%    - Propagation of error (this doesn’t mean publishing your results!)
+%    - Taylor series expansion can handle cases where derived quantity is a direct function of measured data
+%    - Wikipedia: Propagation of uncertainty
+%    - Bootstrapping [Andrew/Dan S]
+%used for cases where the derived quantity is not simple function of the measured data.
+%An Introduction to the Bootstrap
+%    - Need to know correlation to correctly estimate sample size
+%    - Otherwise just gives relative uncertainty
+%- Correlation time analysis [Dan Z]
+%- Block averaging [Dan Z/Alan?/Dan S] Flyvjberg and Petersen
+%- MOST OF THESE ALGORITHMS FAIL IF THE TRAJECTORY IS WAY TOO SHORT
+%    - If you miss the timescale by enough, you can’t tell
+%    - YOU HAVE TO THINK ABOUT THIS IN ADVANCE
+%- Link out to transport doc
