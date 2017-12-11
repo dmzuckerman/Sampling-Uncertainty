@@ -83,13 +83,12 @@ If $x$ assume discrete values, the coresponding definition becomes
 \item {\bf Experimental standard deviation\footnote{
       The term ``experimental'' can refer to simulated data, since these are the results of numerical experiments.
 }
-  }: An estimate of the (true) standard deviation of a random variable, given by the formula
+}: An estimate of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the demonimator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the estimate is {\it unbiased}, meaning that on average $s\left(q_k\right)^2$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) is lost via the appearance of $\bar{q}$ in the definition of $s\left(q_k\right)$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $q_k$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated observables}).}
   \begin{equation}
     s\left(q_k\right) = \sqrt{\dfrac{\sum_{j=1}^n\left(q_j - \bar{q}\right)^2}{n-1}} \label{def:exp_st_dev}
   \end{equation}
   \smallskip
   \textbf{\textit{Remark:}} This quantity is often called the ``sample standard deviation.'' 
-  \textbf{\textit{Remark:}} The factor of $n-1$ (as opposed to $n$) appearing in the demonimator of Eq.~\eqref{eq:def:exp_st_dev} is needed to ensure that the estimate is {\it unbiased}, meaning that on average $s\left(q_k\right)^2$ is equal to the true variance.  Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) was needed to construct the arithmetic mean.  Alternatively, it accounts for the fact that the arithmetic mean is linearly correlated with each $q_k$ (cf.\ the next definition).
 %FYI, the data does NOT need to be linearly uncorrelated for this estimate under typical MD conditions.  Assuming correlation times \tau << N (where N is the number of timesteps), the relative error in using correlated data is O(tau/N) << 1.
 
 
