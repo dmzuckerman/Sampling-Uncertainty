@@ -57,7 +57,7 @@ Like other enhanced sampling methods, WE's tree of trajectories has a complex co
 It is important to understand the basic theory and limitations of the WE method, as is discussed in this
 \href{https://westpa.github.io/westpa/overview.html}{overview document}.
 
-From a practical standpoint, the safest way to assess uncertainty in WE simulations is to run multiple instances (ideally set up in the same way) from which a variance and standard uncertainty in any observable can be calculated; see definitions.
+From a practical standpoint, the safest way to assess uncertainty in WE simulations is to run multiple instances (ideally differing only in the structures used to seed the calculation) from which a variance and standard uncertainty in any observable can be calculated; see definitions.
 Note particularly that WE tracks the time evolution of observables as the system relaxes (perhaps quite slowly) to equilibrium or another steady state \cite{Zhang2010a}; hence, the variance computed in an observable from multiple runs should be based on values at the same time point.
 
 When it is necessary to estimate uncertainty based on a single WE run, the user should treat the (ensemble-weighted) value of an observable measured over time much like an observable in a standard single MD simulation; this is because the correlations in ensemble averages are sequential in time.
