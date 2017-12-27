@@ -24,22 +24,24 @@ In recommending 95~\% confidence intervals, we are admittedly attempting to addr
 
 %A 90\% confidence interval, as explained in the glossary above, is a range of values which is expected to bracket 90\% of the observable values \emph{if the identical simulation is repeated a large number of times.}  Of course, the interval is estimated based on a single simulation, and so it is only approximate; nevertheless, as explained below, there are statistically sound means for estimating the interval from a single simulation.  If additional simulations are performed and used to estimate the confidence interval, one is then trying to estimate the confidence interval for the set of simulations -- and the corresponding interval should be smaller, in general, than that for a single simulation.
 
-\begin{table}
-    \begin{tabular}{S S}
-      \toprule
-       {Pressure (MPa)} & {Density (mol/L)} \\
-      0.001 & 3.007(3)e-4 \\
-      0.010 & 0.003011(2) \\
-      0.100 & 0.03039(16) \\
-      1.000 & 52.1(5) \\
-      \bottomrule
-    \end{tabular}
-  \caption{Density as a function of pressure for water at a temperature of 400K}
-  \label{tab:uncertainties}
-\end{table}
+%\begin{table}
+    %\begin{tabular}{S S}
+      %\toprule
+       %{Pressure (MPa)} & {Density (mol/L)} \\
+      %0.001 & 3.007(3)e-4 \\
+      %0.010 & 0.003011(2) \\
+      %0.100 & 0.03039(16) \\
+      %1.000 & 52.1(5) \\
+      %\bottomrule
+    %\end{tabular}
+  %\caption{Density as a function of pressure for water at a temperature of 400K}
+  %\label{tab:uncertainties}
+%\end{table}
 
-[DMZ: SHOULD WE INCLUDE THIS (AND TABLE) GIVEN THAT IT SEEMS FIELD-SPECIFIC?  IF SO, WE SHOULD BE SPECIFIC ABOUT WHICH FIELDS USE THIS CONVENTION - CERTAINLY NOT BIOMOLECULAR SIMULATION.]
-When reporting quantities with uncertainties, only the digits that are significant should be included and the standard error should be placed after the value in parenthesis as the uncertainty in the last digit.  In general only one digit of uncertainty need be reported unless the digit is 1, in which case, it is helpful to report two digits (in order to avoid up to 50~\% roundoff error in the uncertainty).  See the \TABLE{uncertainties} for examples from hypothetical isobaric simulations of water.
+%[DMZ: SHOULD WE INCLUDE THIS (AND TABLE) GIVEN THAT IT SEEMS FIELD-SPECIFIC?  IF SO, WE SHOULD BE SPECIFIC ABOUT WHICH FIELDS USE THIS CONVENTION - CERTAINLY NOT BIOMOLECULAR SIMULATION.]
+As a final note, we remind readers that only significant figures should be reported.
+Additional figures beyond the precision implicit in the uncertainty are unhelpful at best, and potentially misleading to readers who may not be aware of the limitations of simulations or statistical analyses generally.
+%When reporting quantities with uncertainties, only the digits that are significant should be included and the standard error should be placed after the value in parenthesis as the uncertainty in the last digit.  In general only one digit of uncertainty need be reported unless the digit is 1, in which case, it is helpful to report two digits (in order to avoid up to 50~\% roundoff error in the uncertainty).  See the \TABLE{uncertainties} for examples from hypothetical isobaric simulations of water.
 
 
 \subsection{Overview of procedures for computing a confidence interval}
