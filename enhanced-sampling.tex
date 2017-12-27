@@ -54,13 +54,13 @@ The final set of trajectories can be visualized as a tree structure based on the
 WE is an unbiased method that can be used to sample rare transient behavior \cite{Zhang2010a} as well as steady states \cite{Bhatt2010a} including equilibrium \cite{Suarez2014}.
 
 Like other enhanced sampling methods, WE's tree of trajectories has a complex correlation structure requiring care for uncertainty analysis.
-It is important to understand the basic theory and limitations of the WE method, as is discussed in this
-\href{https://westpa.github.io/westpa/overview.html}{overview document}.
+It is important to understand the basic theory and limitations of the WE method, as is discussed in a
+\href{https://westpa.github.io/westpa/overview.html}{WE overview document}.
 
-From a practical standpoint, the safest way to assess uncertainty in WE simulations is to run multiple instances (ideally differing only in the structures used to seed the calculation) from which a variance and standard uncertainty in any observable can be calculated; see definitions.
+From a practical standpoint, the safest way to assess uncertainty in WE simulations is to run multiple instances (which can be seeded from identical or different starting structures depending on the desired calculation) from which a variance and standard uncertainty in any observable can be calculated; see definitions.
 Note particularly that WE tracks the time evolution of observables as the system relaxes (perhaps quite slowly) to equilibrium or another steady state \cite{Zhang2010a}; hence, the variance computed in an observable from multiple runs should be based on values at the same time point.
 
 When it is necessary to estimate uncertainty based on a single WE run, the user should treat the (ensemble-weighted) value of an observable measured over time much like an observable in a standard single MD simulation; this is because the correlations in ensemble averages are sequential in time.
 First, as discussed in Sec.\ \ref{sec:quick}, the time trace of the observable should be inspected for relaxation to a nearly constant value about which fluctuations occur.
 A transient/equilibration period should be removed in analogy to MD - see Sec.\ \ref{sec:equil} - and then best practices for single obervable uncertainties should be followed as described in Sec.\ \ref{sec:specific}.
-Despite this rather neat analogy to conventional MD, experience has shown that run-to-run variance in WE simulations can be surprisingly large, so multiple runs are strongly advised.
+Despite this rather neat analogy to conventional MD, experience has shown that run-to-run variance in WE simulations of challenging systems can be  large, so multiple runs are  advised.  In the future, variance-reduction techniques may alleviate the need for multiple runs.

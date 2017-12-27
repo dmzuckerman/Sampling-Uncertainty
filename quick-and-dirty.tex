@@ -26,7 +26,7 @@ Generally speaking, analysis routines that extract information from raw simulate
 
 \subsection{Zeroth-order system-wide tests}
 
-The simplest test for poor sampling is lack of equilibration: if the system is still noticeably relaxing from its starting conformation, statistical sampling has not even begun, and thus by definition is poor.  As a result, the very first test should be to verify that the basic equilibration has occurred.  To check for this, one should inspect the time series for a number of simple scalar values, such as potential energy, system size (and area, if you are simulating a membrane or other system where one dimension is distinct from the others), temperature (if you are simulating in the NVE ensemble), and/or density (if simulating in the isothermal-isobaric ensemble).  Often, simple visual inspection is sufficient to determine that the simulation is systematically changing, although more sophisticated methods have been proposed by Chodera \cite{Chodera-2016}.  If \emph{any} value appears to be systematically changing, then the system is not equilibrated.
+The simplest test for poor sampling is lack of equilibration: if the system is still noticeably relaxing from its starting conformation, statistical sampling has not even begun, and thus by definition is poor.  As a result, the very first test should be to verify that the basic equilibration has occurred.  To check for this, one should inspect the time series for a number of simple scalar values, such as potential energy, system size (and area, if you are simulating a membrane or other system where one dimension is distinct from the others), temperature (if you are simulating in the NVE ensemble), and/or density (if simulating in the isothermal-isobaric ensemble).  Often, simple visual inspection is sufficient to determine that the simulation is systematically changing, although more sophisticated methods have been proposed -- see Sec.\ \ref{sec:equil}.  If \emph{any} value appears to be systematically changing, then the system is not equilibrated.
 
 \subsection{Tests based on configurational distance measures - e.g., RMSD for biomolecules}
 We will use the standard biomolecular RMSD (root mean-squared difference) as a generic distance measure for illustrative purposes.
@@ -61,7 +61,7 @@ good statistics.  In this case, the initial state is never sampled after the
 first transition, but there are a number of small transitions within the second
 state.
 
-\subsection{Testing for linear behavior}
+\subsection{Testing for linear behavior in material properties}
 
 %[DMZ: SINCE THIS IS A QUALITATIVE ISSUE, SHOULDN'T IT GO IN THE QUICK-AND-DIRTY SECTION?]
 
