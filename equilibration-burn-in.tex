@@ -13,7 +13,7 @@
   }
 \end{figure}
 
-The 'equilibration' or 'burn-in' time $t_{\mathrm{equil}}$ represents the initial part of a single continuous trajectory (whether from MD or MC) that is \emph{discarded} for purposes of data analysis; 
+The 'equilibration' or 'burn-in' time $t_{\mathrm{equil}}$ represents the initial part of a single continuous trajectory (whether from MD or MC) that is \emph{discarded} for purposes of data analysis of \emph{equilibrium properties}; 
 the remaining trajectory data is often called `production' data.
 See Fig.\ \ref{fig:tequil}.
 Discarding data may seem counter-productive, but there is no reason to expect that the initial configurations of a trajectory will be important in the ensemble ultimately obtained.
@@ -21,9 +21,8 @@ Including early-time data, therefore, can systematically \emph{bias} results.
 
 Examples can help to illustrate the idea.
 In the biomolecular realm, consider the initial configuration of a protein, which has been energy-minimized and otherwise relaxed from a crystal structure.
-Such an initial structure might seem to be intrinsically valuable, but remember that configurations important in a crystal environment may not be equally pertinent to an aqueous environment;
-also, any minimization/relaxation that has been performed likely will be very local and keep the configuration within or nearby the initial basin.
-See the RMSD trace in Fig.\ \ref{f:rmsd}, and note the very rapid RMSD increase in the first $\sim$200 ns.
+Such an initial structure might seem to be intrinsically valuable, but remember that configurations important in a crystal environment may not be equally pertinent to an aqueous environment due to e.g. crystal packing etc. Also, any energy minimization/relaxation that has been performed likely will be very local and keep the configuration within or nearby the initial energy basin.
+See the RMSD trace in Fig.\ \ref{f:rmsd}, and note the very rapid RMSD increase in the first $\sim$200 ns. This indicates that the initial conformation was not favorable for the given conformation/simulation conditions. This rapid relaxation to a new conformation is inherently a non-equilibrium process and should not be included in the calculation of equilibrium properties.
 In materials science, if a simulation is designed to study thermally induced fluctuations or defects in a (mostly) ordered system, 
 an initial fully ordered configuration is not likely to be representative of the targeted ensemble.
 
