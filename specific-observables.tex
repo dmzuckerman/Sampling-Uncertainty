@@ -107,11 +107,15 @@ First, given a set of observations $\left\{q_1, ..., q_N\right\}$, the autocorre
 %
 \begin{equation}
   C_j = \dfrac{
-    % The weird white "j" and negative hspace is to make the square brackets the same size
+    % The weird white "j" and negative hspace is to make the parentheses/square brackets the same size
     % Is $\langle \rangle>$ the best way to express the mean in the ACF?
-    \left< \left[ q_{k{\color{white}j}}\hspace{-1pt} - \bar{q} \right] 
-      \left[ q_{k+j} - \bar{q} \right]
-    \right>
+    %\left< \left[ q_{k{\color{white}j}}\hspace{-1pt} - \bar{q} \right] 
+    %  \left[ q_{k+j} - \bar{q} \right]
+    %\right>
+    \overline{
+      \left( q_{k{\color{white}j}}\hspace{-1pt} - \bar{q} \right) 
+      \left( q_{k+j} - \bar{q} \right)
+    }
   }
   {s\left(q_k\right)^2}
 \end{equation}
@@ -125,6 +129,7 @@ Then, the number of independent samples is estimated by\footnote{{\color{red} Ex
   N_{ind} = \dfrac{N}{1+2 \sum_{i=1}^{N_{lags}} C_j}
 \end{equation}
 %
+where $N_{lags}$ is the number of lags for which the $C_j$ was computed.
 In practice, one rounds $N_{ind}$ to an integer.
 Finally, the standard uncertainty is estimated via
 %
