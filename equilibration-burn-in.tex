@@ -1,3 +1,5 @@
+% !TEX root = ./main.tex
+
 \section{Determining and removing an equilibration or `burn-in' portion of a trajectory}
 \label{sec:equil}
 
@@ -5,7 +7,7 @@
   \centering
   \includegraphics[width=7cm]{figures/tequil-time-trace}
   \caption{
-  \label{fig:tequil} 
+  \label{fig:tequil}
   The equilibration and production segments of a trajectory.
   ``Equilibration'' over the time $t_{\mathrm{equil}}$ represents transient behavior while the initial configuration relaxes toward configurations more representative of the equilibrium ensemble.
   Readers are encouraged to select $t_{\mathrm{equil}}$ in a systematic way based on published literature.
@@ -13,18 +15,18 @@
   }
 \end{figure}
 
-The 'equilibration' or 'burn-in' time $t_{\mathrm{equil}}$ represents the initial part of a single continuous trajectory (whether from MD or MC) that is \emph{discarded} for purposes of data analysis of \emph{equilibrium properties}; 
+The 'equilibration' or 'burn-in' time $t_{\mathrm{equil}}$ represents the initial part of a single continuous trajectory (whether from MD or MC) that is \emph{discarded} for purposes of data analysis of \emph{equilibrium properties};
 the remaining trajectory data is often called `production' data.
 See Fig.\ \ref{fig:tequil}.
 Discarding data may seem counter-productive, but there is no reason to expect that the initial configurations of a trajectory will be important in the ensemble ultimately obtained.
 Including early-time data, therefore, can systematically \emph{bias} results.
 
-Examples can help to illustrate the idea.
 In the biomolecular realm, consider the initial configuration of a protein, which has been energy-minimized and otherwise relaxed from a crystal structure.
-Such an initial structure might seem to be intrinsically valuable, but remember that configurations important in a crystal environment may not be equally pertinent to an aqueous environment due to e.g. crystal packing etc. Also, any energy minimization/relaxation that has been performed likely will be very local and keep the configuration within or nearby the initial energy basin.
-See the RMSD trace in Fig.\ \ref{f:rmsd}, and note the very rapid RMSD increase in the first $\sim$200 ns. This indicates that the initial conformation was not favorable for the given conformation/simulation conditions. This rapid relaxation to a new conformation is inherently a non-equilibrium process and should not be included in the calculation of equilibrium properties.
-In materials science, if a simulation is designed to study thermally induced fluctuations or defects in a (mostly) ordered system, 
-an initial fully ordered configuration is not likely to be representative of the targeted ensemble.
+Such an initial structure might seem to be intrinsically valuable, but remember that configurations important in a crystal environment may not be equally pertinent to an aqueous environment due to e.g. crystal packing etc. Also, any energy minimization/relaxation that has been performed likely will be very local and keep the configuration within or nearby the initial energy basin.  Moreover, the force field used to represent interactions will in general not be identical to that used to as part of the crystal structure solution.
+See the RMSD trace in Fig.\ \ref{f:rmsd}, and note the very rapid RMSD increase in the first $\sim$200 ns. Part of this increase is simply entropic: the volume of phase space within 1 {\AA} of a protein structure is extremely small, so the process of thermalizing rapidly increases RMSD from the starting structure, \emph{regardless of how favorable or representative that structure is}.  Thus, examining that initial rapid increase is not helpful in determining an equilibration time.  However, in this case, the RMSD continues to increase past 3 {\AA}, which is larger than the amplitude of simple thermal fluctuations (shown by Fig.\ \ref{f:rmsd}B), indicating an initial drift to a new structure, followed by sampling.
+
+In materials science, if a simulation is designed to study thermally induced fluctuations or defects in a (mostly) ordered system,
+an initial fully ordered configuration is not likely to be representative of the targeted ensemble, and the early dynamics represent a transient relaxation toward the average, which is not representative of the desired equilibrium ensemble.
 
 Accepting that some data should be discarded, it is not hard to see that we want to avoid discarding too much data, given that many systems of interest are extremely expensive to simulate.
 Putting those two competing goals into statistical language, we want to remove bias but also minimize uncertainty (variance).
