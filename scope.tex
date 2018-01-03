@@ -1,7 +1,16 @@
 \subsection{Scope}
 
-This article is geared toward simulation studies attempting to quantify observables and derive reliable estimates of uncertainty (e.g., error bars) based on `standard' canonical sampling methods (e.g., molecular dynamics and Monte Carlo) and associated `enhanced' sampling methods.
-Some problems and systems may be better studied with cruder techniques and analyses, which will not be covered here.
+Simulating molecular systems that are interesting by today's standards is a challenging task.  In addition to the various system-specific issues that modelers must address, questions often arise concerning, e.g. the best way to adequately sample the desired phase-space or estimate uncertainties.  And while these latter questions are not unique to molecular modeling, their importance cannot be overstated: the usefulness of a simulated result ultimately hinges on being able to confidently and accurately report uncertainties.  
+
+This article therefore aims to provide best-practices for reporting simulated observables, assessing confidence in simulations, and deriving uncertainty estimates (more colloquially, ``error bars'') based on a variety of statistical techniques developed (in part) for physics-based sampling methods (e.g.\ molecular dynamics and Monte Carlo) and their associated ``enhanced'' counterparts.  
+
+PNP: I'm still working on this; had to put it down for an hour for a meeting (1-3-18)
+
+%PNP note: originally we had 
+
+
+%simulation studies attempting to quantify observables and derive reliable estimates of uncertainty (e.g., error bars) based on `standard' canonical sampling methods (e.g., molecular dynamics and Monte Carlo) and associated `enhanced' sampling methods.
+%Some problems and systems may be better studied with cruder techniques and analyses, which will not be covered here.
 This article also will not cover issues of systematic error arising from inaccuracy in force field (underlying model) or even from the simulation setup.
 Rather, we will take raw trajectory data at face value, assuming it is a valid outcome given the underlying model.
 We emphatically will \emph{not} assume that a trajectory has been sufficiently `equilibrated' or 'converged'.
