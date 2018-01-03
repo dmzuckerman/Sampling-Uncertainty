@@ -30,7 +30,7 @@ The analysis method is based on the observation that the variance for any bin of
 The knowledge of the expected variance allows testing of increasing waiting times between configurations drawn from the trajectory to determine when and if the variance approaches that expected for independent samples.
 The minimum waiting time yielding agreement with ideal statistics yields an estimate for the decorrelation/memory time, which implies an overall effective sample size.
 
-A second method, employing block covariance analysis (BCOM), was presented by Romo and Grossfield \cite{Romo2011} building on ideas by Hess \cite{Hess2002}.  In essence, the method combines two standard error analysis techniques, block averaging \cite{Flyvbjerg-1989} and bootstrapping \cite{Tibshirani1998}, with a quantitative assessment of the similarity of modes determined from principal component analysis, covariance overlap \cite{Hess2002}.  The principal components are computed from subsets of the trajectory, and the similarity of the modes evaluated as a function of subset size; as the subsets get larger, the resulting modes get more similar.  This is done both for contiguous blocks of trajectory data (block averaging), and again for randomly chosen subsets of trajectory frames (bootstrapping); taking the ratio of the two values as a function of block size yields the degree of correlation in the data.  Fitting that ratio to a sum of exponentials allows one to extract the relaxation times in the sampling.  The key value of this method over others is that it implicitly takes into account the number of substates; the longest correlation time is the time required not to make a transition, but to sample a scattering of the relevant states.  
+A second method, employing block covariance analysis (BCOM), was presented by Romo and Grossfield \cite{Romo2011} building on ideas by Hess \cite{Hess2002}.  In essence, the method combines two standard error analysis techniques, block averaging \cite{Flyvbjerg-1989} and bootstrapping \cite{Tibshirani1998}, with a quantitative assessment of the similarity of modes determined from principal component analysis, covariance overlap \cite{Hess2002}.  The principal components are computed from subsets of the trajectory, and the similarity of the modes evaluated as a function of subset size; as the subsets get larger, the resulting modes get more similar.  This is done both for contiguous blocks of trajectory data (block averaging), and again for randomly chosen subsets of trajectory frames (bootstrapping); taking the ratio of the two values as a function of block size yields the degree of correlation in the data.  Fitting that ratio to a sum of exponentials allows one to extract the relaxation times in the sampling.  The key value of this method over others is that it implicitly takes into account the number of substates; the longest correlation time is the time required not to make a transition, but to sample a scattering of the relevant states.
 
 These methods are implemented as part of LOOS \cite{LOOS,LOOS-JCC}.
 
@@ -43,15 +43,9 @@ To enable assessment of multiple trajectories, the new approach focused on confo
 Employing a fairly simple kinetic-clustering technique to automatically define states, the approach then uses the variances in state populations among trajectories to estimate the effective sample size.
 
 Nemec and Hoffmann proposed related sampling measures geared specifically for analyzing and comparing multiple trajectories \cite{Nemec2017}.
-These measures again do not require user input of specific observables but only a measure of the difference between conformations, which was taken to the be the RMSD.  
+These measures again do not require user input of specific observables but only a measure of the difference between conformations, which was taken to the be the RMSD.
 Nemec and Hoffmann provide formulas for quantifying the conformational overlap among trajectories (were the same configurational states sampled?) and the density agreement (were conformational regions sampled with equal probabilties?).
 
-% TODO
-%[ALAN, CAN BLOCK COVARIANCE BE USED EQUALLY ON MULTIPLE TRAJECTORIES?]
-% Dan: probably yes, but we haven't really worked on it yet.  Instead, what I'd
-% probably do is just use the coverlap between different trajectories (perhaps as
-% function of sim length) to estimate similarity of sampling.  However, this is
-% still a research problem, so it probably doesn't belong here.
 
 \subsection{Global sampling assessment for enhanced sampling methods}
 The family of enhanced equilibrium sampling methods, including replica exchange and variants \cite{Swendsen-1986,Sugita1999,Okamoto-2000}, metadynamics \cite{Bussi2006a,Laio2008}, adaptive biasing force \cite{Darve2001,Darve2008,Comer2015} among other methods, are complex and the resulting data may have a highly non-trivial correlation structure.
@@ -61,7 +55,3 @@ Given the subtleties of these sampling approaches, we suggest taking a 'bottom l
 The variance among these runs, if the approach is not biased, should be a measure of the overall sampling.
 Hence any method applicable to multiple trajectories should be valid for analyzing multiple runs of an arbitrary method.
 A caveat for the approach of Zhang et al.\ \cite{Zhang2010} is that some dynamics trajectory segments would be required to perform state construction by kinetic clustering.
-
-% TODO
-%[ALAN, CAN BLOCK COVARIANCE BE USED EQUALLY ON MULTIPLE INDEPENDENT ENHANCED SAMPLING RUNS?]
-% Probably, but we haven't implemented the reweighting needed, so it doesn't belong here.
