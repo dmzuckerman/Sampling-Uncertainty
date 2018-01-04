@@ -1,14 +1,15 @@
 \section{Pre-simulation sanity checks and planning tips}
 \label{sec:sanity}
 
-Sampling a molecular system that is complex enough to be ``interesting'' in modern science is likely to be extremely challenging.
-Therefore, a small amount of effort spent planning a study can pay off many, many times over: in the worst case, weeks or months of simulation time followed by additional weeks or months of analysis can lead to insignificant conclusions in a poorly planned study.
+Sampling a molecular system that is complex enough to be ``interesting'' in modern science is often extremely challenging.
+Therefore, a small amount of effort spent planning a study can pay off many times over.  In the worst case, a poorly planned study can lead to weeks or months of simulations and analyses that yield insignificant conclusions.
 
 If you read this guide through \emph{before} performing a simulation, you will have a much better sense of the criteria applicable to your data -- and which indeed \emph{should} be applied by knowledgeable reviewers of your work.
 Thus we strongly advise understanding the concepts presented here as well as in related reviews \cite{Grossfield2009,JCGM:GUM2008}.
 
 In a generic sense, the overall goal is to be able to draw statistically significant conclusions regarding a particular phenomenon or question of interest.
 And ``good statistics'' follow from repeated observations of a phenomenon, which can only happen if the simulation length \emph{exceeds} the pertinent timescales.
+%PNP question: First sentence feels like it's missing something.  Specifically, we state, "the overall goal is to ...."  The overall goal of what though?  A given simulation, a given simulation study (which may involve multiple simulations), something else?  I'm confused here because I think we're mixing more generic statistics language and ideas relevant to time-series data.  The second sentence makes it sound like we're interested in getting good statistics of a time-series.  Statistically significant conclusions could apply to an estimate extracted from multiple simulations because even there, you might want "repeated observations," i.e. multiple simulations.  More generally, is this section about making sure that a single simulation is long enough or making sure that an entire simulation study has a good chance of returning meaningful predictions?
 
 One general strategy that will allow you to at least understand your data in a self-consistent way is to perform several repeats of the same simulation protocol: as described below, repeats can be used to assess variance in \emph{any} observable, within the time you have run your simulation.
 When performing simulation repeats, it is sometimes suggested to use different starting states which are as diverse as possible; then, differences among the runs can be an indicator of inadequate sampling of the equilibrium distribution.
