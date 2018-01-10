@@ -154,10 +154,18 @@ Roughly speaking, the total simulation time divided by the longest correlation t
 
 %The time over which realizations of a random quantity indexed by a time-series (e.g.\ a physical property from a Monte Carlo or molecular dynamics trajectory) retain ``memory'' of one another, since each configuration is generated from the preceding one. Roughly, the total simulation time divided by the (longest) correlation time gives an estimate of the number of \emph{independent} samples that will govern overall statistical quality of the data.
 
-\item {\bf Two-sided confidence interval}: A statistically derived pair of lower and upper bounds between which the (true) expectation value of a random quantity is likely to fall, as quantified by a {\it confidence level} (typically given as a percentage, e.g.\ 95~\%).
-  For Gaussian-distributed data, the confidence level, in conjunction with the sample size, determines the {\it coverage factor}, which is multiplied by \hyperref[def:exp_st_dev_mean]{$\stdevmean{\mean{x}}$} to assign the bounds of the confidence interval.
+\item {\bf Two-sided confidence interval}: An interval, typically stated as $\expval{x} = \mean{x} \pm U$, which is expected to contain the possible values attributed to $\expval{x}$ given the experimental measurements of $x_k$ and a certain {\it level of confidence} $p$.
+  The size of the confidence interval, defined by $U = k \stdevmean{\mean{x}}$ where $k$ is \hyperref[def:coveragefactor]{\it coverage factor}, is known as the {\it expanded uncertainty}\cite{JCGM:VIM2012}.\footnote{This conceptual description of a confidence interval is only applicable when certain conditions are met, including the important stipulation that all uncertainty contained in $\stdevmean{\mean{x}}$ is determined only by statistical evaluation of the random experimental measurements of $x_k$\cite{JCGM:GUM2008}.}
+  The level of confidence $p$ is typically given as a percentage, e.g.~95~\%. Hence, the confidence interval is typically described as ``the $p$~\% confidence interval'' given a selected value of $p$.
+  %A statistically derived pair of lower and upper bounds between which the (true) expectation value of a random quantity is likely to fall, as quantified by a {\it confidence level} (typically given as a percentage, e.g.\ 95~\%).
+%\footnote{This conceptual description of a confidence is only applicable when certain conditions are met\cite{JCGM:GUM2008}.
+  % For Gaussian-distributed data, the confidence level, in conjunction with the sample size, determines the \hyperref[def:coveragefactor]{\it coverage factor}, which is multiplied by \hyperref[def:exp_st_dev_mean]{$\stdevmean{\mean{x}}$} to assign the bounds of the confidence interval.
   \label{def:conf_int}
 
+\item {\bf Coverage Factor}:
+  The factor $k$ which is multiplied by the \hyperref[def:exp_st_dev_mean]{$\stdevmean{\mean{x}}$} to obtain the expanded uncertainty, typically in the range of 2 to 3. In general, $k$ is selected based on the chosen level of confidence $p$ and probability distribution that characterizes the measurement result $x_k$. For Gaussian-distributed data, $k$ is determined from the $t$-distribution, based on the level of confidence $p$ and the number of size of the experimental sample.\footnote{For discussion regarding the selection of $k$ for non-Gaussian-distributed data, consult Annex G of Ref.~\cite{JCGM:GUM2008}.} See Sec.~\ref{sec:conf_int} for further discussion on the selection of $k$ and the resultant computation of confidence intervals.
+  \label{def:coveragefactor}
+  
 \end{itemize}
 
 % DWS NOTE: Let's think about which terms we need to define. Basically, if a term is not used in the paper, then we almost certainly do not need to include it in the glossary. For instance, do we need to include: "independent observables" or "uncorrelated observables"; similarly for "precision" and "accuracy"?
