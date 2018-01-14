@@ -6,9 +6,10 @@
 \begin{figure}
 \centering
 %\begin{wrapfigure}{r}{6cm}
-  \includegraphics[width=5.8cm]{figures/rmsd/rmsd}
+   % toggle these as needed - sorry!
+   \includegraphics[width=5.8cm]{figures/rmsd}
 %  \includegraphics[width=5.8cm]{figures/rmsd/rmsd}
-  \includegraphics[width=5.8cm]{figures/rmsd/rmsds}
+  \includegraphics[width=5.8cm]{figures/rmsds}
 %  \includegraphics[width=5.8cm]{figures/rmsd/rmsds}
   \caption{
   \label{f:rmsd} RMSD as a measure of convergence.  The upper panel shows the
@@ -22,7 +23,7 @@
 It is difficult to establish with certainty that good sampling has been achieved, but it is not difficult to \emph{rule out} high-quality sampling.
 Here we elaborate on some relatively simple tests that can quickly bring out inadequacies in sampling.
 
-Generally speaking, analysis routines that extract information from raw simulated data are often formulated on the basis of physical intuition about how that data should behave.  Before proceeding to data analysis and uncertainty quantification, it is therefore useful to assess the extent to which data conforms to these expectations and the requirements imposed by either the modeler or the analysis routines.  Such tasks help reduce subjectivity of predictions and offer insight into when a simulation protocol should be revisited to better understand their meaningfulness \cite{patrone1}.  Unfortunately, general recipes for assessing data quality are impossible to formulate, owing to the range of physical quantities of interest to modelers.  Nonetheless, several examples will help clarify the matter.
+Generally speaking, analysis routines that extract information from raw simulated data are often formulated on the basis of physical intuition about how that data should behave.  Before proceeding to quantitative data analysis and uncertainty quantification, it is therefore useful to assess the extent to which data conforms to these expectations and the requirements imposed by either the modeler or the analysis routines.  Such tasks help reduce subjectivity of predictions and offer insight into when a simulation protocol should be revisited to better understand their meaningfulness \cite{patrone1}.  Unfortunately, general recipes for assessing data quality are impossible to formulate, owing to the range of physical quantities of interest to modelers.  Nonetheless, several example procedures will help clarify the matter.
 
 \subsection{Zeroth-order system-wide tests}
 
@@ -61,7 +62,7 @@ good statistics.  In this case, the initial state is never sampled after the
 first transition, but there are a number of small transitions within the second
 state.
 
-\subsection{Testing for linear behavior in material properties}
+\subsection{Analyzing qualitative behavior: Testing for linear behavior in material properties}
 
 %[DMZ: SINCE THIS IS A QUALITATIVE ISSUE, SHOULDN'T IT GO IN THE QUICK-AND-DIRTY SECTION?]
 
@@ -73,22 +74,28 @@ In experimental data, these regimes are generally distinct and connected by a sh
 \includegraphics[width=8cm]{hyperbola.png}\caption{Yield strain tn $\epsilon_r$ as a function of applied strain $\epsilon$.  Blue $\times$ denote simulated data, whereas the smooth curve is a hyperbola fit to the data.  The green lines are asymptotes; their intersection can be taken as an estimate of $\epsilon_y$.    Bounds on yield are computed by the synthetic data method discussed in the next section.  {\it From, ``Estimation and uncertainty quantification of yield via strain recovery simulations,'' P.\ Patrone, CAMX 2016 Conference Proceedings.  Reprinted courtesy of the National Institute of Standards and Technology, U.S. Department of Commerce. Not copyrightable in the United States.}}\label{fig:yield}
 \end{figure}
 
-\subsection{Assessing Convergence}
+\subsection{Tests based on independent simulations and related ideas}
 
 \begin{figure}
 %\begin{wrapfigure}{r}{6cm}
-  \includegraphics[width=5.8cm]{figures/combinedcluster/combinedcluster}
+  \includegraphics[width=5.8cm]{figures/combinedcluster}
+  %\includegraphics[width=5.8cm]{figures/combinedcluster/combinedcluster}
   \caption{
   \label{f:combinedcluster} Combined clustering between two independent trajectories as a measure of convergence. The X axis is the population of a cluster from trajectory 1, while the Y axis is the population of that cluster from trajectory 2. Cluster populations are show after 20, 100, and 800 ns of sampling. The simulations used to generate the data used in this plot are described in Roe et al.\citep{Roe2014}
   }
 %\end{wrapfigure}
 \end{figure}
 
-When measuring any property it typically takes multiple measurements to get some idea of the uncertainty involved. For example, when trying to determine the probability that an unbiased coin will flip heads or tails, a single flip (measurement) will always yield an incorrect answer since it will either be 1.0 for heads or 1.0 for tails. As more flips (measurements) are made, the probability will eventually converge to the correct answer. Convergence in the context of biomolecular simulations typically refers to a measurement of a certain property converging to the "correct" value. However, since in many cases the "correct" value is not known \emph{a priori}, convergence is also used to refer to the overlap of two or more independent measurements of the same property to a single value. If a measure is not converged it is a strong indication that sampling is poor. There are two common ways to try to obtain independent measurements. Arguably the best way is to have multiple independent simulations, each with varying initial starting conditions. Ideally these starting conditions should in some way span the space to be sampled; this way one can have confidence that simulations are not being trapped in a local minimum. For example, say the goal is to sample the phi and psi torsions of alanine dipeptide: the phi and psi angles for one simulation could be started from an alpha-helical conformation, while another simulation could be started from a polyproline II conformation. It is important to note that the starting conditions only need to be varied enough so that the desired space is sampled. For example, if the goal is to sample protein folding and unfolding, there should be some simulations started from the folded conformation and some from the unfolded, but if it is not important to consider protein folding no initial conformation needs to be unfolded.
+When measuring any property it typically takes multiple measurements to get some idea of the uncertainty involved. For example, when trying to determine the probability that an unbiased coin will flip heads or tails, a single flip (measurement) will always yield an incorrect answer since it will either be 1.0 for heads or 1.0 for tails. As more flips (measurements) are made, the probability will eventually converge to the correct answer. 
+
+Convergence in the context of biomolecular simulations typically refers to a measurement of a certain property converging to the "correct" value. However, since in many cases the "correct" value is not known \emph{a priori}, convergence is also used to refer to the overlap of two or more independent measurements of the same property to a single value.
+ If a measure is not converged it is a strong indication that sampling is poor. 
+ 
+ There are two common ways to try to obtain independent measurements. Arguably the best way is to have multiple independent simulations, each with varying initial starting conditions. Ideally these starting conditions should in some way span the space to be sampled; this way one can have confidence that simulations are not being trapped in a local minimum. For example, say the goal is to sample the phi and psi torsions of alanine dipeptide: the phi and psi angles for one simulation could be started from an alpha-helical conformation, while another simulation could be started from a polyproline II conformation. It is important to note that the starting conditions only need to be varied enough so that the desired space is sampled. For example, if the goal is to sample protein folding and unfolding, there should be some simulations started from the folded conformation and some from the unfolded, but if it is not important to consider protein folding no initial conformation needs to be unfolded.
 
 Another way to obtain independent measurements is to divide a single simulation into two or more subsets. However this can at times be problematic because it can be more difficult to tell if the system is biased by initial conditions (e.g. trapped in a local energy minimum) since there is only a single starting point. Those employing this approach should take extra care to assess their results (see in particular sections on 'block averaging' below).
 
-There are two simple ways to compare independent measurements of a property. The simplest is to compare the arithmetic means and standard deviations. If these values do not overlap then convergence has not been achieved. However, since this assumes that the values are normally distributed, a better way is compare the overlap of the probability distributions (i.e. the histograms). This can be done via Kullback-Leibler or Jensen-Shannon divergence.
+There are two simple ways to compare independent measurements of a property. The simplest is to compare the arithmetic means and standard deviations. If these values do not overlap then convergence has not been achieved. However, since this assumes that the values are normally distributed, a better way is compare the overlap of the probability distributions (i.e. the histograms). This can be done via Kullback-Leibler or Jensen-Shannon divergence {\color{red}[[SHOULD HAVE REFS FOR THIS]]}.
 
-\subsubsection{Combined Clustering}
+\subsubsection*{Combined Clustering}
 One useful technique for evaluating convergence of structure populations is so-called "combined clustering". Briefly, in this method two or more independent trajectories are combined into a single trajectory (or a single trajectory is divided into two or more parts), on which cluster analysis is performed. The resulting clusters are then split according to the trajectory (or part of the trajectory) they originally came from. If simulations are converged then each part will have similar populations for any given cluster. Indications of poor convergence are large deviations in cluster populations, or clusters that show up in one part but not others. Figure \ref{f:combinedcluster} shows results from combined clustering of two independent trajectories as a plot of cluster population fraction from the first trajectory compared to the second. If the two independent trajectories are perfectly converged then all points should fall on the X=Y line. As simulation time increases the cluster populations from the independent trajectories are in better agreement, which indicates the simulations are converging. For another example of performing combined cluster analysis see Bergonzo et al.\citep{Bergonzo2014}
