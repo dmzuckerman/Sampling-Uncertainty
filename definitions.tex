@@ -40,7 +40,7 @@ See Ref.~\cite{Leimkuhler} for more discussion of this rather deep point.}.
 %As these quantities are inherently unknowable, we can only estimate their values and associated uncertainties.
 
 
-\item {\bf Standard Uncertainty}: Uncertainty in a result (e.g.\ estimation of a true value) as [[expressed in terms of a standard deviation]]\footnote{The definition of standard uncertainty does not specify how to calculate the standard deviation.
+\item {\bf Standard Uncertainty}: Uncertainty in a result (e.g.\ estimation of a true value) as [[expressed in terms of a \hyperref[def:st_dev]{standard deviation}]]\footnote{The definition of standard uncertainty does not specify how to calculate the standard deviation.
     This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.}.  {\color{red}[[I think this will be opaque to many readers, especially beginners.  How about adding "i.e., it is an estimate of the standard deviation expected if the same procedure were repeated multiple times."  Also this defn uses standard deviation, so I guess std dev defn should precede it.]]}
   \label{def:std_unc}
 
@@ -62,15 +62,17 @@ If $x$ assume discrete values, the coresponding definition becomes
 \begin{align}
 \sigma_x^2 = \sum_i P(x_i) \left( x_i  - \expval{x} \right)^2.
 \end{align}
-{\bf Remark:} The standard deviation is the square root of the variance.  {\color{red}[[Should this just be a separate definition, especially since std uncert depends on onit?]]}
+%{\bf Remark:} The standard deviation is the square root of the variance.  {\color{red}[[Should this just be a separate definition, %especially since std uncert depends on onit?]]}
 
-\item {\bf Arithmetic mean}: An estimate of the (true) expectation value of a random quantity, given by the formula
+\item {\bf Standard Deviation}: The positive square root of the variance, denoted $\sigma_x$.\label{def:st_dev}
+
+\item {\bf Arithmetic mean}: An \emph{estimate} of the (true) expectation value of a random quantity, given by the formula
   %
   \begin{equation}
-    \mean{x} = \dfrac{1}{n} \sum_{k=1}^{n} x_k \label{def:arith_mean}
+    \mean{x} = \dfrac{1}{n} \sum_{j=1}^{n} x_j \label{def:arith_mean}
   \end{equation}
   %
-  where $x_k$ is an experimental or simulated realization of the random variable and $n$ is the number of samples. 
+  where $x_j$ is an experimental or simulated realization of the random variable and $n$ is the number of samples. 
 \smallskip 
 
 \textbf{\textit{Remark:}} This quantity is often called the ``sample mean.''
@@ -79,21 +81,22 @@ Note that a proper realization of a random variable (with no systematic bias) wi
 \item {\bf Experimental standard deviation\footnote{
       The term ``experimental'' can refer to simulated data, since these are the results of numerical experiments.
 }
-}: An \emph{estimate} of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the demonimator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the estimate is {\it unbiased}, meaning that on average $\stdev{x_k}^2$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) is lost via the appearance of $\mean{x}$ in the definition of $\stdev{x_k}$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $x_k$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated Observables}).}
+}: An \emph{estimate} of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the demonimator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the estimate is {\it unbiased}, meaning that on average $\stdev{x_j}^2$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) is lost via the appearance of $\mean{x}$ in the definition of $\stdev{x_j}$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $x_j$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated Observables}).}
   \begin{equation}
-    \stdev{x_k} = \sqrt{\dfrac{\sum_{j=1}^n\left(x_j - \mean{x}\right)^2}{n-1}} \label{def:exp_st_dev}
+    \stdev{x_j} = \sqrt{\dfrac{\sum_{j=1}^n\left(x_j - \mean{x}\right)^2}{n-1}} \label{def:exp_st_dev}
   \end{equation}
   \smallskip
   \textbf{\textit{Remark:}} This quantity is often called the ``sample standard deviation.'' 
 %FYI, the data does NOT need to be linearly uncorrelated for this estimate under typical MD conditions.  Assuming correlation times \tau << N (where N is the number of timesteps), the relative error in using correlated data is O(tau/N) << 1.
 
 
-  \item {\bf Linearly Uncorrelated observables}:  If quantities $x_j$ and $x_k$ have mean values $\expval{x_j}$ and $\expval{x_k}$, then $x_j$ and $x_k$ are linearly uncorrelated if
+  \item {\bf Linearly Uncorrelated observables}:  If quantities $x$ and $y$ have mean values $\expval{x}$ and $\expval{x}$, then $x$ and $y$ are linearly uncorrelated if
 \begin{equation}
-  \expval{ \left(x_j - \expval{x_j} \right) \left(x_k - \expval{x_k} \right) } = 0 \label{def:unc_obs}
+  \expval{ \left(x - \expval{x} \right) \left(y - \expval{y} \right) } = 0 \label{def:unc_obs}
 \end{equation}
 where $\expval{\star}$ denotes the (true) expectation value.
 {\color{red}[[I think it might be clearer to use x and y here to suggest different physical quantities and then remark that correlations between the same variable a different time points may also be correlated - but the application of the equation is more challenging to imagine as the average then must apply over multiple instances of the simulation ... surely confusing to beginners!]]}
+{\color{blue}[[DWS Question: Just to confirm, equation \ref{def:unc_obs} should use the expectation value, right?]]}
 
 \smallskip
 
@@ -102,10 +105,11 @@ where $\expval{\star}$ denotes the (true) expectation value.
 \item {\bf Experimental standard deviation of the mean}: An estimate of the standard deviation of the distribution of the \hyperref[def:arith_mean]{arithmetic mean}, given by the formula
   % 
   \begin{equation}
-    \stdevmean{\mean{x}} = \dfrac{\stdev{x_k}}{\sqrt{n}}, \label{def:exp_st_dev_mean}
+    \stdevmean{\mean{x}} = \dfrac{\stdev{x_j}}{\sqrt{n}}, \label{def:exp_st_dev_mean}
   \end{equation}
-  where the realizations of $x_k$ are assumed to be linearly uncorrelated.
-  {\color{red}[[Is the subscript k strictly needed here?  That's a bit confusing to me.  The formula seems to assume $s(x_k) = s(x)$ for all k anyway.  I imagine this will also confuse beginners.]]}
+  where the realizations of $x_j$ are assumed to be linearly uncorrelated.
+  {\color{red}[[Is the subscript j strictly needed here?  That's a bit confusing to me.  The formula seems to assume $s(x_j) = s(x)$ for all k anyway.  I imagine this will also confuse beginners.]]}
+  {\color{blue}[[DWS Reply: We are following VIM/GUM notation; it uses the subscript j to emphasize that this standard deviation is a statistical property of the set of observations $\left\{x_j\right\}$ rather than a universal property of the actual measurand. I'm open to either usage (dropping the subscript would actually simplify latter sections), but would add an explanatory footnote to either choice. A third option is to write it as $s\left(\left\{x_k\right\}\right)$, but that's getting really clunky.]]}
   
 %  \smallskip
   
@@ -156,17 +160,16 @@ Roughly speaking, the total simulation time divided by the longest correlation t
 
 %The time over which realizations of a random quantity indexed by a time-series (e.g.\ a physical property from a Monte Carlo or molecular dynamics trajectory) retain ``memory'' of one another, since each configuration is generated from the preceding one. Roughly, the total simulation time divided by the (longest) correlation time gives an estimate of the number of \emph{independent} samples that will govern overall statistical quality of the data.
 
-\item {\bf Two-sided confidence interval}: An interval, typically stated as $\expval{x} = \mean{x} \pm U$, which is expected to contain the possible values attributed to $\expval{x}$ given the experimental measurements of $x_k$ and a certain {\it level of confidence}, denoted $p$.
-  The size of the confidence interval, known as the {\it expanded uncertainty}, is defined by $U = k \stdevmean{\mean{x}}$ where $k$ is \hyperref[def:coveragefactor]{\it coverage factor}\cite{JCGM:VIM2012}.\footnote{This conceptual description of a confidence interval is only applicable when certain conditions are met, including the important stipulation that all uncertainty contained in $\stdevmean{\mean{x}}$ is determined only by statistical evaluation of the random experimental measurements of $x_k$\cite{JCGM:GUM2008}.}
+\item {\bf Two-sided confidence interval}: An interval, typically stated as $\expval{x} = \mean{x} \pm U$, which is expected to contain the possible values attributed to $\expval{x}$ given the experimental measurements of $x_j$ and a certain {\it level of confidence}, denoted $p$.
+  The size of the confidence interval, known as the {\it expanded uncertainty}, is defined by $U = k \stdevmean{\mean{x}}$ where $k$ is \hyperref[def:coveragefactor]{\it coverage factor}\cite{JCGM:VIM2012}.\footnote{This conceptual description of a confidence interval is only applicable when certain conditions are met, including the important stipulation that all uncertainty contained in $\stdevmean{\mean{x}}$ is determined only by statistical evaluation of the random experimental measurements of $x_j$\cite{JCGM:GUM2008}.}
   The level of confidence $p$ is typically given as a percentage, e.g.~95~\%. Hence, the confidence interval is typically described as ``the $p$~\% confidence interval'' for a given value of $p$.
-  {\color{red}[[If k is going to be the coverage factor, then we should probably use i or j as the default subscripts, as in $x_i$ ... here and above.]]}
   %A statistically derived pair of lower and upper bounds between which the (true) expectation value of a random quantity is likely to fall, as quantified by a {\it confidence level} (typically given as a percentage, e.g.\ 95~\%).
 %\footnote{This conceptual description of a confidence is only applicable when certain conditions are met\cite{JCGM:GUM2008}.
   % For Gaussian-distributed data, the confidence level, in conjunction with the sample size, determines the \hyperref[def:coveragefactor]{\it coverage factor}, which is multiplied by \hyperref[def:exp_st_dev_mean]{$\stdevmean{\mean{x}}$} to assign the bounds of the confidence interval.
   \label{def:conf_int}
 
 \item {\bf Coverage Factor}:
-  The factor $k$ which is multiplied by the experimental standard deviation of the mean \hyperref[def:exp_st_dev_mean]{$\stdevmean{\mean{x}}$} to obtain the expanded uncertainty, typically in the range of 2 to 3. In general, $k$ is selected based on the chosen level of confidence $p$ and probability distribution that characterizes the measurement result $x_k$. For Gaussian-distributed data, $k$ is determined from the $t$-distribution, based on the level of confidence $p$ and the number of measurements in the experimental sample.\footnote{For discussion regarding the selection of $k$ for non-Gaussian-distributed data, consult Annex G of Ref.~\cite{JCGM:GUM2008}.} See Sec.~\ref{sec:conf_int} for further discussion on the selection of $k$ and the resultant computation of confidence intervals.
+  The factor $k$ which is multiplied by the experimental standard deviation of the mean \hyperref[def:exp_st_dev_mean]{$\stdevmean{\mean{x}}$} to obtain the expanded uncertainty, typically in the range of 2 to 3. In general, $k$ is selected based on the chosen level of confidence $p$ and probability distribution that characterizes the measurement result $x_j$. For Gaussian-distributed data, $k$ is determined from the $t$-distribution, based on the level of confidence $p$ and the number of measurements in the experimental sample.\footnote{For discussion regarding the selection of $k$ for non-Gaussian-distributed data, consult Annex G of Ref.~\cite{JCGM:GUM2008}.} See Sec.~\ref{sec:conf_int} for further discussion on the selection of $k$ and the resultant computation of confidence intervals.
   \label{def:coveragefactor}
   
 \end{itemize}

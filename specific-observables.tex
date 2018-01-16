@@ -58,7 +58,7 @@ For observables passing the qualitative tests noted above in Sec.\ \ref{sec:quic
 
 Below we describe approaches for estimating the standard uncertainty $\stdevmean{\mean{x}}$ from a single trajectory with a coverage factor $k$ as well as the bootstrapping approach for direct confidence-interval estimation. Whether using a coverage factor and standard uncertainty or bootstrapping, one requires an estimate for the independent number of observations in a given simulation.  This requires care, but may be accomplished based on the effective sample size described in Sec.\ \ref{sec:global}, via block averaging, or by analysis of a time-correlation function. However, these methods have their limitations and must be used with caution.  Primarily, they require the user to look at the correct quantity in order to produce the correct answer.  Both block averaging and autocorrelation analysis will produce different effective sample sizes for different quantities; to produce robust answers, one must identify and track the slowest relevant degree of freedom in the system, which can be a non-trivial task.  Even apparently fast-varying properties may have significant statistical error if they are coupled to slower varying ones, and this error in uncertainty estimation may not be readily identifiable by solely examining the fast-varying time series.
 
-In the absence of a reliable estimate for the number of independent observations, one can perform $n$ independent simulations and calculate the standard deviation $\stdev{x_k}$ for quantity $x$ (which could be the ensemble average of a raw data output or a derived observable) among the $n$ simulations, yielding a standard uncertainty of $\stdevmean{\mean{x}} = \stdev{x_k} / \sqrt{n}$.  When computing the uncertainty with this approach, it is important to ensure that each starting configuration is also independent or else to recognize and report that the uncertainty refers to simulations started from a particular configuration.  The means to obtain independent starting configurations is system-dependent, but might involve repeating the protocol used to construct a configuration (solvating a protein, inserting liquid molecules in a box, etc.), using a new random seed.  However, readers are cautioned that \emph{for complex systems, it may be effectively impossible to generate truly independent starting configurations pertinent to the ensemble of interest.}  For example, a simulation of a protein in water will nearly always start from the experimental structure, which introduces some correlation in the resulting simulations even when the remaining simulation components (water, salt, etc) are regenerated {\it de novo}.
+In the absence of a reliable estimate for the number of independent observations, one can perform $n$ independent simulations and calculate the standard deviation $\stdev{x_j}$ for quantity $x$ (which could be the ensemble average of a raw data output or a derived observable) among the $n$ simulations, yielding a standard uncertainty of $\stdevmean{\mean{x}} = \stdev{x_j} / \sqrt{n}$.  When computing the uncertainty with this approach, it is important to ensure that each starting configuration is also independent or else to recognize and report that the uncertainty refers to simulations started from a particular configuration.  The means to obtain independent starting configurations is system-dependent, but might involve repeating the protocol used to construct a configuration (solvating a protein, inserting liquid molecules in a box, etc.), using a new random seed.  However, readers are cautioned that \emph{for complex systems, it may be effectively impossible to generate truly independent starting configurations pertinent to the ensemble of interest.}  For example, a simulation of a protein in water will nearly always start from the experimental structure, which introduces some correlation in the resulting simulations even when the remaining simulation components (water, salt, etc) are regenerated {\it de novo}.
 
 %\subsection{Assessing qualitative behavior of data}
 
@@ -78,19 +78,19 @@ The standard uncertainty of a simulation observable can be estimated from the \h
 Due to correlation in the tape of simulation output from either MD or MC simulation, the number of independent samples in a simulation is neither equal to the number of observations nor known {\it a priori}.
 The block averaging technique can be used instead of the individual observations to account for correlation in samples, while using all data, subject only to the constraint that the ``blocks'' are large enough to be essentially uncorrelated\cite{Friedberg1970,Flyvbjerg-1989,FrenkelSmit2002,Grossfield2009}.
 
-Briefly, the set of $N$ observations $\left\{x_1, ..., x_N\right\}$ are converted to a set of $M$ ``block averages'' $\left\{x^b_1, ..., x^b_{M}\right\}$, where a block average $x^b_k$ is the \hyperref[def:arith_mean]{arithmetic mean} of $n$ (the block size) sequential measurements of $x$:
+Briefly, the set of $N$ observations $\left\{x_1, ..., x_N\right\}$ are converted to a set of $M$ ``block averages'' $\left\{x^b_1, ..., x^b_{M}\right\}$, where a block average $x^b_j$ is the \hyperref[def:arith_mean]{arithmetic mean} of $n$ (the block size) sequential measurements of $x$:
 %
 \begin{equation}
-  x^b_k = \dfrac{\sum\limits_{j=1+(k-1)n}^{kn} x_k}{n}
+  x^b_j = \dfrac{\sum\limits_{j=1+(k-1)n}^{kn} x_j}{n}
 \end{equation}
 %
 From this set of block averages, one may then compute the arithmetic mean of the block averages, $\mean{x}^b$, which is an estimator for $\expval{x}$.
-(We note that for $mod(N,n)=0$, then $\mean{x}^b = \mean{x}$, as the entire set of $x_k$ is used. This is {\it not} true if $N$ is not evenly divisible by either $M$ or $n$.)
+(We note that for $mod(N,n)=0$, then $\mean{x}^b = \mean{x}$, as the entire set of $x_j$ is used. This is {\it not} true if $N$ is not evenly divisible by either $M$ or $n$.)
 Following, one computes the \hyperref[def:exp_st_dev]{experimental standard deviation} of the block averages, $\stdev{\mean{x}^b}$ using Eq.~\ref{def:exp_st_dev}.
 Lastly, the standard uncertainty of $\mean{x}^b$ is just the \hyperref[def:exp_st_dev_mean]{experimental standard deviation of the mean} given the set of $M$ block averages:
 %
 \begin{equation}
-  \stdevmean{\mean{x}^b} = \dfrac{\stdev{x^b_k}}{\sqrt{M}}
+  \stdevmean{\mean{x}^b} = \dfrac{\stdev{x^b_j}}{\sqrt{M}}
 \end{equation}
 %
 This standard uncertainty may then be used to calculate a confidence interval on $\mean{x}^b$.
@@ -112,12 +112,12 @@ First, given a set of observations $\left\{x_1, ..., x_N\right\}$, the autocorre
       \left( x_{k+j} - \mean{x} \right)
     }
   }
-  {\stdev{x_k}^2}
+  {\stdev{x_j}^2}
 \end{equation}
 %
 {\color{red}NOTE: Have to decide how to express an average here; we reserved $\left< \cdots \right>$ for true expectation values.}
 
-where the denominator is the square of the \hyperref[def:exp_st_dev]{experimental standard deviation} of $x_k$ given by Eq.~\ref{def:exp_st_dev}.
+where the denominator is the square of the \hyperref[def:exp_st_dev]{experimental standard deviation} of $x_j$ given by Eq.~\ref{def:exp_st_dev}.
 Then, the number of independent samples is estimated by\footnote{{\color{red} Explain why this sum is not the same as the integration over $C$; $C$ is stationary and symmetric, 1 comes from the ``zeroth'' lag, 2 is for symmetry. Actually easy to see this if you do an integral from -infty to +infty by a midpoint integration.}}
 %
 \begin{equation}
@@ -129,7 +129,7 @@ In practice, one rounds $N_{ind}$ to an integer.
 Finally, the standard uncertainty is estimated via
 %
 \begin{equation}
-  \stdevmean{\mean{x}} = \dfrac{\stdev{x_k}}{\sqrt{N_{ind}}}
+  \stdevmean{\mean{x}} = \dfrac{\stdev{x_j}}{\sqrt{N_{ind}}}
   \label{def:ACF_std_unc}
 \end{equation}
 %
