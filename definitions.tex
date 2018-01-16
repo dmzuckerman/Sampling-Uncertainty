@@ -39,12 +39,6 @@ See Ref.~\cite{Leimkuhler} for more discussion of this rather deep point.}.
 %\textbf{\textit{Remark:}} Generally speaking, we use the descriptor ``true value'' in reference to quantities such as the expected %value and standard deviation of a simulation output (were we able to run infinitely many simulations).
 %As these quantities are inherently unknowable, we can only estimate their values and associated uncertainties.
 
-
-\item {\bf Standard Uncertainty}: Uncertainty in a result (e.g.\ estimation of a true value) as [[expressed in terms of a \hyperref[def:st_dev]{standard deviation}]]\footnote{The definition of standard uncertainty does not specify how to calculate the standard deviation.
-    This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.}.  {\color{red}[[I think this will be opaque to many readers, especially beginners.  How about adding "i.e., it is an estimate of the standard deviation expected if the same procedure were repeated multiple times."  Also this defn uses standard deviation, so I guess std dev defn should precede it.]]}
-  \label{def:std_unc}
-
-
 \item {\bf Expectation value}:  If $P(x)$ is the probability density of a continuous random quantity $x$, then the expectation value is given by the formula
 \begin{align}
   \expval{x} = \int {\rm d}x\, P(x) x.
@@ -78,6 +72,11 @@ If $x$ assume discrete values, the coresponding definition becomes
 \textbf{\textit{Remark:}} This quantity is often called the ``sample mean.''
 Note that a proper realization of a random variable (with no systematic bias) will yield values distributed according to $P$, so $\mean{x} \rightarrow \expval{x}$ as $n \rightarrow \infty$.
 
+
+\item {\bf Standard Uncertainty}: Uncertainty in a result (e.g.\ estimation of a true value) as [[expressed in terms of a \hyperref[def:st_dev]{standard deviation}]]\footnote{The definition of standard uncertainty does not specify how to calculate the standard deviation. This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.  Intuitively, this quantity should reflect the degree to which an estimate would vary if recomputed using new and independent data.}.  
+%{\color{red}[[I think this will be opaque to many readers, especially beginners.  How about adding "i.e., it is an estimate of the standard deviation expected if the same procedure were repeated multiple times."  Also this defn uses standard deviation, so I guess std dev defn should precede it.]]}
+  \label{def:std_unc}
+
 \item {\bf Experimental standard deviation\footnote{
       The term ``experimental'' can refer to simulated data, since these are the results of numerical experiments.
 }
@@ -95,12 +94,14 @@ Note that a proper realization of a random variable (with no systematic bias) wi
   \expval{ \left(x - \expval{x} \right) \left(y - \expval{y} \right) } = 0 \label{def:unc_obs}
 \end{equation}
 where $\expval{\star}$ denotes the (true) expectation value.
-{\color{red}[[I think it might be clearer to use x and y here to suggest different physical quantities and then remark that correlations between the same variable a different time points may also be correlated - but the application of the equation is more challenging to imagine as the average then must apply over multiple instances of the simulation ... surely confusing to beginners!]]}
-{\color{blue}[[DWS Question: Just to confirm, equation \ref{def:unc_obs} should use the expectation value, right?]]}
+%{\color{red}[[I think it might be clearer to use x and y here to suggest different physical quantities and then remark that correlations between the same variable a different time points may also be correlated - but the application of the equation is more challenging to imagine as the average then must apply over multiple instances of the simulation ... surely confusing to beginners!]]}
+%{\color{blue}[[DWS Question: Just to confirm, equation \ref{def:unc_obs} should use the expectation value, right?]]}
+%PNP reply to DWS:  Yes the equation should use the expectation value
+%PNP reply to other comment:  I think it's fine to use x and y to denote separate RVs.  I did not add a remark though.  I'm not sure it's necessary
 
 \smallskip
 
-\textbf{\textit{Remark:}} Linear uncorrelation and independence of random variables are concepts that are often conflated.  The latter amounts to the statement that the joint density of two random variables $x$ and $y$ can be decomposed as $P(x,y)=P(x)P(y)$, which is a stronger condition than linear uncorrelation.  Empirically testing for independence, however, is not practical, nor is it necessary for any of the estimates discussed in this work.
+\textbf{\textit{Remark:}} The concepts of linear uncorrelation and independence of random variables are often conflated.  The latter amounts to the statement that the joint density of two random variables $x$ and $y$ can be decomposed as $P(x,y)=P(x)P(y)$, which is a stronger condition than linear uncorrelation.  Empirically testing for independence, however, is not practical, nor is it necessary for any of the estimates discussed in this work.
   
 \item {\bf Experimental standard deviation of the mean}: An estimate of the standard deviation of the distribution of the \hyperref[def:arith_mean]{arithmetic mean}, given by the formula
   % 
@@ -108,8 +109,9 @@ where $\expval{\star}$ denotes the (true) expectation value.
     \stdevmean{\mean{x}} = \dfrac{\stdev{x_j}}{\sqrt{n}}, \label{def:exp_st_dev_mean}
   \end{equation}
   where the realizations of $x_j$ are assumed to be linearly uncorrelated.
-  {\color{red}[[Is the subscript j strictly needed here?  That's a bit confusing to me.  The formula seems to assume $s(x_j) = s(x)$ for all k anyway.  I imagine this will also confuse beginners.]]}
-  {\color{blue}[[DWS Reply: We are following VIM/GUM notation; it uses the subscript j to emphasize that this standard deviation is a statistical property of the set of observations $\left\{x_j\right\}$ rather than a universal property of the actual measurand. I'm open to either usage (dropping the subscript would actually simplify latter sections), but would add an explanatory footnote to either choice. A third option is to write it as $s\left(\left\{x_k\right\}\right)$, but that's getting really clunky.]]}
+{\color{red}[[Is the subscript j strictly needed here?  That's a bit confusing to me.  The formula seems to assume $s(x_j) = s(x)$ for all k anyway.  I imagine this will also confuse beginners.]]}
+{\color{blue}[[DWS Reply: We are following VIM/GUM notation; it uses the subscript j to emphasize that this standard deviation is a statistical property of the set of observations $\left\{x_j\right\}$ rather than a universal property of the actual measurand. I'm open to either usage (dropping the subscript would actually simplify latter sections), but would add an explanatory footnote to either choice. A third option is to write it as $s\left(\left\{x_k\right\}\right)$, but that's getting really clunky.]]}
+
   
 %  \smallskip
   
