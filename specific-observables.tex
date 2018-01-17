@@ -103,7 +103,7 @@ We stress that this final step of adjusting the block size and recomputing the b
 
 An alternative to the more common block averaging technique is the autocorrelation method for estimating the standard uncertainty of an observable.
 The essential objective of this technique is to estimate the number of independent samples in a simulation, via an intermediate function known as the autocorrelation function.
-First, given a set of observations $\left\{x_1, ..., x_N\right\}$, the autocorrelation function $C$ is computed for a set of lags $j$:
+First, given a sequence of observations $\left\{x_1, ..., x_N\right\}$, the autocorrelation function $C$ is computed for a set of lags $j$:
 %
 \begin{equation}
   C_j = \dfrac{
@@ -113,15 +113,16 @@ First, given a set of observations $\left\{x_1, ..., x_N\right\}$, the autocorre
     }
   }
   {\stdev{x_j}^2}
+  \label{def:obs_ACF}
 \end{equation}
 %
-{\color{red}NOTE: Have to decide how to express an average here; we reserved $\left< \cdots \right>$ for true expectation values.}
-
 where the denominator is the square of the \hyperref[def:exp_st_dev]{experimental standard deviation} of $x_j$ given by Eq.~\ref{def:exp_st_dev}.
-Then, the number of independent samples is estimated by\footnote{{\color{red} Explain why this sum is not the same as the integration over $C$; $C$ is stationary and symmetric, 1 comes from the ``zeroth'' lag, 2 is for symmetry. Actually easy to see this if you do an integral from -infty to +infty by a midpoint integration.}}
+Then, the number of independent samples is estimated by\footnote{The reader should note that both the autocorrelation function (Eq. \ref{def:obs_ACF}) and the number of independent samples (Eq.~\ref{def:Nind}) may be written in different forms\cite{Grossfield2009,Chodera-2016}. Our convention here presents the observations as a list $\left\{x_j\right\}$ in which the time interval (Molecular Dynamics) or trial spacing (Monte Carlo) of adjacent $x_j$ is implicitly fixed. For time-series data, one could alternately write both the observations and autocorrelation function as continuous functions of time, e.g.~$x\left(t\right)$ and $C\left(\tau\right)$ where $\tau$ is the lag time. In that case, $N_{ind}$ is written as a division of the total simulation time by the time integral of $C\left(\tau\right)$\cite{Grossfield2009}.}
+%\footnote{{\color{red} Explain why this sum is not the same as the integration over $C$; $C$ is stationary and symmetric, 1 comes from the ``zeroth'' lag, 2 is for symmetry. Actually easy to see this if you do an integral from -infty to +infty by a midpoint integration.}}
 %
 \begin{equation}
   N_{ind} = \dfrac{N}{1+2 \sum_{i=1}^{N_{lags}} C_j}
+  \label{def:Nind}
 \end{equation}
 %
 where $N_{lags}$ is the number of lags for which the $C_j$ was computed.
@@ -133,7 +134,7 @@ Finally, the standard uncertainty is estimated via
   \label{def:ACF_std_unc}
 \end{equation}
 %
-We note that the \hyperref[def:exp_st_dev]{experimental standard deviation} of the observable $x$ is used in Eq.~\ref{def:ACF_std_unc} to estimate the uncertainty. Strictly speaking, the standard uncertainty should be estimated using the true standard deviation of $x$ (e.g.\ $\sigma_x$); given that the true standard deviation is unknown, the experimental standard deviation is used in its place as an {\it unbiased estimate} of $\sigma_x$ {\color{red}(GOING TO NEED A CITATION HERE!!!)}.
+We note that the \hyperref[def:exp_st_dev]{experimental standard deviation} of the observable $x$ is used in Eq.~\ref{def:ACF_std_unc} to estimate the uncertainty. Strictly speaking, the standard uncertainty should be estimated using the true standard deviation of $x$ (e.g.\ $\sigma_x$); given that the true standard deviation is unknown, the experimental standard deviation is used in its place as an {\it unbiased estimate} of $\sigma_x$\cite{PatroneAIAA}.
 
 \subsection{Propagation of uncertainty}
 
@@ -188,7 +189,7 @@ Bootstrapping is an approach to uncertainty estimation that does not assume a pa
 % DMZ: deleting this because of redundancy with paragraph below
 %As with bootstrapping, the key issue is how many samples to draw from the original collection - what value of $n$ should be used?  It should be clear that a larger $n$ will yield less variation and hence a tighter confidence interval: implicitly all $n$ samples will be regarded as independent.  Hence, $n$ should be chosen to represent the number of \emph{independent} samples present in the original simulation, which can be gauged using an autocorrelation method \cite{Chodera-2016,Lyman2007a} or implicitly using a block-averaging procedure (cf. Secs.~\ref{sec:blockavg} and \ref{sec:autocorrelation}).
 
-The process described above assumes that the original simulation data is uncorrelated.  If this is not the case, then the resampling method can be reformulated in one of two ways.  The first option is to estimate the number of independent samples in the original set (e.g., using an autocorrelation method \cite{Chodera-2016,Lyman2007a}) and to pull only that many samples to create the new data sets.  The second option is to group the samples into blocks that are uncorrelated based on analyzing varying block sizes (see above) and to then use the block averages as the samples for bootstrapping.
+The process described above assumes that the original simulation data is uncorrelated.  If this is not the case, then the resampling method can be reformulated in one of two ways.  The first option is to estimate the number of independent samples in the original set (e.g.\ using an autocorrelation method \cite{Chodera-2016,Lyman2007a}) and to pull only that many samples to create the new data sets.  The second option is to group the samples into blocks that are uncorrelated based on analyzing varying block sizes (see above) and to then use the block averages as the samples for bootstrapping.
 
 Alternatively, one could use the difference between errors estimated via block averaging and bootstrapping as a measure of the correlation; if one tracks the bootstrapped and block averaged estimates of a quantity's uncertainty as a function of block size, the only difference between the two modes of calculation is whether the data is correlated.  The decay in the ratio of the two quantities as a function of time is a measure of the correlation time in the sample \cite{Romo2011}.
 
