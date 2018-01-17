@@ -80,14 +80,15 @@ Note that a proper realization of a random variable (with no systematic bias) wi
 \item {\bf Experimental standard deviation\footnote{
       The term ``experimental'' can refer to simulated data, since these are the results of numerical experiments.
 }
-}: An \emph{estimate} of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the demonimator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the estimate is {\it unbiased}, meaning that on average $\stdev{x_j}^2$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) is lost via the appearance of $\mean{x}$ in the definition of $\stdev{x_j}$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $x_j$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated Observables}).}
+}: An \emph{estimate} of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the demonimator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the estimate is {\it unbiased}, meaning that on average $\stdev{x}^2$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) is lost via the appearance of $\mean{x}$ in the definition of $\stdev{x}$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $x_j$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated Observables}).}
   \begin{equation}
-    \stdev{x_j} = \sqrt{\dfrac{\sum_{j=1}^n\left(x_j - \mean{x}\right)^2}{n-1}} \label{def:exp_st_dev}
+    \stdev{x} = \sqrt{\dfrac{\sum_{j=1}^n\left(x_j - \mean{x}\right)^2}{n-1}} \label{def:exp_st_dev}
   \end{equation}
   \smallskip
-  \textbf{\textit{Remark:}} This quantity is often called the ``sample standard deviation.'' 
+  \textbf{\textit{Remark:}} This quantity is often called the ``sample standard deviation.''
+  Additionally, $\stdev{x}$ is a statistical property of the specific set of observations $\left\{x_1,x_2,...,x_n\right\}$, not of the random quantity $x$ in general.
+  Thus, $\stdev{x}$ is sometimes written as $\stdev{x_j}$ for emphasis of this property.
 %FYI, the data does NOT need to be linearly uncorrelated for this estimate under typical MD conditions.  Assuming correlation times \tau << N (where N is the number of timesteps), the relative error in using correlated data is O(tau/N) << 1.
-
 
   \item {\bf Linearly Uncorrelated observables}:  If quantities $x$ and $y$ have mean values $\expval{x}$ and $\expval{x}$, then $x$ and $y$ are linearly uncorrelated if
 \begin{equation}
@@ -106,11 +107,11 @@ where $\expval{\star}$ denotes the (true) expectation value.
 \item {\bf Experimental standard deviation of the mean}: An estimate of the standard deviation of the distribution of the \hyperref[def:arith_mean]{arithmetic mean}, given by the formula
   % 
   \begin{equation}
-    \stdevmean{\mean{x}} = \dfrac{\stdev{x_j}}{\sqrt{n}}, \label{def:exp_st_dev_mean}
+    \stdevmean{\mean{x}} = \dfrac{\stdev{x}}{\sqrt{n}}, \label{def:exp_st_dev_mean}
   \end{equation}
   where the realizations of $x_j$ are assumed to be linearly uncorrelated.
-{\color{red}[[Is the subscript j strictly needed here?  That's a bit confusing to me.  The formula seems to assume $s(x_j) = s(x)$ for all k anyway.  I imagine this will also confuse beginners.]]}
-{\color{blue}[[DWS Reply: We are following VIM/GUM notation; it uses the subscript j to emphasize that this standard deviation is a statistical property of the set of observations $\left\{x_j\right\}$ rather than a universal property of the actual measurand. I'm open to either usage (dropping the subscript would actually simplify latter sections), but would add an explanatory footnote to either choice. A third option is to write it as $s\left(\left\{x_k\right\}\right)$, but that's getting really clunky.]]}
+%{\color{red}[[Is the subscript j strictly needed here?  That's a bit confusing to me.  The formula seems to assume $s(x_j) = s(x)$ for all k anyway.  I imagine this will also confuse beginners.]]}
+%{\color{blue}[[DWS Reply: We are following VIM/GUM notation; it uses the subscript j to emphasize that this standard deviation is a statistical property of the set of observations $\left\{x_j\right\}$ rather than a universal property of the actual measurand. I'm open to either usage (dropping the subscript would actually simplify latter sections), but would add an explanatory footnote to either choice. A third option is to write it as $s\left(\left\{x_k\right\}\right)$, but that's getting really clunky.]]}
 
   
 %  \smallskip
