@@ -1,0 +1,63 @@
+\section{Best Practices Checklist}
+
+The self-contained checklist is presented on the following page.
+
+\begin{Checklists*}[p!]
+\begin{checklist}{Quantifying Uncertainty and Sampling Quality in Molecular Simulation}
+\begin{itemize}
+
+\item
+\textbf{Plan your study carefully: Start with pre-simulation sanity checks.}  \emph{Underlying concept:} There is no guarantee that any method, enhanced or otherwise, can sample the system of interest.  See Sec.\ \ref{sec:sanity}
+    \begin{itemize}
+    \item See best-practices papers on simulation background and planning/setup [\url{https://github.com/MobleyLab/basic_simulation_training}]
+    \item Are system timescales known experimentally and feasible computationally based on published literature?
+      If timescales are too long for straight-ahead MD, is there an enhanced method for which there are precedents for systems of similar complexity?
+    \item Read up on sampling assessment -- from this article or another source (e.g., \cite{Grossfield2009}).  Understanding uncertainty will help in the \emph{planning} of a simulation.
+      %- Key concept: Connection between the equilibrium ensemble and individual trajectory (may or may not reach equilibrium); equilibrium vs. non-equilibrium.
+    \item Consider multiple runs instead of a single simulation.  Diverse starting structures enable a check on sampling for equilibrium ensembles, which should not depend on the starting structure.  Multiple runs may be especially useful in assessing uncertainty for enhanced sampling methods.  
+    %The starting structures should be as representative of the true ensemble as you can make them, and should be generated in an automated fashion (as opposed to using interactive setups) for better reproducibility,
+    \item Check your code/method via a simple benchmark system.  See: \url{https://github.com/shirtsgroup/software-physical-validation}
+    \end{itemize}
+    
+\item
+{\color{red}
+%\textbf{Do not exclude simulations from your reported analysis unless the setup was incorrect.}  ``Cherry-picking'' for data that provides a hoped-for outcome can significantly bias your conclusions.
+\textbf{Do not ``cherry-pick'' data that provides a hoped-for outcomes.}  This practice ethically questionable and, at a minimum, can significantly bias your conclusions.  In other words, use all of the available data unless there is an objective and compelling reason not to, e.g.\ the simulation setup was incorrect.
+}
+    
+\item
+\textbf{Perform simple, semi-quantitative checks which can rule out (but not ensure) sufficient sampling.} \emph{Underlying concept:} It is easier to diagnose insufficient sampling than to demonstrate good sampling.  See Sec.\ \ref{sec:quick}.
+    \begin{itemize}
+    \item Critically examine the time series of a number of observables -- those of interest and then some more.  Is each time series fluctuating about an average value or drifting overall?  What states are expected and what are seen?  Are there a significant number of transitions between states?
+    %\item Plot as many properties as you can think of, even if they’re not interesting
+    \item If multiple runs have been performed, compare time series, distributions, and cluster populations from the different simulations.
+    \item An individual trajectory can be divided into two parts and analyzed as if two simulations had been run.
+    \item For individual runs, perform pairwise RMSD visual analysis as described below.
+    %\item Plot pairwise configurational distances (e.g., RMSD values for biomolecules) in greyscale for $\sim$100 evenly spaced frames
+    %\item Visualize the trajectory graphically -- look for slow motions.  BE SKEPTICAL!
+    %\item Compare observable different fractions of a run (DMZ thirds idea)
+    %\item Andrew: short vs. very short [DMZ: this would need to be described somewhere]
+    %\item Daniel R: Compare runs from different initial conditions - be sure initial conditions are ‘different enough’
+    \end{itemize}
+    
+\item
+ \textbf{Remove an ‘equilibration' (a.k.a. `burn in', or transient) portion of a single MD or MC trajectory} and perform analyses only on the remaining ‘production’ portion of trajectory.  \emph{Underlying concept:} An initial configuration is unlikely to be representative of the desired ensemble and the resulting relaxation process must be accounted for.  See Sec.\ \ref{sec:equil}.
+ 
+\item
+ \textbf{Consider computing a quantitative measure of global sampling, particularly for a biomolecular system} - i.e., attempt to estimate the number of statistically independent samples in a trajectory.  \emph{Underlying concept:} Trajectory 'frames' (configurations) are highly correlated because one frame is generated from the preceding one, and estimating the degree of correlation is essential to understanding overall simulation quality.  See Sec.\ \ref{sec:global}.
+\item
+ \textbf{Quantify uncertainty in specific observables of interest using a confidence interval.}  \emph{Underlying concept:} The statistical uncertainty in the estimate of an observable's \emph{average} decreases as more independent samples are obtained, and can be much smaller than the standard deviation -- which measures the range of variation in the observable.  See Sec.\ \ref{sec:specific}.
+ 
+\item
+\textbf{Use special care and uncertainty analyses for enhanced sampling methods.}  \emph{Underlying concept:} The use of multiple, potentially correlated trajectories within a single enhanced-sampling simulation can invalidate the assumptions underpinning traditional analyses of uncertainty.  See Sec.\ \ref{sec:enhanced}.
+
+\item
+{\color{red}
+\textbf{Report a complete description of your uncertainty quantification procedure, detailed enough to permit exact reproduction of your findings.}  
+Briefly describe the meaning and basis of uncertainties given in figures or tables in the captions for those items -- e.g., "Error bars represent 95\% confidence intervals based on bootstrapping from the independent simulations."  
+\emph{Underlying concept:} The non-uniformity of uncertainty quantification procedures in the modern literature underscores the value of clarity and transparency going forward.
+}
+
+\end{itemize}
+\end{checklist}
+\end{Checklists*}
