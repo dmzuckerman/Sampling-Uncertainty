@@ -68,7 +68,7 @@ In the absence of a reliable estimate for the number of independent observations
 \subsection{Block averaging method for estimating the standard uncertainty}\label{sec:blockavg}
 
 The standard uncertainty of a simulation observable can be estimated from the \hyperref[def:exp_st_dev]{experimental standard deviation} of the observable divided by the square root of the number of independent samples.
-Due to correlation in the tape of simulation output from either MD or MC simulation, the number of independent samples in a simulation is neither equal to the number of observations nor known {\it a priori}.
+Due to correlation in the time-series of simulation output from either MD or MC simulation, however, the number of independent samples in a simulation is neither equal to the number of observations nor known {\it a priori}.
 The block averaging technique can be used instead of the individual observations to account for correlation in samples, while using all data, subject only to the constraint that the ``blocks'' are large enough to be essentially uncorrelated\cite{Friedberg1970,Flyvbjerg-1989,FrenkelSmit2002,Grossfield2009}.
 
 Briefly, the set of $N$ observations $\left\{x_1, ..., x_N\right\}$ are converted to a set of $M$ ``block averages'' $\left\{x^b_1, ..., x^b_{M}\right\}$, where a block average $x^b_j$ is the \hyperref[def:arith_mean]{arithmetic mean} of $n$ (the block size) sequential measurements of $x$:
