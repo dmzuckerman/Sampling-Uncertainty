@@ -63,12 +63,12 @@ In the absence of a reliable estimate for the number of independent observations
 
 \subsection{Dealing with correlated time-series data}
 
-When samples of a simulated observable are independent, Eq.~\hyperref[def:exp_st_dev]{\ref{def:exp_st_dev_mean} for the experimental standard deviation of the mean} can be used as an estimate of the corresponding standard uncertainty.  Due to correlations in typical time-series data, however, the number of independent samples in a simulation is neither equal to the number of observations nor known {\it a priori}; thus Eq.~\ref{def:exp_st_dev_mean} is not directly useful.  To overcome this problem, a variety of techniques have emerged that attempt to estimate the effective number of independent samples in a dataset.  Generally speaking, these method fall into roughly two categories:  (i) autocorrelation analyses, which directly estimate the number of independent samples in a time-series; and (ii) block-averaging, which projects a time-series onto a smaller dataset of (approximately) independent samples.  We now discuss these methods in more detail.
+When samples of a simulated observable are independent, the experimental standard deviation of the mean (i.e.\  Eq.~\hyperref[def:exp_st_dev]{\ref{def:exp_st_dev_mean}}) can be used as an estimate of the corresponding standard uncertainty.  Due to correlations, however, the number of independent samples in a simulation is neither equal to the number of observations nor known {\it a priori}; thus Eq.~\ref{def:exp_st_dev_mean} is not directly useful.  To overcome this problem, a variety of techniques have been developed to estimate the effective number of independent samples in a dataset.  Two methods in particular have gained considerable traction in the community:  (i) autocorrelation analyses, which directly estimate the number of independent samples in a time-series; and (ii) block-averaging, which projects a time-series onto a smaller dataset of (approximately) independent samples.  We now discuss these methods in more detail.
 
 
 \subsubsection{Autocorrelation method for estimating the standard uncertainty}\label{sec:autocorrelation}
 
-Conceptually, autocorrelation analyses aim to recover the usefulness of Eq.~\ref{def:exp_st_dev_mean} by replacing the number of samples $N$ with an effective number $N_{\rm ind}$ that takes into account ``redundant'' (or even possibly new) information arising from correlations.\footnote{It is worth pointing out that correlations do not always provide redundant information.  Consider, for example, the time-series $1,-1,1,-1,1,-1,...$.  In the limit that the number of elements goes to infinity, the arithmetic mean also converges to zero.  However, a block of $2n$ entries also has a mean of zero, so that (anti)correlations effectively increase the amount of information.  See also Ref.~\cite{PatroneAIAA}. }  The main idea behind this approach is to invoke the fact that the statistical properties of steady-state simulations (e.g.\ those in equilibrium or non-equilibrium steady-state) are, by definition, time-invariant.  As such, correlations between an observable computed at two different times depends only on the lag (i.e.\ difference) between those times, not their absolute values.
+Conceptually, autocorrelation analyses directly compute the effective number of independent samples $N_{\rm ind}$ in a time-series, taking into account ``redundant'' (or even possibly new) information arising from correlations.\footnote{It is worth pointing out that correlations do not always provide redundant information.  Consider, for example, the time-series $1,-1,1,-1,1,-1,...$.  In the limit that the number of elements goes to infinity, the arithmetic mean also converges to zero.  However, a block of $2n$ entries also has a mean of zero, so that (anti)correlations effectively increase the amount of information.  See also Ref.~\cite{PatroneAIAA}. }  In particular, this approach invokes the fact that the statistical properties of steady-state simulations (e.g.\ those in equilibrium or non-equilibrium steady-state) are, by definition, time-invariant.  As such, correlations between an observable computed at two different times depends only on the lag (i.e.\ difference) between those times, not their absolute values.
 
 This observation motivates one to compute an autocorrelation function.  Specifically, given a sequence of observations $\left\{x_1, ..., x_N\right\}$, the autocorrelation function $C$ is defined for a set of lags $j$ via:
 %
@@ -127,12 +127,28 @@ Lastly, the standard uncertainty of $\mean{x}^b$ is just the \hyperref[def:exp_s
 %
 This standard uncertainty may then be used to calculate a confidence interval on $\mean{x}^b$.
 
-\textcolor{red}{It is important to note that for statistical purposes, the blocks must all be of the same size in order to identically distributed, and thereby satisfy the requirements of Eq.~\ref{def:exp_st_dev_mean}.}  It is alost important systematically assess the impact of block-size on the corresponding estimates.  In particular, as the blocks get longer, the block averages should decorrelate and $\stdevmean{\mean{x}^b}$ should plateau \cite{Flyvbjerg-1989,Grossfield2009}.
+\textcolor{red}{It is important to note that for statistical purposes, the blocks must all be of the same size in order to identically distributed, and thereby satisfy the requirements of Eq.~\ref{def:exp_st_dev_mean}.}  It is alost important to  systematically assess the impact of block-size on the corresponding estimates.  In particular, as the blocks get longer, the block averages should decorrelate and $\stdevmean{\mean{x}^b}$ should plateau \cite{Flyvbjerg-1989,Grossfield2009}.
 Another approach is to measure the block correlation and to use it to improve the selection of the block size and, hence, uncertainty estimate \cite{Kolafa1986}.
 We stress that this final step of adjusting the block size and recomputing the block standard uncertainty is absolutely necessary. Otherwise, the blocks may be correlated, yielding an uncertainty that is not meaningful.
 
 
 \subsection{Propagation of uncertainty}
+
+\textcolor{red}{PNP comment: I am largely rewriting this section.  I feel that the current version is confusing and possibly incorrect in some spots.  Generally, notation (e.g.\ $\beta$) is not defined.  The derivation / explanation leading to Eq. 16 does not make sense to me.  I do not see a Taylor expansion as expressed.  }
+
+Often, the quantities of interest in a simulation are observables computed in terms of raw data.  In such cases, it is necessary to propagate uncertainties in this raw data $x$ through some definition or analysis $F(x)$ to arrive at the corresponding uncertainties associated with the derived quantity.  Frequently, this can be accomplished through a linear propagation analysis using Taylor series, which yields simple and useful formulas.  
+
+The main idea behind this approach is to express the computed mean as the true mean $\mu$ plus some small uncertainty $\epsilon \ll \mu$.  Note that the ratio $\epsilon/\mu$ is the so-called ``noise-to-signal'' ratio, which vanishes in the limit of a precise measurement.  With this in mind, we expand the derived quantity $F(\mu + \epsilon)\approx F(\mu) + F'(\mu)\epsilon + \mathcal O(\epsilon^2)$ to first order, where $F'(\mu)$ is the derivative with respect to $\mu$.  This approximation in particular is justified by the smallness of $\epsilon$.  Finally, we arrive at the result that the uncertainty in $F$ simply $F'(\mu)\epsilon$.
+
+An example illustrates this procedure.  Consider, for example, the task of estimating the density $\rho=m/V$ from a time-series of volumes output by a constant pressure simulation, where $m$ is the (constant) system mass.  Letting $\bar V = \langle V \rangle + \sigma_V \mathcal N$, where $\mathcal N$ is a normal random variable with mean zero and unit variance, we find
+\begin{align}
+needtofillin
+\end{align}
+
+
+Consider, for example, a time-series of volumes $V_i$ computed from a constant pressure simulation.  If 
+
+Often, the quantities we care about are not be simulation observables, but rather predictions derived from the former.  
 
 The quantities we are most interested in may not be simulation observables.  For instance, the free energy difference between two states might be measured by free energy perturbation, expressed as a function of the average of another quantity \cite{Taylor1997}.
 \begin{equation}
