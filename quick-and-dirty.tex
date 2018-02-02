@@ -3,23 +3,6 @@
 \section{Qualitative and semi-quantitative checks that can rule out good sampling}
 \label{sec:quick}
 
-\begin{figure}
-\centering
-%\begin{wrapfigure}{r}{6cm}
-   % toggle these as needed - sorry!
-   \includegraphics[width=5.8cm]{figures/rmsd}
-%  \includegraphics[width=5.8cm]{figures/rmsd/rmsd}
-  \includegraphics[width=5.8cm]{figures/rmsds}
-%  \includegraphics[width=5.8cm]{figures/rmsd/rmsds}
-  \caption{
-  \label{f:rmsd} RMSD as a measure of convergence.  The upper panel shows the
-  $\alpha$-carbon RMSD of the protein rhodopsin from its starting structure as a
-  function of time.  The lower panel shows the all-to-all RMSD map computed from the same
-  trajectory.  Data from Leioatts, et al \cite{Grossfield-2015}.
-  }
-\end{figure}
-%\end{wrapfigure}
-
 It is difficult to establish with certainty that good sampling has been achieved, but it is not difficult to \emph{rule out} high-quality sampling.
 Here we elaborate on some relatively simple tests that can quickly bring out inadequacies in sampling.
 
@@ -38,6 +21,25 @@ C(x_j,x_{j+\tau}) &= \expval{ \left(x_j - \expval{x} \right) \left(x_{j+\tau} - 
 
 \subsection{Tests based on configurational distance measures - e.g., RMSD for biomolecules}
 \label{sec:bio_RMSD}
+
+\begin{figure}
+  \centering
+%\begin{wrapfigure}{r}{6cm}
+   % toggle these as needed - sorry!
+   % \includegraphics[width=5.8cm]{figures/rmsd}
+  \includegraphics[width=0.9\linewidth]{figures/rmsd}
+%  \includegraphics[width=5.8cm]{figures/rmsd/rmsd}
+  %\includegraphics[width=5.8cm]{figures/rmsds}
+  \includegraphics[width=0.9\linewidth]{figures/rmsds}
+%  \includegraphics[width=5.8cm]{figures/rmsd/rmsds}
+  \caption{RMSD as a measure of convergence.  The upper panel shows the
+    $\alpha$-carbon RMSD of the protein rhodopsin from its starting structure as a
+    function of time.  The lower panel shows the all-to-all RMSD map computed from the same
+    trajectory.  Data from Leioatts, et al \cite{Grossfield-2015}.}
+  \label{f:rmsd}
+\end{figure}
+%\end{wrapfigure}
+
 \textcolor{red}{PNP comment: as more of a material scientist, I don't really know what this section is saying.  It might be nice to have a brief intro paragraph (or at least a few sentences) saying what RMSD is and how we can understand it physically.  What's the executive summary of why it can be used to assess equilibration?  Maybe then launch into a more detailed discussion}
 
 We will use the standard biomolecular RMSD (root mean-squared difference) as a generic distance measure for illustrative purposes.
@@ -83,7 +85,11 @@ In the context of materials science, simulations of yield-strain $\epsilon_y$ (l
 In experimental data, these regimes are generally distinct and connected by a sharp transition.  In simulated data, however, the transition in $\epsilon_r$ around yield is generally smooth and not piecewise linear, owing to the timescale limitations of MD.  Thus, it is useful to perform analyses that can objectively identify the asymptotic regimes without need for input from a modeler.  One way to achieve this is by fitting residual strain to a hyperbola.  In doing so, the proximity of data to the asymptotes illustrates the extent to which simulated $\epsilon_r$ conforms to the expectation that $\epsilon_r=0$ when $\epsilon < \epsilon_y$.  See Fig.~\ref{fig:yield} and Refs.~\cite{patrone1,patrone2} for more examples and discussion.
 
 \begin{figure}
-\includegraphics[width=8cm]{hyperbola.png}\caption{Yield strain tn $\epsilon_r$ as a function of applied strain $\epsilon$.  Blue $\times$ denote simulated data, whereas the smooth curve is a hyperbola fit to the data.  The green lines are asymptotes; their intersection can be taken as an estimate of $\epsilon_y$.    Bounds on yield are computed by the synthetic data method discussed in the next section.  {\it From, ``Estimation and uncertainty quantification of yield via strain recovery simulations,'' P.\ Patrone, CAMX 2016 Conference Proceedings.  Reprinted courtesy of the National Institute of Standards and Technology, U.S. Department of Commerce. Not copyrightable in the United States.}}\label{fig:yield}
+  \centering
+  % \includegraphics[width=8cm]{hyperbola.png}
+  \includegraphics[width=0.9\linewidth]{hyperbola.png}
+  \caption{Yield strain tn $\epsilon_r$ as a function of applied strain $\epsilon$.  Blue $\times$ denote simulated data, whereas the smooth curve is a hyperbola fit to the data.  The green lines are asymptotes; their intersection can be taken as an estimate of $\epsilon_y$.    Bounds on yield are computed by the synthetic data method discussed in the next section.  {\it From, ``Estimation and uncertainty quantification of yield via strain recovery simulations,'' P.\ Patrone, CAMX 2016 Conference Proceedings.  Reprinted courtesy of the National Institute of Standards and Technology, U.S. Department of Commerce. Not copyrightable in the United States.}}
+  \label{fig:yield}
 \end{figure}
 
 While extending this approach to other types of simulations invariably depends on the problem at hand, we recognize a few generic principles.  In particular, it is sometimes possible to test the quality of data by fitting it to {\it global} (not piecewise or local!) functions that exhibit characteristics we desire of the former.  By testing the goodness of this fit, we can assess the extent to which the data captures the entire structure of the fit-function and therefore conforms to expectations.  We note that this task can even be done in the absence of a known fit function, given only more generic properties such as convexity.  See, for example, the discussion in Ref.~\cite{PatroneAIAA}.  
@@ -92,12 +98,13 @@ While extending this approach to other types of simulations invariably depends o
 \subsection{Tests based on independent simulations and related ideas}
 
 \begin{figure}
-%\begin{wrapfigure}{r}{6cm}
-  \includegraphics[width=5.8cm]{figures/combinedcluster}
+  % \begin{wrapfigure}{r}{6cm}
+  \centering
+  % \includegraphics[width=5.8cm]{figures/combinedcluster}
+  \includegraphics[width=0.9\linewidth]{figures/combinedcluster}
   %\includegraphics[width=5.8cm]{figures/combinedcluster/combinedcluster}
-  \caption{
-  \label{f:combinedcluster} Combined clustering between two independent trajectories as a measure of convergence. The X axis is the population of a cluster from trajectory 1, while the Y axis is the population of that cluster from trajectory 2. Cluster populations are show after 20, 100, and 800 ns of sampling. The simulations used to generate the data used in this plot are described in Roe et al.\citep{Roe2014}
-  }
+  \caption{Combined clustering between two independent trajectories as a measure of convergence. The X axis is the population of a cluster from trajectory 1, while the Y axis is the population of that cluster from trajectory 2. Cluster populations are show after 20, 100, and 800 ns of sampling. The simulations used to generate the data used in this plot are described in Roe et al.\citep{Roe2014}}
+  \label{f:combinedcluster} 
 %\end{wrapfigure}
 \end{figure}
 
