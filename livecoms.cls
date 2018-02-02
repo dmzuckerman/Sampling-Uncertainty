@@ -330,7 +330,30 @@
 %% Added for LiveComs
 \RequirePackage{environ}
 \RequirePackage{textpos}
+
+%% Abstract outside frontmatter will throw an error!
+\RenewEnviron{abstract}{%
+  \ClassError{livecome}
+  {Nope nope nope, please put the abstract inside the frontmatter environment.}
+  {Please put the abstract inside the frontmatter environment.}
+}
+
 \NewEnviron{frontmatter}{%
+  %% Define abstract's behavior when placed in frontmatter
+  \renewenvironment{abstract}{%
+     \setlength{\parindent}{0pt}\raggedright
+     \raisebox{-16pt-\baselineskip}[0pt][0pt]{\makebox[0pt][r]{\parbox[t]{3cm}{%
+       \raggedright\itshape\footnotesize\@blurb\par\medskip%
+       This version dated \@date%
+     }\hspace*{1cm}}}%
+     \textcolor{LiveCoMSMediumGrey}{\rule{\textwidth}{2pt}}
+     \vskip16pt
+     \textcolor{LiveCoMSLightBlue}{\large\bfseries\abstractname\space}
+  }{%
+     \vskip8pt
+     \textcolor{LiveCoMSMediumGrey}{\rule{\textwidth}{2pt}}
+     \vskip16pt
+  }
   \twocolumn[%
     \protecting{%\begin{minipage}[b]{3cm}
     % \small\itshape
@@ -350,21 +373,6 @@
   \vskip16pt
   {\@author\par}
   \vskip8pt
-}
-
-\renewenvironment{abstract}{%
-   \setlength{\parindent}{0pt}\raggedright
-   \raisebox{-16pt-\baselineskip}[0pt][0pt]{\makebox[0pt][r]{\parbox[t]{3cm}{%
-     \raggedright\itshape\footnotesize\@blurb\par\medskip%
-     This version dated \@date%
-   }\hspace*{1cm}}}%
-   \textcolor{LiveCoMSMediumGrey}{\rule{\textwidth}{2pt}}
-   \vskip16pt
-   \textcolor{LiveCoMSLightBlue}{\large\bfseries\abstractname\space}
-}{%
-   \vskip8pt
-   \textcolor{LiveCoMSMediumGrey}{\rule{\textwidth}{2pt}}
-   \vskip16pt
 }
 
 %% Insert a grey line to separate floats from main text
