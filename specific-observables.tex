@@ -92,8 +92,7 @@ Then, the number of independent samples is estimated by\footnote{The reader shou
   \label{def:Nind}
 \end{equation}
 %
-where $N_{lags}$ is the number of lags for which the $C_j$ was computed.  Note that $N_{\rm ind}$ need not be an integer
-%In practice, one rounds $N_{ind}$ to an integer.  %PNP comment: I removed this sentence because it's not necessary to round and doing so in fact introduces some slight error.  In many cases this error is negligible, but since it's entirely avoidable, I don't think we should advocate rounding.
+where $N_{lags}$ is the number of lags for which the $C_j$ was computed.  Note that $N_{\rm ind}$ need not be an integer.
 Finally, the standard uncertainty is estimated via
 %
 \begin{equation}
@@ -108,16 +107,16 @@ We note that the \hyperref[def:exp_st_dev]{experimental standard deviation} of t
 
 The main idea behind block-averaging is to permit the direct usage of Eq.~\eqref{def:exp_st_dev} by projecting the original dataset onto one comprised of only independent samples, so that there is no need to compute $N_{\rm ind}$.  Acknowledging that typical MD time-series have a finite-correlation time $\tau$, we recognize that a continuous block of $M$ data-points will only be correlated with its adjacent blocks through its first and last $\tau$ points, provided $\tau \ll M$ is small compared to the block size.   That is, correlations will be on the order of $\tau / M$, which goes to zero in the limit of large blocks.
 
-This observation motivates block-averaging as follows \cite{Friedberg1970,Flyvbjerg-1989,FrenkelSmit2002,Grossfield2009}.
-%The block averaging technique can be used instead of the individual observations to account for correlation in samples, while using all data, subject only to the constraint that the ``blocks'' are large enough to be essentially uncorrelated\cite{Friedberg1970,Flyvbjerg-1989,FrenkelSmit2002,Grossfield2009}.
+This observation motivates a technique known as block-averaging \cite{Friedberg1970,Flyvbjerg-1989,FrenkelSmit2002,Grossfield2009}.
 Briefly, the set of $N$ observations $\left\{x_1, ..., x_N\right\}$ are converted to a set of $M$ ``block averages'' $\left\{x^b_1, ..., x^b_{M}\right\}$, where a block average $x^b_j$ is the \hyperref[def:arith_mean]{arithmetic mean} of $n$ (the block size) sequential measurements of $x$:
 %
 \begin{equation}
-  x^b_j = \dfrac{\sum\limits_{j=1+(k-1)n}^{kn} x_j}{n}
+  x^b_j = \dfrac{\sum\limits_{l=1+(j-1)n}^{jn} x_l}{n}
 \end{equation}
 %
-From this set of block averages, one may then compute the arithmetic mean of the block averages, $\mean{x}^b$, which is an estimator for $\expval{x}$.  
-%(We note that for $mod(N,n)=0$, then $\mean{x}^b = \mean{x}$, as the entire set of $x_j$ is used. This is {\it not} true if $N$ is not evenly divisible by $M$ and $n$.)  PNP comment: this sentence is misleading, and I think the use of modular arithmetic notation may be incorrect, or at least it is not defined.
+From this set of block averages, one may then compute the arithmetic mean of the block averages, $\mean{x}^b$, which is an estimator for $\expval{x}$.\footnote{Note that $\mean{x} = \mean{x}^b$ is not necessarily true as the block averages may discard some observations of $x_l$.}
+% (We note that for $mod(N,n)=0$, then $\mean{x}^b = \mean{x}$, as the entire set of $x_j$ is used. This is {\it not} true if $N$ is not evenly divisible by $M$ and $n$.)  PNP comment: this sentence is misleading, and I think the use of modular arithmetic notation may be incorrect, or at least it is not defined.
+%DWS Comment: True, the mod math here is my own convention. It's a subtle point, often confusing to novices, that the mean of the  block averages is only equal to the true mean if 1) the blocks are the same size [we require this later] and 2) every observation of x is included in one and only one block average.
 Following, one computes the \hyperref[def:exp_st_dev]{experimental standard deviation} of the block averages, $\stdev{\mean{x}^b}$, using Eq.~\ref{def:exp_st_dev}.
 Lastly, the standard uncertainty of $\mean{x}^b$ is just the \hyperref[def:exp_st_dev_mean]{experimental standard deviation of the mean} given the set of $M$ block averages:
 %
@@ -127,7 +126,7 @@ Lastly, the standard uncertainty of $\mean{x}^b$ is just the \hyperref[def:exp_s
 %
 This standard uncertainty may then be used to calculate a confidence interval on $\mean{x}^b$.
 
-\textcolor{red}{It is important to note that for statistical purposes, the blocks must all be of the same size in order to identically distributed, and thereby satisfy the requirements of Eq.~\ref{def:exp_st_dev_mean}.}  It is alost important to  systematically assess the impact of block-size on the corresponding estimates.  In particular, as the blocks get longer, the block averages should decorrelate and $\stdevmean{\mean{x}^b}$ should plateau \cite{Flyvbjerg-1989,Grossfield2009}.
+It is important to note that for statistical purposes, the blocks must all be of the same size in order to identically distributed, and thereby satisfy the requirements of Eq.~\ref{def:exp_st_dev_mean}.  It is also important to  systematically assess the impact of block-size on the corresponding estimates.  In particular, as the blocks get longer, the block averages should decorrelate and $\stdevmean{\mean{x}^b}$ should plateau \cite{Flyvbjerg-1989,Grossfield2009}.
 Another approach is to measure the block correlation and to use it to improve the selection of the block size and, hence, uncertainty estimate \cite{Kolafa1986}.
 We stress that this final step of adjusting the block size and recomputing the block standard uncertainty is absolutely necessary. Otherwise, the blocks may be correlated, yielding an uncertainty that is not meaningful.
 
