@@ -133,7 +133,7 @@ We stress that this final step of adjusting the block size and recomputing the b
 
 \subsection{Propagation of uncertainty}
 
-\textcolor{red}{PNP comment: I am largely rewriting this section.  I feel that the current version is confusing and possibly incorrect in some spots.  Generally, notation (e.g.\ $\beta$) is not defined.  The derivation / explanation leading to Eq. 16 does not make sense to me.  I do not see a Taylor expansion as expressed.  }
+%\textcolor{red}{PNP comment: I am largely rewriting this section.  I feel that the current version is confusing and possibly incorrect in some spots.  Generally, notation (e.g.\ $\beta$) is not defined.  The derivation / explanation leading to Eq. 16 does not make sense to me.  I do not see a Taylor expansion as expressed.  }
 
 Often, the quantities of interest in a simulation are observables computed in terms of raw data.  In such cases, it is necessary to propagate uncertainties in this raw data $x$ through some definition or analysis $F(x)$ to arrive at the corresponding uncertainties associated with the derived quantity.  Frequently, this can be accomplished through a linear propagation analysis using Taylor series, which yields simple and useful formulas.  
 
@@ -141,33 +141,35 @@ The main idea behind this approach is to express the computed mean as the true m
 
 An example illustrates this procedure.  Consider, for example, the task of estimating the density $\rho=m/V$ from a time-series of volumes output by a constant pressure simulation, where $m$ is the (constant) system mass.  Letting $\bar V = \langle V \rangle + \sigma_V \mathcal N$, where $\mathcal N$ is a normal random variable with mean zero and unit variance, we find
 \begin{align}
-needtofillin
+\rho = \frac{m}{\bar V + \sigma_V \mathcal N} &= \frac{m}{\bar V}\left[1 + \frac{\sigma_V \mathcal N}{\bar V} \right]^{-1} \nonumber \\
+& \approx \frac{m}{\bar V} - \frac{m \sigma_V }{\bar V^2} \mathcal N.
 \end{align}
+In the above, $m \sigma_V/(\bar V^2)$ is the uncertainty associated with the average density $m/\bar V$.  \textcolor{red}{Need to finish this section.}
+
+%Consider, for example, a time-series of volumes $V_i$ computed from a constant pressure simulation.  If 
+
+%Often, the quantities we care about are not be simulation observables, but rather predictions derived from the former.  
+
+%The quantities we are most interested in may not be simulation observables.  For instance, the free energy difference between two states might be measured by free energy perturbation, expressed as a function of the average of another quantity \cite{Taylor1997}.
+%\begin{equation}
+%\beta \Delta A = -\ln \left< \exp \left(-\beta \Delta U\right) \right>
+%\end{equation}
+%Although $\exp(-\beta \Delta U)$ can be measured during the simulation and its uncertainty can be estimated directly using block averages as described above, $\beta \Delta A$ cannot be handled the same way.  If we compute $\beta \Delta A$ for each block, the values will tend to take extremely positive whenever the perturbation does poorly (where $\Delta U$ is consistently large).  In the pathological case, $\Delta U$ might be $\infty$ for every sample in a block and the $\beta \Delta A=-\ln 0$ cannot be computed.
 
 
-Consider, for example, a time-series of volumes $V_i$ computed from a constant pressure simulation.  If 
-
-Often, the quantities we care about are not be simulation observables, but rather predictions derived from the former.  
-
-The quantities we are most interested in may not be simulation observables.  For instance, the free energy difference between two states might be measured by free energy perturbation, expressed as a function of the average of another quantity \cite{Taylor1997}.
-\begin{equation}
-\beta \Delta A = -\ln \left< \exp \left(-\beta \Delta U\right) \right>
-\end{equation}
-Although $\exp(-\beta \Delta U)$ can be measured during the simulation and its uncertainty can be estimated directly using block averages as described above, $\beta \Delta A$ cannot be handled the same way.  If we compute $\beta \Delta A$ for each block, the values will tend to take extremely positive whenever the perturbation does poorly (where $\Delta U$ is consistently large).  In the pathological case, $\Delta U$ might be $\infty$ for every sample in a block and the $\beta \Delta A=-\ln 0$ cannot be computed.
-
-
-Instead of using block averages for $\beta \Delta A$, its uncertainty can be expressed as a first-order Taylor series expansion
+%Instead of using block averages for $\beta \Delta A$, its uncertainty can be expressed as a first-order Taylor series expansion
 %
-\begin{equation}
-  \sigma_{\beta \Delta A} = \sigma_{\exp(\beta \Delta U)} / \left< \exp \left(-\beta \Delta U\right) \right>
-  \label{eq:propagation_bDA}
-\end{equation}
+%\begin{equation}
+%  \sigma_{\beta \Delta A} = \sigma_{\exp(\beta \Delta U)} / \left< \exp \left(-\beta \Delta U\right) \right>
+%  \label{eq:propagation_bDA}
+%\end{equation}
 %
-Propagation of uncertainty is needed whenever the derived quantity can be expressed as a function of other random observables.  It might also be needed when the derived quantity is of a function of quantities measured in separate simulations, such as $<U(T_2)>-<U(T_1)>$.  If a derived quantity is a function of multiple observables measured within a single simulation, then terms must be included to account for the correlation between those observables.
+%Propagation of uncertainty is needed whenever the derived quantity can be expressed as a function of other random observables.  It might also be needed when the derived quantity is of a function of quantities measured in separate simulations, such as $<U(T_2)>-<U(T_1)>$.  If a derived quantity is a function of multiple observables measured within a single simulation, then terms must be included to account for the correlation between those observables.
 
 The Taylor series approach works well in most cases and is easy to use, but does have limitations.  Because this approach is based on a first-order Taylor series, propagation of uncertainty can fail in cases where a non-linear formula is used and the uncertainty is very large or the distribution of input averages is not Gaussian.  For instance, the uncertainty in $\beta \Delta A$ as prescribed by Eq.~\ref{eq:propagation_bDA} cannot exceed unity no matter how short the simulation is or how bad the sampling is.  If there is doubt as to the quality of the computed uncertainty, the uncertainty can be estimated with alternative approaches such as bootstrapping to validate the Taylor series results or to identify an alternative approach that works better.
 
 \subsection{From standard uncertainty to confidence interval for Gaussian variables}\label{sec:conf_int}
+
 Once a standard uncertainty value is obtained for a Gaussian-distributed random variable with mean $\left< x \right>$, and the number of independent samples $n$ has been estimated, the 95~\%-confidence interval $\left[ \mean{x} -k \, \stdevmean{\mean{x}} , \mean{x} +k \, \stdevmean{\mean{x}} \right]$ can be constructed on the basis of an established look-up table (or a statistics software model) for the coverage factor $k$ based on $n$.  The theoretical basis for the table is the ``Student'' or ``$t$'' distribution, which is \emph{not} Gaussian, but governs the behavior of an \emph{average} derived from $n$ independent Gaussian variables  \cite{JCGM:GUM2008}. Table \ref{tab:coveragefactors} lists $k$ for two-sided 95~\% confidence intervals for select values of $n$.
 
 When $n \leq 10$, we recommend showing all data points, as a confidence interval may not be statistically meaningful.
