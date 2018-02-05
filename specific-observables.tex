@@ -144,15 +144,9 @@ A simple example illustrates this procedure.  Consider, in particular, the task 
 \rho = \frac{m}{\bar V + \sigma_V \mathcal N} &= \frac{m}{\bar V}\left[1 + \frac{\sigma_V \mathcal N}{\bar V} \right]^{-1} \nonumber \\
 & \approx \frac{m}{\bar V} - \frac{m \sigma_V }{\bar V^2} \mathcal N. \label{eq:linear_prop}
 \end{align}
-In the above, $m \sigma_V/(\bar V^2)$ is the uncertainty associated with the average density $m/\bar V$.  Note that by virtue of the linear approximation, this uncertainty is also normally distributed, which is a universal feature of such methods.  {\it More generally, linear propagation always yields a derived uncertainty that is a linear combination of the probability distribution(s) associated with the raw data (even if the latter is not Gaussian).}
+In the above, $m \sigma_V/(\bar V^2)$ is the uncertainty associated with the average density $m/\bar V$.  Note that by virtue of the linear approximation, this uncertainty is also normally distributed, which is a universal feature of such methods.  {\it More generally, linear propagation always yields a derived uncertainty that is a linear combination of the probability distribution(s) associated with the raw data (even if the latter are not Gaussian).}
 
-In general, approximations in the spirit of Eq.~\ref{eq:linear_prop} are useful and easy to generalize to higher-dimensional settings, where the 
-
-We note that while this example is perhaps overly simplistic, it does provide a useful test-case for verifying the accuracy of the method.  In particular, 
-
-%Consider, for example, a time-series of volumes $V_i$ computed from a constant pressure simulation.  If 
-
-%Often, the quantities we care about are not be simulation observables, but rather predictions derived from the former.  
+In general, approximations in the spirit of Eq.~\ref{eq:linear_prop} are useful and easy to generalize to higher-dimensional settings in which the derived observable is a nonlinear combination of many data-points or sets.  However, the method does have limits.  In particular, the it rests on the assumption of a small noise-to-signal ratio, which may not be valid for all simulated data.   If there is doubt as to the quality of the an estimate, the uncertainty shoudl therefore be estimated with alternative approaches such as bootstrapping in order to validate the linear approximation.  See also the pooling analysis of Ref.~\cite{Patrone16} for a method of assessing the validity of linear approximations.
 
 %The quantities we are most interested in may not be simulation observables.  For instance, the free energy difference between two states might be measured by free energy perturbation, expressed as a function of the average of another quantity \cite{Taylor1997}.
 %\begin{equation}
