@@ -135,16 +135,20 @@ We stress that this final step of adjusting the block size and recomputing the b
 
 %\textcolor{red}{PNP comment: I am largely rewriting this section.  I feel that the current version is confusing and possibly incorrect in some spots.  Generally, notation (e.g.\ $\beta$) is not defined.  The derivation / explanation leading to Eq. 16 does not make sense to me.  I do not see a Taylor expansion as expressed.  }
 
-Often, the quantities of interest in a simulation are observables computed in terms of raw data.  In such cases, it is necessary to propagate uncertainties in this raw data $x$ through some definition or analysis $F(x)$ to arrive at the corresponding uncertainties associated with the derived quantity.  Frequently, this can be accomplished through a linear propagation analysis using Taylor series, which yields simple and useful formulas.  
+Oftentimes we run simulations for the purposes of computing derived quantities, i.e.\ those that arise from some analysis applied to raw data.  In such cases, it is necessary to propagate uncertainties in the raw data through the corresponding analysis to arrive at the uncertainties associated with the derived quantity.  Frequently, this can be accomplished through a linear propagation analysis using Taylor series, which yields simple and useful formulas.  
 
 The main idea behind this approach is to express the computed mean as the true mean $\mu$ plus some small uncertainty $\epsilon \ll \mu$.  Note that the ratio $\epsilon/\mu$ is the so-called ``noise-to-signal'' ratio, which vanishes in the limit of a precise measurement.  With this in mind, we expand the derived quantity $F(\mu + \epsilon)\approx F(\mu) + F'(\mu)\epsilon + \mathcal O(\epsilon^2)$ to first order, where $F'(\mu)$ is the derivative with respect to $\mu$.  This approximation in particular is justified by the smallness of $\epsilon$.  Finally, we arrive at the result that the uncertainty in $F$ simply $F'(\mu)\epsilon$.
 
-An example illustrates this procedure.  Consider, for example, the task of estimating the density $\rho=m/V$ from a time-series of volumes output by a constant pressure simulation, where $m$ is the (constant) system mass.  Letting $\bar V = \langle V \rangle + \sigma_V \mathcal N$, where $\mathcal N$ is a normal random variable with mean zero and unit variance, we find
+A simple example illustrates this procedure.  Consider, in particular, the task of estimating the density $\rho=m/V$ from a time-series of volumes output by a constant pressure simulation, where $m$ is the (constant) system mass.  Letting $\bar V = \langle V \rangle + \sigma_V \mathcal N$, where $\mathcal N$ is a normal random variable with mean zero and unit variance, we find
 \begin{align}
 \rho = \frac{m}{\bar V + \sigma_V \mathcal N} &= \frac{m}{\bar V}\left[1 + \frac{\sigma_V \mathcal N}{\bar V} \right]^{-1} \nonumber \\
-& \approx \frac{m}{\bar V} - \frac{m \sigma_V }{\bar V^2} \mathcal N.
+& \approx \frac{m}{\bar V} - \frac{m \sigma_V }{\bar V^2} \mathcal N. \label{eq:linear_prop}
 \end{align}
-In the above, $m \sigma_V/(\bar V^2)$ is the uncertainty associated with the average density $m/\bar V$.  \textcolor{red}{Need to finish this section.}
+In the above, $m \sigma_V/(\bar V^2)$ is the uncertainty associated with the average density $m/\bar V$.  Note that by virtue of the linear approximation, this uncertainty is also normally distributed, which is a universal feature of such methods.  {\it More generally, linear propagation always yields a derived uncertainty that is a linear combination of the probability distribution(s) associated with the raw data (even if the latter is not Gaussian).}
+
+In general, approximations in the spirit of Eq.~\ref{eq:linear_prop} are useful and easy to generalize to higher-dimensional settings, where the 
+
+We note that while this example is perhaps overly simplistic, it does provide a useful test-case for verifying the accuracy of the method.  In particular, 
 
 %Consider, for example, a time-series of volumes $V_i$ computed from a constant pressure simulation.  If 
 
@@ -166,7 +170,11 @@ In the above, $m \sigma_V/(\bar V^2)$ is the uncertainty associated with the ave
 %
 %Propagation of uncertainty is needed whenever the derived quantity can be expressed as a function of other random observables.  It might also be needed when the derived quantity is of a function of quantities measured in separate simulations, such as $<U(T_2)>-<U(T_1)>$.  If a derived quantity is a function of multiple observables measured within a single simulation, then terms must be included to account for the correlation between those observables.
 
-The Taylor series approach works well in most cases and is easy to use, but does have limitations.  Because this approach is based on a first-order Taylor series, propagation of uncertainty can fail in cases where a non-linear formula is used and the uncertainty is very large or the distribution of input averages is not Gaussian.  For instance, the uncertainty in $\beta \Delta A$ as prescribed by Eq.~\ref{eq:propagation_bDA} cannot exceed unity no matter how short the simulation is or how bad the sampling is.  If there is doubt as to the quality of the computed uncertainty, the uncertainty can be estimated with alternative approaches such as bootstrapping to validate the Taylor series results or to identify an alternative approach that works better.
+%The Taylor series approach works well in most cases and is easy to use, but does have limitations.  Because this approach is based on a first-order Taylor series, propagation of uncertainty can fail in cases where a non-linear formula is used and the uncertainty is very large or the distribution of input averages is not Gaussian.  
+%PNP comment: this last statement is incorrect.  The distribution does not need to be Gaussian for linear propagation to work.  The distribution needs to have a small variance!
+
+
+%For instance, the uncertainty in $\beta \Delta A$ as prescribed by Eq.~\ref{eq:propagation_bDA} cannot exceed unity no matter how short the simulation is or how bad the sampling is.  If there is doubt as to the quality of the computed uncertainty, the uncertainty can be estimated with alternative approaches such as bootstrapping to validate the Taylor series results or to identify an alternative approach that works better.
 
 \subsection{From standard uncertainty to confidence interval for Gaussian variables}\label{sec:conf_int}
 
