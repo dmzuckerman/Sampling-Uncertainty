@@ -15,9 +15,14 @@ The simplest test for poor sampling is lack of equilibration: if the system is s
 \textcolor{red}{then the system may not be equilibrated and further investigation is warranted.}  
 
 \textcolor{red}{In the case of visually ambiguous datasets, autocorrelation analyses can be used to better understand the extent to which a time-series represents an equilibrated system.  In particular, systems in steady-state (which includes equilibrium) by definition have statistical properties that are time-invariant.  Thus, correlations between a single observable at different times depend only on the relative lag between the timesteps.  That is, the correlation function has the stationarity property}
-\begin{align}
-C(x_j,x_{j+\tau}) &= \expval{ \left(x_j - \expval{x} \right) \left(x_{j+\tau} - \expval{x} \right) } = C(\tau)
-\end{align}
+% \begin{align}
+% C(x_j,x_{j+\tau}) &= \expval{ \left(x_j - \expval{x} \right) \left(x_{j+\tau} - \expval{x} \right) } = C(\tau)
+% \end{align}
+%
+\begin{equation}
+ C(x_j,x_{j+\tau}) = \left< \left(x_j - \expval{x} \right) \left(x_{j+\tau} - \expval{x} \right) \right> = C(\tau)
+\end{equation}
+%
 \textcolor{red}{where $C(\tau)$ is independent of the time-step $j$.  With this in mind, one can partition a given time-series into continuous blocks, compute the autocorrelation for a collection of lags $\tau$, and compare between blocks.  Estimates of $C(\tau)$ that are independent of the block suggest an equilibrated (or at least a steady-state) system, whereas significant changes in the autocorrelation may indicate an unequilibrated system.  Importantly, this technique can help to distinguish long-timescale trends in otherwise equilibrated data from truly non-equilibrated systems.}
 
 \subsection{Tests based on configurational distance measures - e.g., RMSD for biomolecules}
