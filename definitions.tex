@@ -80,11 +80,12 @@ Note that a proper realization of a random variable (with no systematic bias) wi
 \item {\bf Experimental standard deviation\footnote{
       The term ``experimental'' can refer to simulated data, since these are the results of numerical experiments.
 }
-}: An \emph{estimate} of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the demonimator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the estimate is {\it unbiased}, meaning that on average $\stdev{x}^2$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) is lost via the appearance of $\mean{x}$ in the definition of $\stdev{x}$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $x_j$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated Observables}).}
+}: An \emph{estimate} of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the demonimator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the estimate is {\it unbiased}, meaning that on average $\var{x}$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) is lost via the appearance of $\mean{x}$ in the definition of $\stdev{x}$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $x_j$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated Observables}).}
   \begin{equation}
     \stdev{x} = \sqrt{\dfrac{\sum_{j=1}^n\left(x_j - \mean{x}\right)^2}{n-1}} \label{def:exp_st_dev}
   \end{equation}
   \smallskip
+  The square of the experimental standard deviation, denoted $\var{x}$, is the experimental variance.\\
   \textbf{\textit{Remark:}} This quantity is often called the ``sample standard deviation.''
   Additionally, $\stdev{x}$ is a statistical property of the specific set of observations $\left\{x_1,x_2,...,x_n\right\}$, not of the random quantity $x$ in general.
   Thus, $\stdev{x}$ is sometimes written as $\stdev{x_j}$ for emphasis of this property.
