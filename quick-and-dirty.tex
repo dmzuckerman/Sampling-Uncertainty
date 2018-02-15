@@ -3,33 +3,51 @@
 \section{Qualitative and semi-quantitative checks that can rule out good sampling}
 \label{sec:quick}
 
-\begin{figure}
-\centering
-%\begin{wrapfigure}{r}{6cm}
-   % toggle these as needed - sorry!
-   \includegraphics[width=5.8cm]{figures/rmsd}
-%  \includegraphics[width=5.8cm]{figures/rmsd/rmsd}
-  \includegraphics[width=5.8cm]{figures/rmsds}
-%  \includegraphics[width=5.8cm]{figures/rmsd/rmsds}
-  \caption{
-  \label{f:rmsd} RMSD as a measure of convergence.  The upper panel shows the
-  $\alpha$-carbon RMSD of the protein rhodopsin from its starting structure as a
-  function of time.  The lower panel shows the all-to-all RMSD map computed from the same
-  trajectory.  Data from Leioatts, et al \cite{Grossfield-2015}.
-  }
-\end{figure}
-%\end{wrapfigure}
-
 It is difficult to establish with certainty that good sampling has been achieved, but it is not difficult to \emph{rule out} high-quality sampling.
 Here we elaborate on some relatively simple tests that can quickly bring out inadequacies in sampling.
 
-Generally speaking, analysis routines that extract information from raw simulated data are often formulated on the basis of physical intuition about how that data should behave.  Before proceeding to quantitative data analysis and uncertainty quantification, it is therefore useful to assess the extent to which data conforms to these expectations and the requirements imposed by either the modeler or the analysis routines.  Such tasks help reduce subjectivity of predictions and offer insight into when a simulation protocol should be revisited to better understand their meaningfulness \cite{patrone1}.  Unfortunately, general recipes for assessing data quality are impossible to formulate, owing to the range of physical quantities of interest to modelers.  Nonetheless, several example procedures will help clarify the matter.
+Generally speaking, analysis routines that extract information from raw simulated data are often formulated on the basis of physical intuition about how that data should behave.  Before proceeding to quantitative data analysis and uncertainty quantification, it is therefore useful to assess the extent to which data conforms to these expectations and the requirements imposed by either the modeler or the analysis routines.  Such tasks help reduce subjectivity of predictions and offer insight into when a simulation protocol should be revisited to better understand its meaningfulness \cite{patrone1}.  Unfortunately, general recipes for assessing data quality are impossible to formulate, owing to the range of physical quantities of interest to modelers.  Nonetheless, several example procedures will help clarify the matter.
 
 \subsection{Zeroth-order system-wide tests}
+\label{sec:zeroth}
 
-The simplest test for poor sampling is lack of equilibration: if the system is still noticeably relaxing from its starting conformation, statistical sampling has not even begun, and thus by definition is poor.  As a result, the very first test should be to verify that the basic equilibration has occurred.  To check for this, one should inspect the time series for a number of simple scalar values, such as potential energy, system size (and area, if you are simulating a membrane or other system where one dimension is distinct from the others), temperature (if you are simulating in the NVE ensemble), and/or density (if simulating in the isothermal-isobaric ensemble).  Often, simple visual inspection is sufficient to determine that the simulation is systematically changing, although more sophisticated methods have been proposed -- see Sec.\ \ref{sec:equil}.  If \emph{any} value appears to be systematically changing, then the system is not equilibrated.
+The simplest test for poor sampling is lack of equilibration: if the system is still noticeably relaxing from its starting conformation, statistical sampling has not even begun, and thus by definition is poor.  As a result, the very first test should be to verify that the basic equilibration has occurred.  To check for this, one should inspect the time series for a number of simple scalar values, such as potential energy, system size (and area, if you are simulating a membrane or other system where one dimension is distinct from the others), temperature (if you are simulating in the NVE ensemble), and/or density (if simulating in the isothermal-isobaric ensemble).  Often, simple visual inspection is sufficient to determine that the simulation is systematically changing, although more sophisticated methods have been proposed -- see Sec.\ \ref{sec:equil}.  If \emph{any} value appears to be systematically changing, %then the system is not equilibrated.
+\textcolor{red}{then the system may not be equilibrated and further investigation is warranted.}  
+
+\textcolor{red}{In the case of visually ambiguous datasets, autocorrelation analyses can be used to better understand the extent to which a time-series represents an equilibrated system.  In particular, systems in steady-state (which includes equilibrium) by definition have statistical properties that are time-invariant.  Thus, correlations between a single observable at different times depend only on the relative lag between the timesteps.  That is, the correlation function has the stationarity property}
+% \begin{align}
+% C(x_j,x_{j+\tau}) &= \expval{ \left(x_j - \expval{x} \right) \left(x_{j+\tau} - \expval{x} \right) } = C(\tau)
+% \end{align}
+%
+\begin{equation}
+ C(x_j,x_{j+\tau}) = \left< \left(x_j - \expval{x} \right) \left(x_{j+\tau} - \expval{x} \right) \right> = C(\tau)
+\end{equation}
+%
+\textcolor{red}{where $C(\tau)$ is independent of the time-step $j$.  With this in mind, one can partition a given time-series into continuous blocks, compute the autocorrelation for a collection of lags $\tau$, and compare between blocks.  Estimates of $C(\tau)$ that are independent of the block suggest an equilibrated (or at least a steady-state) system, whereas significant changes in the autocorrelation may indicate an unequilibrated system.  Importantly, this technique can help to distinguish long-timescale trends in otherwise equilibrated data from truly non-equilibrated systems.}
 
 \subsection{Tests based on configurational distance measures - e.g., RMSD for biomolecules}
+\label{sec:bio_RMSD}
+
+\begin{figure}
+  \centering
+%\begin{wrapfigure}{r}{6cm}
+   % toggle these as needed - sorry!
+   % \includegraphics[width=5.8cm]{figures/rmsd}
+  \includegraphics[width=0.9\linewidth]{figures/rmsd}
+%  \includegraphics[width=5.8cm]{figures/rmsd/rmsd}
+  %\includegraphics[width=5.8cm]{figures/rmsds}
+  \includegraphics[width=0.9\linewidth]{figures/rmsds}
+%  \includegraphics[width=5.8cm]{figures/rmsd/rmsds}
+  \caption{RMSD as a measure of convergence.  The upper panel shows the
+    $\alpha$-carbon RMSD of the protein rhodopsin from its starting structure as a
+    function of time.  The lower panel shows the all-to-all RMSD map computed from the same
+    trajectory.  Data from Leioatts, et al \cite{Grossfield-2015}.}
+  \label{f:rmsd}
+\end{figure}
+%\end{wrapfigure}
+
+\textcolor{red}{PNP comment: as more of a material scientist, I don't really know what this section is saying.  It might be nice to have a brief intro paragraph (or at least a few sentences) saying what RMSD is and how we can understand it physically.  What's the executive summary of why it can be used to assess equilibration?  Maybe then launch into a more detailed discussion}
+
 We will use the standard biomolecular RMSD (root mean-squared difference) as a generic distance measure for illustrative purposes.
 Alternatives to RMSD could be a dihedral-angle distance or another measure specific to your system of interest.
 Note that RMSD, like any distance in a high-dimensional space, becomes ``degenerate'' for larger values: given a reference configuration, there are a large number of configurations which differ from the reference by a given large RMSD. This is analogous to the increasing number of points in three-dimensional space with increasing radial distance from a reference point, except much worse because of the dimensionality. For a detailed exploration of expected RMSD distributions for biomolecular systems see the work of Pitera \citep{Pitera2014}.
@@ -62,40 +80,59 @@ good statistics.  In this case, the initial state is never sampled after the
 first transition, but there are a number of small transitions within the second
 state.
 
-\subsection{Analyzing qualitative behavior: Testing for linear behavior in material properties}
+%\subsection{Analyzing qualitative behavior: Testing for linear behavior in material properties}
+\subsection{Analyzing the qualitative behavior of data}
+%PNP comment.  I think this section should be more generic.  Linear behavior is not the only type of qualitative behavior one can test for; we've also developed, e.g. tests for convexity
 
-%[DMZ: SINCE THIS IS A QUALITATIVE ISSUE, SHOULDN'T IT GO IN THE QUICK-AND-DIRTY SECTION?]
+In many cases, analysis of simulated outputs relies on determining or extracting information from a regime in which data is expected to behave a certain way.  For example, we might anticipate that a given dataset should have linear regimes or more generically look like a convex function.  However, typical sources of fluctuations in simulations often introduce noise that can distort the character of data and thereby render such analyses difficult or even impossible to approach objectively.  It is therefore often useful to sytematically assess the extent to which raw data conforms to our expectations and requirements.
 
-In many cases, data analysis relies on determining or extracting information from a regime in which data is expected to behave linearly.  In the context of materials science, determining the yield-strain $\epsilon_y$ (loosely speaking, the deformation at which a material fails) provides one such example.  In particular, intuition and experiments tells us that upon deforming a material by a fraction $1+\epsilon$, it should recover its original dimensions if $\epsilon \le \epsilon_y$ and have a residual strain $\epsilon_r = \epsilon - \epsilon_y$ if $\epsilon \ge \epsilon_y$ \cite{patrone2}.  Thus, residual-strain data should exhibit bilinear behavior, with slopes indicating whether the material is in the pre- or post-yield regime.
+In the context of materials science, simulations of yield-strain $\epsilon_y$ (loosely speaking, the deformation at which a material fails) provide one such example.  In particular, intuition and experiments tells us that upon deforming a material by a fraction $1+\epsilon$, it should recover its original dimensions if $\epsilon \le \epsilon_y$ and have a residual strain $\epsilon_r = \epsilon - \epsilon_y$ if $\epsilon \ge \epsilon_y$ \cite{patrone2}.  Thus, residual-strain data should exhibit bilinear behavior, with slopes indicating whether the material is in the pre- or post-yield regime.
 
 In experimental data, these regimes are generally distinct and connected by a sharp transition.  In simulated data, however, the transition in $\epsilon_r$ around yield is generally smooth and not piecewise linear, owing to the timescale limitations of MD.  Thus, it is useful to perform analyses that can objectively identify the asymptotic regimes without need for input from a modeler.  One way to achieve this is by fitting residual strain to a hyperbola.  In doing so, the proximity of data to the asymptotes illustrates the extent to which simulated $\epsilon_r$ conforms to the expectation that $\epsilon_r=0$ when $\epsilon < \epsilon_y$.  See Fig.~\ref{fig:yield} and Refs.~\cite{patrone1,patrone2} for more examples and discussion.
 
 \begin{figure}
-\includegraphics[width=8cm]{hyperbola.png}\caption{Yield strain tn $\epsilon_r$ as a function of applied strain $\epsilon$.  Blue $\times$ denote simulated data, whereas the smooth curve is a hyperbola fit to the data.  The green lines are asymptotes; their intersection can be taken as an estimate of $\epsilon_y$.    Bounds on yield are computed by the synthetic data method discussed in the next section.  {\it From, ``Estimation and uncertainty quantification of yield via strain recovery simulations,'' P.\ Patrone, CAMX 2016 Conference Proceedings.  Reprinted courtesy of the National Institute of Standards and Technology, U.S. Department of Commerce. Not copyrightable in the United States.}}\label{fig:yield}
+  \centering
+  % \includegraphics[width=8cm]{hyperbola.png}
+  \includegraphics[width=0.9\linewidth]{hyperbola.png}
+  \caption{Yield strain tn $\epsilon_r$ as a function of applied strain $\epsilon$.  Blue $\times$ denote simulated data, whereas the smooth curve is a hyperbola fit to the data.  The green lines are asymptotes; their intersection can be taken as an estimate of $\epsilon_y$.    Bounds on yield are computed by the synthetic data method discussed in the next section.  {\it From, ``Estimation and uncertainty quantification of yield via strain recovery simulations,'' P.\ Patrone, CAMX 2016 Conference Proceedings.  Reprinted courtesy of the National Institute of Standards and Technology, U.S. Department of Commerce. Not copyrightable in the United States.}}
+  \label{fig:yield}
 \end{figure}
+
+While extending this approach to other types of simulations invariably depends on the problem at hand, we recognize a few generic principles.  In particular, it is sometimes possible to test the quality of data by fitting it to {\it global} (not piecewise or local!) functions that exhibit characteristics we desire of the former.  By testing the goodness of this fit, we can assess the extent to which the data captures the entire structure of the fit-function and therefore conforms to expectations.  We note that this task can even be done in the absence of a known fit function, given only more generic properties such as convexity.  See, for example, the discussion in Ref.~\cite{PatroneAIAA}.  
+
 
 \subsection{Tests based on independent simulations and related ideas}
 
 \begin{figure}
-%\begin{wrapfigure}{r}{6cm}
-  \includegraphics[width=5.8cm]{figures/combinedcluster}
+  % \begin{wrapfigure}{r}{6cm}
+  \centering
+  % \includegraphics[width=5.8cm]{figures/combinedcluster}
+  \includegraphics[width=0.9\linewidth]{figures/combinedcluster}
   %\includegraphics[width=5.8cm]{figures/combinedcluster/combinedcluster}
-  \caption{
-  \label{f:combinedcluster} Combined clustering between two independent trajectories as a measure of convergence. The X axis is the population of a cluster from trajectory 1, while the Y axis is the population of that cluster from trajectory 2. Cluster populations are show after 20, 100, and 800 ns of sampling. The simulations used to generate the data used in this plot are described in Roe et al.\citep{Roe2014}
-  }
+  \caption{Combined clustering between two independent trajectories as a measure of convergence. The X axis is the population of a cluster from trajectory 1, while the Y axis is the population of that cluster from trajectory 2. Cluster populations are show after 20, 100, and 800 ns of sampling. The simulations used to generate the data used in this plot are described in Roe et al.\citep{Roe2014}}
+  \label{f:combinedcluster} 
 %\end{wrapfigure}
 \end{figure}
 
-When measuring any property it typically takes multiple measurements to get some idea of the uncertainty involved. For example, when trying to determine the probability that an unbiased coin will flip heads or tails, a single flip (measurement) will always yield an incorrect answer since it will either be 1.0 for heads or 1.0 for tails. As more flips (measurements) are made, the probability will eventually converge to the correct answer. 
+When estimating any statistical property, multiple measurements are often required to capture the uncertainties involved. Consider, for example, the probability that an unbiased coin will land heads-up as described in terms of the relative fraction coin-flips that give this result.  This fraction approximated in terms of a single flip (measurement) will always yield a grossly incorrect probability, since only one outcome (heads or tails) can ever be represented by this procedure.  However, as more flips (measurements) are made, the relative fraction of outcomes will converge to the correct probability, i.e.\ the former represents and increasingly good estimate of the latter.  
 
-Convergence in the context of biomolecular simulations typically refers to a measurement of a certain property converging to the "correct" value. However, since in many cases the "correct" value is not known \emph{a priori}, convergence is also used to refer to the overlap of two or more independent measurements of the same property to a single value.
- If a measure is not converged it is a strong indication that sampling is poor. 
+%PNP comment: I removed biomolecular from the next paragraph because I think these considerations apply to all simulations
+In an analogous way, we often use ``convergence'' in the context of simulations to describe the extent to which an estimator (e.g.\ an arithmetic mean) approaches some true value (i.e.\ the corresponding expectation of an observable) with increasing amounts of data.  In many cases, however, the true value is not known {\it a priori}, so that we cannot be sure what value a given estimator should be approaching.  In such cases, it is common to use the overlap of independent estimates and confidence intervals as a proxy for convergence because the associated clustering suggests a shared if unknown mean.  Conversely, lack of such ``convergence'' is a strong indication that sampling is poor.
+
+%Convergence in the context of biomolecular simulations typically refers to a measurement of a certain property converging to the "correct" value. However, since in many cases the "correct" value is not known \emph{a priori}, convergence is also used to refer to the overlap of two or more independent measurements of the same property to a single value.
+% If a measure is not converged it is a strong indication that sampling is poor. 
  
- There are two common ways to try to obtain independent measurements. Arguably the best way is to have multiple independent simulations, each with varying initial starting conditions. Ideally these starting conditions should in some way span the space to be sampled; this way one can have confidence that simulations are not being trapped in a local minimum. For example, say the goal is to sample the phi and psi torsions of alanine dipeptide: the phi and psi angles for one simulation could be started from an alpha-helical conformation, while another simulation could be started from a polyproline II conformation. It is important to note that the starting conditions only need to be varied enough so that the desired space is sampled. For example, if the goal is to sample protein folding and unfolding, there should be some simulations started from the folded conformation and some from the unfolded, but if it is not important to consider protein folding no initial conformation needs to be unfolded.
+ There are two approaches to obtaining independent measurements. Arguably the best is to have multiple independent simulations, each with different initial conditions. Ideally these conditions should be chosen so as to span the space to be sampled, which provides confidence that simulations are not being trapped in a local minimum. Consider, for example, the task of sampling the phi and psi torsions of alanine dipeptide.  To accomplish this, one could initialize these angles in the alpha-helical conformation and then run a second simulation initialized in the polyproline II conformation. It is important to note, however, that the starting conditions only need to be varied enough so that the desired space is sampled. For example, if the goal is to sample protein folding and unfolding, there should be some simulations started from the folded conformation and some from the unfolded, but if it is not important to consider protein folding, no initial conformation needs to be unfolded.
 
 Another way to obtain independent measurements is to divide a single simulation into two or more subsets. However this can at times be problematic because it can be more difficult to tell if the system is biased by initial conditions (e.g. trapped in a local energy minimum) since there is only a single starting point. Those employing this approach should take extra care to assess their results (see in particular sections on 'block averaging' below).
+
+
+\textcolor{red}{PNP comment: I have some serious concerns about the next paragraph.  Overlap of standard deviations has nothing to do with normality.  I actually think this is a critical point.  I think this language conflates issues of statistics with what I would call "value judgements."  Generally speaking, an overlap of error bars (or lack thereof) is ONLY a statement about second moments.  Second moments do not fully characterize a distribution (except for Gaussians).  So given a lack of overlap of error bars, we can't say with 100\% certainty that two random quantities (e.g. estimators) don't share a common mean.  I think the best we can do is say that the situation is unlikely, and if we're good at probability and make a few assumptions, we can say how unlikely.  However, the issue of convergence here is really a subjective one: do we feel that the sampling is good enough based on overlap of error bars (or lack thereof).  I call this a "value judgement" because the answer depends what my priorities / concerns are about the data are and how I plan to use conclusions I draw from it.  If there is a tiny amount of overlap, that may be good enough in some cases.  I recommend changing the message of the next paragraph to reflect the distinction between ``convergence'' as a value judgement and overlap of error bars as a purely statistical observation.}
 
 There are two simple ways to compare independent measurements of a property. The simplest is to compare the arithmetic means and standard deviations. If these values do not overlap then convergence has not been achieved. However, since this assumes that the values are normally distributed, a better way is compare the overlap of the probability distributions (i.e. the histograms). This can be done via Kullback-Leibler or Jensen-Shannon divergence {\color{red}[[SHOULD HAVE REFS FOR THIS]]}.
 
 \subsubsection*{Combined Clustering}
+
+\textcolor{red}{PNP comment: I think it would be useful to describe what a cluster analysis is.  What is the main idea, and briefly sketch what the relevant math would look like, or at least point to a later section where we discuss these issues}
+
 One useful technique for evaluating convergence of structure populations is so-called "combined clustering". Briefly, in this method two or more independent trajectories are combined into a single trajectory (or a single trajectory is divided into two or more parts), on which cluster analysis is performed. The resulting clusters are then split according to the trajectory (or part of the trajectory) they originally came from. If simulations are converged then each part will have similar populations for any given cluster. Indications of poor convergence are large deviations in cluster populations, or clusters that show up in one part but not others. Figure \ref{f:combinedcluster} shows results from combined clustering of two independent trajectories as a plot of cluster population fraction from the first trajectory compared to the second. If the two independent trajectories are perfectly converged then all points should fall on the X=Y line. As simulation time increases the cluster populations from the independent trajectories are in better agreement, which indicates the simulations are converging. For another example of performing combined cluster analysis see Bergonzo et al.\citep{Bergonzo2014}
