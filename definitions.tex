@@ -43,7 +43,7 @@ See Ref.~\cite{Leimkuhler} for more discussion of this rather deep point.}.
 \begin{align}
   \expval{x} = \int {\rm d}x\, P(x) x.
 \end{align}
-In the case that $x$ adopts discrete values $x_1,x_2,...$, we instead write
+In the case that $x$ adopts discrete values $x_1,x_2,...$ {\color{red} with corresponding (absolute) probabilities $P(x_i)$}, we instead write
 \begin{align}
   \expval{x} = \sum_i x_i P(x_i).
 \end{align}
@@ -91,7 +91,7 @@ Note that a proper realization of a random variable (with no systematic bias) wi
   Thus, $\stdev{x}$ is sometimes written as $\stdev{x_j}$ for emphasis of this property.
 %FYI, the data does NOT need to be linearly uncorrelated for this estimate under typical MD conditions.  Assuming correlation times \tau << N (where N is the number of timesteps), the relative error in using correlated data is O(tau/N) << 1.
 
-  \item {\bf Linearly Uncorrelated observables}:  If quantities $x$ and $y$ have mean values $\expval{x}$ and $\expval{x}$, then $x$ and $y$ are linearly uncorrelated if
+  \item {\bf Linearly uncorrelated observables}:  If quantities $x$ and $y$ have mean values $\expval{x}$ and $\expval{x}$, then $x$ and $y$ are linearly uncorrelated if
 \begin{equation}
   \expval{ \left(x - \expval{x} \right) \left(y - \expval{y} \right) } = 0 \label{def:unc_obs}
 \end{equation}

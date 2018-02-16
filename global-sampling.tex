@@ -5,7 +5,9 @@ With ideal trajectory data, one would hope to be able compute arbitrary observab
 During a simulation, it is not uncommon to monitor specific observables of interest, but after the data is obtained, it may prove necessary to compute observables not previously considered.
 These points motivate the task of estimating global sampling quality, which can be framed most simply in the context of single-trajectory data:
 ``Among the very large number of simulation frames (snapshots), how many are statistically independent?''
-From a dynamical perspective, which also applies to Monte Carlo data, how long must one wait before the system completely loses memory of its prior configuration?  \textcolor{red}{PNP comment: I left a question about this section in the corresponding issue thread.}
+This number is called the \emph{effective sample size.}
+From a dynamical perspective evoking auto-correlation ideas, which also apply to Monte Carlo data, how long must one wait before the system completely loses memory of its prior configuration?  
+%\textcolor{red}{PNP comment: I left a question about this section in the corresponding issue thread.}
 The methods noted in this section build on ideas already presented in Sec.\ \ref{sec:quick} on qualitative sampling analysis, but attempt to go a step further to quantify sampling quality.
 
 We emphasize that \emph{no single method described here has emerged as a clear best practice.}
@@ -13,31 +15,34 @@ However, because the global assessment methods provide a powerful window into ov
 The reader is encouraged to try one or more of the approaches in order to understand the limitations of their data.
 
 \subsection{Scope and a key caveat}
-\textcolor{red}{PNP comment; I left a question about this section in the corresponding issue thread.}
-The discussion here will focus largely on biomolecular systems, or more precisely, on systems for which it is straightforward to define a meaningful scalar distance between configurations.
+%\textcolor{red}{PNP comment; I left a question about this section in the corresponding issue thread.}
+The discussion here will focus largely on biomolecular systems, or more precisely, on systems for which it is straightforward to define a meaningful scalar distance between configurations, such as an RMSD which quantifies configurational similarity or an analogous quantity for the full phase-space.
+Recall that a configuration is full set of $x, y, z$ coordinates describing a system, and 'phase space' refers to the full set of configurational and momentum coordinates.
 
 A key caveat is needed before proceeding.
 Analysis of trajectory data generally cannot make inferences about parts of configuration space not visited \cite{Grossfield2009}.
 It is generally impossible to know whether configurational states absent from a trajectory are appropriately absent because they are highly improbable (extremely high energy) or because the simulation simply failed to visit them because of a high barrier or bad luck.
 
 \subsection{Global sampling assessment for a single trajectory}
-Two methods applicable for a single trajectory have been previously introduced by some of the authors, exploiting the fact that \textcolor{red}{trajectories are often correlated in time}.
+Two methods applicable for a single trajectory have been previously introduced by some of the authors, exploiting the fact that trajectories are often correlated in time.
 That is, each configuration evolves from and is most similar to the immediately preceding configuration.
 This picture holds for standard MD and Markov-chain MC.
 
-Lyman and Zuckerman proposed a global ``decorrelation'' analysis by mapping a trajectory to a discretization of configuration space and analyzing the resulting statistics \cite{Lyman2007a}.  \textcolor{red}{Would be helpful to clarify what this configuration space is.  Am I incorrect in assuming it is the full 6N-dimensional phase-space?  Other comments embedded in the .tex file as commented lines.}
-Configuration space is discretized into bins based on Voronoi cells of structurally similar configurations - e.g., based on an RMSD criterion.
+Lyman and Zuckerman proposed a global ``decorrelation'' analysis by mapping a trajectory to a discretization of configuration space and analyzing the resulting statistics \cite{Lyman2007a}.  
+%\textcolor{red}{Would be helpful to clarify what this configuration space is.  Am I incorrect in assuming it is the full 6N-dimensional phase-space?  Other comments embedded in the .tex file as commented lines.}
+Configuration space is discretized into bins based on Voronoi cells of structurally similar configurations - e.g., using RMSD or another configurational similarity measure.
 %Again, I have no idea what this means.  This problem could potentially be solved by definining the RMSD ideas a few sections up where they are first introduced.
-The analysis method is based on the observation that the variance for any bin of a multinomial distribution is known, given a specified number of independent samples drawn from the discretized distribution.
+Once configuration space is discretized, the trajectory frames can be classified accordingly, leading to a discrete (i.e., 'multinomial') distribution.
+The analysis method is based on the observation that the variance for any bin of a multinomial distribution is known, given a specified number of independent samples drawn from the discretized distribution \cite{Lyman2007a}.
 %Is reference to the multinomial distribution necessary?  I find myself distracted by that word, wanting to know why that appears in the discretized phase-space, and why it's relevant for MD.
 The knowledge of the expected variance allows testing of increasing waiting times between configurations drawn from the trajectory to determine when and if the variance approaches that expected for independent samples.
-The minimum waiting time yielding agreement with ideal statistics yields an estimate for the decorrelation/memory time, which implies an overall effective sample size.  \textcolor{red}{Is this really about decorrelation times?  Perhaps I'm understanding wrong, but it seems like you're trying to address the problem of testing that all of phase-space has been sampled multiple times.}
+The minimum waiting time yielding agreement with ideal statistics yields an estimate for the decorrelation/memory time, which implies an overall effective sample size. %\textcolor{red}{Is this really about decorrelation times?  Perhaps I'm understanding wrong, but it seems like you're trying to address the problem of testing that all of phase-space has been sampled multiple times.}
 
 
 
 A second method, employing block covariance analysis (BCOM), was presented by Romo and Grossfield \cite{Romo2011} building on ideas by Hess \cite{Hess2002}.  In essence, the method combines two standard error analysis techniques, block averaging \cite{Flyvbjerg-1989} and bootstrapping \cite{Tibshirani1998}, with a quantitative assessment of the similarity of modes determined from principal component analysis, covariance overlap \cite{Hess2002}.  The principal components are computed from subsets of the trajectory, and the similarity of the modes evaluated as a function of subset size; as the subsets get larger, the resulting modes get more similar.  This is done both for contiguous blocks of trajectory data (block averaging), and again for randomly chosen subsets of trajectory frames (bootstrapping); taking the ratio of the two values as a function of block size yields the degree of correlation in the data.  Fitting that ratio to a sum of exponentials allows one to extract the relaxation times in the sampling.  The key value of this method over others is that it implicitly takes into account the number of substates; the longest correlation time is the time required not to make a transition, but to sample a scattering of the relevant states.
 
-These methods are implemented as part of LOOS \cite{LOOS,LOOS-JCC}.
+BOth of these methods are implemented as part of the software package LOOS \cite{LOOS,LOOS-JCC}.
 
 \subsection{Global sampling assessment for multiple independent trajectories}
 When sampling is performed using multiple independent trajectories (whether MD or MC), additional care is required.
@@ -45,7 +50,7 @@ Analyses based solely on the assumption of sequential correlations may break dow
 
 Zhang et al.\ extended the decorrelation/variance analysis noted above, while still retaining the basic strategy of inferring sample size based on variance \cite{Zhang2010}.
 To enable assessment of multiple trajectories, the new approach focused on conformational state populations, arguing that the states fundamentally underlie equilibrium observables.
-Employing a fairly simple kinetic-clustering technique to automatically define states, the approach then uses the variances in state populations among trajectories to estimate the effective sample size.  \textcolor{red}{What is the effective sample size?  Number of independent trajectory frames?}
+Employing a fairly simple kinetic-clustering technique to automatically define states, the approach then uses the variances in state populations among trajectories to estimate the effective sample size.  %\textcolor{red}{What is the effective sample size?  Number of independent trajectory frames?}
 
 Nemec and Hoffmann proposed related sampling measures geared specifically for analyzing and comparing multiple trajectories \cite{Nemec2017}.
 These measures again do not require user input of specific observables but only a measure of the difference between conformations, which was taken to the be the RMSD.
