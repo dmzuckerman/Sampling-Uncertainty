@@ -135,18 +135,96 @@ We stress that this final step of adjusting the block size and recomputing the b
 
 %\textcolor{red}{PNP comment: I am largely rewriting this section.  I feel that the current version is confusing and possibly incorrect in some spots.  Generally, notation (e.g.\ $\beta$) is not defined.  The derivation / explanation leading to Eq. 16 does not make sense to me.  I do not see a Taylor expansion as expressed.  }
 
-Oftentimes we run simulations for the purposes of computing derived quantities, i.e.\ those that arise from some analysis applied to raw data.  In such cases, it is necessary to propagate uncertainties in the raw data through the corresponding analysis to arrive at the uncertainties associated with the derived quantity.  Frequently, this can be accomplished through a linear propagation analysis using Taylor series, which yields simple and useful formulas.  
+Oftentimes we run simulations for the purposes of computing derived quantities, i.e.\ those that arise from some analysis applied to raw data.  In such cases, it is necessary to propagate uncertainties in the raw data through the corresponding analysis to arrive at the uncertainties associated with the derived quantity.  Frequently, this can be accomplished through a linear propagation analysis using Taylor series, which yields simple and useful formulas.
 
-The main idea behind this approach is to express the computed mean as the true mean $\mu$ plus some small uncertainty $\epsilon \ll \mu$.  Note that the ratio $\epsilon/\mu$ is the so-called ``noise-to-signal'' ratio, which vanishes in the limit of a precise measurement.  With this in mind, we expand the derived quantity $F(\mu + \epsilon)\approx F(\mu) + F'(\mu)\epsilon + \mathcal O(\epsilon^2)$ to first order, where $F'(\mu)$ is the derivative with respect to $\mu$.  This approximation in particular is justified by the smallness of $\epsilon$.  Finally, we arrive at the result that the uncertainty in $F$ simply $F'(\mu)\epsilon$.
+The foundation for this approach lies in rigorous results for the propagation of error through linear functions of random variables.
+For a derived observable that is a linear function of uncorrelated raw data, e.g.,
+%
+\begin{equation}
+  F\left( \left\{x_i\right\} \right) = \sum_{i=1}^M a_i x_i,
+  \label{def:linear_derived_obs}
+\end{equation}
+%
+the experimental variance of $F$ may be rigorously expressed as\cite{NIST_Sematech_eHandbook}
+%
+\begin{equation}
+  \var{F} = \sum_{i=1}^M a_i^2 \var{x_i}
+  %+ 2 \sum_{i=1}^{M-1} \sum_{j=i+1}^M a_i a_j \text{Cov}\left(x_i,x_j\right)
+  \label{def:var_linear_derived}
+\end{equation}
+%
+A key assumption in Eq.~\ref{def:var_linear_derived} is that the raw data, $\left\{x_i\right\}$, are \hyperref[def:unc_obs]{linearly uncorrelated} (see Eq.~\ref{def:unc_obs}). If any observed quantities are correlated, the uncertainty in $F$ must include ``covariance'' terms. The reader may consult section 2.5.5, ``Propagation of error considerations'' in Ref.~\cite{NIST_Sematech_eHandbook} for further discussion. For reasons of tractability, we restrict the discussion here to linearly uncorrelated observables or the assumption thereof.
 
-A simple example illustrates this procedure.  Consider, in particular, the task of estimating the density $\rho=m/V$ from a time-series of volumes output by a constant pressure simulation, where $m$ is the (constant) system mass.  Letting $\bar V = \langle V \rangle + \sigma_V \mathcal N$, where $\mathcal N$ is a normal random variable with mean zero and unit variance, we find
-\begin{align}
-\rho = \frac{m}{\bar V + \sigma_V \mathcal N} &= \frac{m}{\bar V}\left[1 + \frac{\sigma_V \mathcal N}{\bar V} \right]^{-1} \nonumber \\
-& \approx \frac{m}{\bar V} - \frac{m \sigma_V }{\bar V^2} \mathcal N. \label{eq:linear_prop}
-\end{align}
-In the above, $m \sigma_V/(\bar V^2)$ is the uncertainty associated with the average density $m/\bar V$.  Note that by virtue of the linear approximation, this uncertainty is also normally distributed, which is a universal feature of such methods.  {\it More generally, linear propagation always yields a derived uncertainty that is a linear combination of the probability distribution(s) associated with the raw data (even if the latter are not Gaussian).}
+The situation for a nonlinear derived quantity is much more complicated and, as a result, rigorous expressions for the uncertainty of such functions are rarely used in practice. As a simplification, however, one approximates the nonlinear derived quantity as a Taylor-series expansion about a reference point, i.e.,
+%
+\begin{equation}
+  F\left( \left\{\mean{x_i} + \epsilon_i\right\} \right)
+  \approx
+  F\left( \left\{\mean{x_i}\right\} \right)
+  + \sum_{i=1}^M \left.
+    \left( \dfrac{\partial F}{\partial x_i}\right)_{x_{j \neq i}}
+  \right|_{\left\{\mean{x_i}\right\}}
+  \epsilon_i + \cdots
+  \label{def:nonlinear_derived_obs_taylor}
+\end{equation}
+%
+Note that the ratio $\epsilon_i/\mean{x_i}$ is the so-called ``noise-to-signal'' ratio, which vanishes in the limit of a precise measurement. 
+With this {\it linear} approximation of $F$, which is analogous to Eq.~\ref{def:linear_derived_obs} with $a_i = \left( \partial F/\partial x_i\right)$, and the assumption that the raw data are uncorrelated, the variance in $F$ may be approximated by
+%
+\begin{eqnarray}
+  \var{F} & \approx & \sum_i
+                \left.
+                \left( \dfrac{\partial F}{\partial x_i} \right)_{x_{l \neq i}} ^2
+                \right|_{\left\{\mean{x_i}\right\}}
+                \var{x_i}
+  %\\
+          %&   & + 2 \sum_i \sum_{j \neq i} \left( \dfrac{\partial F}{\partial x_i} \right)_{x_{l \neq i}}
+          %\left( \dfrac{\partial F}{\partial x_i} \right)_{x_{l \neq j}} Cov\left(x_i,x_j\right)
+  \label{def:var_nonlinear_derived}
+\end{eqnarray}
+%
 
-In general, approximations in the spirit of Eq.~\ref{eq:linear_prop} are useful and easy to generalize to higher-dimensional settings in which the derived observable is a nonlinear combination of many data-points or sets.  However, the method does have limits.  In particular, the it rests on the assumption of a small noise-to-signal ratio, which may not be valid for all simulated data.   If there is doubt as to the quality of the an estimate, the uncertainty shoudl therefore be estimated with alternative approaches such as bootstrapping in order to validate the linear approximation.  See also the pooling analysis of Ref.~\cite{Patrone16} for a method of assessing the validity of linear approximations.
+A simple example illustrates this procedure.
+Consider, in particular, the task of estimating the density $\rho=m/V$ from a time-series of volumes output by a constant pressure simulation, where $m$ is the (constant) system mass.
+Application of Eq.~\ref{def:var_nonlinear_derived} to the definition of $\rho$ yields
+%
+\begin{eqnarray}
+  \var{\rho} & \approx & \left( \dfrac{N}{\mean{V}^2} \right)^2 \var{V} \\
+  \stdev{\rho} & \approx & \mean{\rho} \dfrac{\stdev{V}}{\mean{V}}
+  \label{ex:density_linearized}
+\end{eqnarray}
+%
+with $\mean{\rho} = N/\mean{V}$.
+This approximation of the experimental standard deviation may be used to estimate a confidence interval on $\mean{\rho}$ or for other purposes.
+
+%Letting $\bar V = \langle V \rangle + \sigma_V \mathcal N$, where $\mathcal N$ is a normal random variable with mean zero and unit %variance, we find
+%
+%\begin{align}
+%\rho = \frac{m}{\bar V + \sigma_V \mathcal N} &= \frac{m}{\bar V}\left[1 + \frac{\sigma_V \mathcal N}{\bar V} \right]^{-1} \nonumber %\\
+%& \approx \frac{m}{\bar V} - \frac{m \sigma_V }{\bar V^2} \mathcal N. \label{eq:linear_prop}
+%\end{align}
+%%
+%
+%
+%\begin{eqnarray}
+%  \mean{\rho} = \dfrac{N}{\mean{V}}
+%\end{eqnarray}
+%
+%
+%%
+%\begin{eqnarray}
+%  \var{\mean{\rho}} = \left( \dfrac{N}{\mean{V}^2} \right)^2 \var{V}
+%\end{eqnarray}
+%%
+%In the above, $m \sigma_V/(\bar V^2)$ is the uncertainty associated with the average density $m/\bar V$.
+
+%Note that by virtue of the linear approximation, this uncertainty is also normally distributed, which is a universal feature of such methods.  {\it More generally, linear propagation always yields a derived uncertainty that is a linear combination of the probability distribution(s) associated with the raw data (even if the latter are not Gaussian).}
+
+In general, approximations in the spirit of Eq.~\ref{ex:density_linearized} are useful and easy to generalize to higher-dimensional settings in which the derived observable is a nonlinear combination of many data-points or sets.
+However, the method does have limits.
+In particular, the it rests on the assumption of a small noise-to-signal ratio, which may not be valid for all simulated data.
+If there is doubt as to the quality of the an estimate, the uncertainty should therefore be estimated with alternative approaches such as bootstrapping in order to validate the linear approximation.
+See also the pooling analysis of Ref.~\cite{patrone1} for a method of assessing the validity of linear approximations.
 
 %The quantities we are most interested in may not be simulation observables.  For instance, the free energy difference between two states might be measured by free energy perturbation, expressed as a function of the average of another quantity \cite{Taylor1997}.
 %\begin{equation}
@@ -174,8 +252,6 @@ In general, approximations in the spirit of Eq.~\ref{eq:linear_prop} are useful 
 
 Once a standard uncertainty value is obtained for a Gaussian-distributed random variable with mean $\left< x \right>$, and the number of independent samples $n$ has been estimated, the 95~\%-confidence interval $\left[ \mean{x} -k \, \stdevmean{\mean{x}} , \mean{x} +k \, \stdevmean{\mean{x}} \right]$ can be constructed on the basis of an established look-up table (or a statistics software model) for the coverage factor $k$ based on $n$.  The theoretical basis for the table is the ``Student'' or ``$t$'' distribution, which is \emph{not} Gaussian, but governs the behavior of an \emph{average} derived from $n$ independent Gaussian variables  \cite{JCGM:GUM2008}. Table \ref{tab:coveragefactors} lists $k$ for two-sided 95~\% confidence intervals for select values of $n$.
 
-When $n \leq 10$, we recommend showing all data points, as a confidence interval may not be statistically meaningful.
-
 \begin{table}
   \centering
     \begin{tabular}{S S}
@@ -191,7 +267,7 @@ When $n \leq 10$, we recommend showing all data points, as a confidence interval
       101 & 1.98 \\
       \bottomrule
     \end{tabular}
-  \caption{Coverage factors $k$ required for a two-sided 95~\% confidence interval for a Gaussian variable \cite{JCGM:GUM2008}.}
+  \caption{Coverage factors $k$ required for a two-sided 95~\% confidence interval for a Gaussian variable \cite{JCGM:GUM2008}. Note that $k$ increases with decreasing sample size. This in turn implies that smaller samples yield higher uncertainty for a given estimation of the experimental standard deviation.}
   \label{tab:coveragefactors}
 \end{table}
 
@@ -200,27 +276,30 @@ As a reminder, multi-modally distributed variables with multiple peaks in their 
 \subsection{Bootstrapping}\label{sec:bootstrap}
 
 %The Taylor series approach may fail in some situations, either because a derived quantity cannot be expressed as a function of the measured simulation data or because the first-order truncation of the series is too severe.
-Bootstrapping is an approach to uncertainty estimation that does not assume a particular distribution for the observable of interest or a particular kind of relationship between the observable and variables directly obtained from simulation \cite{Tibshirani1998}.  In nonparametric bootsrapping, new, ``synthetic'' data sets (corresponding to hypothetical simulation runs) are created by drawing $n$ samples (configurations) from the original collection that was generated during the actual run.  The same sample may be selected twice, while others may not be selected at all in a process called ``sampling with replacement.''  In doing so, these synthetic sets will be different even though they all have the same number of samples and draw from the same pool of data.  Having created a new set, the data is analyzed to determine the derived quantity of interest, and this process is repeated to produce multiple estimates of the quantity.  The distribution of `synthetic' observables can be directly used to construct a 95~\% confidence interval from the 2.5~\%ile to the 97.5~\%ile value.
+Bootstrapping is an approach to uncertainty estimation that does not assume a particular distribution for the observable of interest or a particular kind of relationship between the observable and variables directly obtained from simulation \cite{Tibshirani1998}.  In nonparametric bootsrapping, new, ``synthetic'' data sets (corresponding to hypothetical simulation runs) are created by drawing $n$ samples (configurations) from the original collection that was generated during the actual run.  The same sample may be selected twice, while others may not be selected at all in a process called ``sampling with replacement.''  In doing so, these synthetic sets will be different even though they all have the same number of samples and draw from the same pool of data.  Having created a new set, the data is analyzed to determine the derived quantity of interest, and this process is repeated to produce multiple estimates of the quantity.  The distribution of ``synthetic'' observables can be directly used to construct a 95~\% confidence interval from the 2.5~\%ile to the 97.5~\%ile value.
 
 % DMZ: deleting this because of redundancy with paragraph below
 %As with bootstrapping, the key issue is how many samples to draw from the original collection - what value of $n$ should be used?  It should be clear that a larger $n$ will yield less variation and hence a tighter confidence interval: implicitly all $n$ samples will be regarded as independent.  Hence, $n$ should be chosen to represent the number of \emph{independent} samples present in the original simulation, which can be gauged using an autocorrelation method \cite{Chodera-2016,Lyman2007a} or implicitly using a block-averaging procedure (cf. Secs.~\ref{sec:blockavg} and \ref{sec:autocorrelation}).
 
-The process described above assumes that the original simulation data is uncorrelated.  If this is not the case, then the resampling method can be reformulated in one of two ways.  The first option is to estimate the number of independent samples in the original set (e.g.\ using an autocorrelation method \cite{Chodera-2016,Lyman2007a}) and to pull only that many samples to create the new data sets.  The second option is to group the samples into blocks that are uncorrelated based on analyzing varying block sizes (see above) and to then use the block averages as the samples for bootstrapping.
+The process described above assumes that the original simulation data is uncorrelated.  If this is not the case, then the resampling method can be reformulated in one of two ways.  The first option is to estimate the number of independent samples in the original set (e.g.\ using an autocorrelation method \cite{Chodera-2016,Lyman2007a}) and to pull only that many samples to create the new data sets.  The second option is to group the samples into blocks that are uncorrelated based on analyzing varying block sizes (see Sec.~\ref{sec:blockavg}) and to then use the block averages as the samples for bootstrapping.
 
-Alternatively, one could use the difference between errors estimated via block averaging and bootstrapping as a measure of the correlation; if one tracks the bootstrapped and block averaged estimates of a quantity's uncertainty as a function of block size, the only difference between the two modes of calculation is whether the data is correlated.  The decay in the ratio of the two quantities as a function of time is a measure of the correlation time in the sample \cite{Romo2011}.
+Alternatively, one could use the difference between errors estimated via block averaging and bootstrapping as a measure of the correlation; if one tracks the bootstrapped and block-averaged estimates of a quantity's uncertainty as a function of block size, the only difference between the two modes of calculation is whether the data is correlated.  The decay in the ratio of the two quantities as a function of time is a measure of the correlation time in the sample \cite{Romo2011}.
 
 \subsubsection{Bootstrapping variants}
 
 An alternate approach that can directly account for correlations is called parametric bootstrapping.  The main idea behind this method is to model the original data as a deterministic function (which can be zero, constant, or have free parameters) plus additive noise.  The parameters of this model, including the structure of the noise (i.e.\ its covariance), can be determined through a statistical inference procedure.  Having calibrated the model, random number generators can be used to sample the noise, which is then added back to the trial function to generate a synthetic data set.   As with the nonparametric bootstrap, the generated data can be used to compute the derived quantity of interest, and the uncertainty can be obtained from the statistics of the values compute with different generated sets.
 
-To further clarify the procedure of parametric boostrapping, consider the simplest case in which the data is a collection of uncorrelated random variables fluctuating about a constant mean.  In this situation, one could estimate (I) the deterministic part of a parametric model using the sample mean $\mean{x}$ of the data, and (II) the stochastic part as a Gaussian random variable whose variance equals the sample variance.  If instead the data are correlated (e.g.\ as in a time-series of simulated observables),  one can postulate a covariance function to describe the structure of this randomness.  Often these covariance functions are formulated with free parameters (often called ``hyperparameters'') that characterize properties such as the noise-scale and characteristic length of correlations \cite{Rasmussen}.  In such cases, determining the hyperparameters may require more sophisticated techinques such as maximum likelihood analyses or Bayesian approaches; see, for example, Ref.~\cite{Rasmussen}.  See also Refs.~\cite{patrone1,patrone2,patrone3,Boettinger2017} for examples and practical implementations applied to cases in which the determinsitic component of the data is not constant.
+To further clarify the procedure of parametric boostrapping, consider the simplest case in which the data is a collection of uncorrelated random variables fluctuating about a constant mean.  In this situation, one could estimate (I) the deterministic part of a parametric model using the sample mean $\mean{x}$ of the data, and (II) the stochastic part as a Gaussian random variable whose variance equals the sample variance.  If instead the data are correlated (e.g.\ as in a time-series of simulated observables),  one can postulate a covariance function to describe the structure of this randomness.  Often these covariance functions are formulated with free parameters (often called ``hyperparameters'') that characterize properties such as the noise-scale and characteristic length of correlations \cite{Rasmussen}.  In such cases, determining the hyperparameters may require more sophisticated techinques such as maximum likelihood analyses or Bayesian approaches; see, for example, Ref.~\cite{Rasmussen}.  See also Refs.~\cite{patrone1,patrone2,patrone3} for examples and practical implementations applied to cases in which the determinsitic component of the data is not constant.
 
-An alternative to bootstrapping is the ``jackknife'' method\cite{Quenouille_Approximate_1949,Quenouille_Notes_1956,Tukey_Bias_1958} (also outlined in Ref.~\cite{Tibshirani1998}). It operates similar to the bootstrap as a resampling technique, but it uses synthetic data sets created by subtraction of samples rather than replacement; as such it is often categorized as a variant of the bootstrap (even though it predates the bootstrap). Since it operates by sample deletion, it may be better suited to smaller data sets for which a few samples may be overrepresented in the synthetic data set created by the bootstrap replacement technique. Ultimately, though, the results are similar in that the jackknife technique creates a distribution of derived observables that can be used to compute both an arithmetic mean and estimate of the standard uncertainty.
+It is important to note that various bootstrapping approaches can and often are used as uncertainty propagation tools.  Nonetheless, care should be exercised when using such methods with either nonlinear functions or naturally constrained functions.  For example, consider application of the parametric bootstrap technique to a free energy calculation,
+%
+\begin{equation}
+  \beta \Delta A = - \ln \left[ \overline{\exp\left(-\beta \Delta U\right)} \right]
+\end{equation}
+%
+If synthetic samples are drawn for $\exp(-\beta \Delta U)$ from, say, a Gaussian centered at 1 with a standard deviation of 0.5, new estimates will eventually output negative numbers. This is, of course, mathematically nonsensical for the exponential function.  Thus, one should be aware of any distributional assumptions imposed either by the physics of the problem or the mathematical analyses of synthetic data.
 
-\subsubsection{Bootstrapping and uncertainty propagation}
-
-It is important to note that various bootstrapping approaches can and often are used as uncertainty propagation tools.  Nonetheless, care should be exercised when using such methods with nonlinear functions.  In the free energy example, setting $\langle \exp(-\beta \delta U)\rangle = 1 \pm 0.5$ and generating new estimates from a Gaussian centered at 1 with a width of 0.5 will eventually output negative numbers, which is mathematically nonsensical and problematic for any function that takes strictly non-negative inputs.  Thus, one should be aware of any distributional assumptions imposed either by the physics of the problem or the analyses of synthetic data.
-
+Lastly, an alternative to bootstrapping is the ``jackknife'' method \cite{Quenouille_Approximate_1949,Quenouille_Notes_1956,Tukey_Bias_1958} (also outlined in Ref.~\cite{Tibshirani1998}). It operates similar to the bootstrap as a resampling technique, but it uses synthetic data sets created by subtraction of some number of samples rather than replacement; as such it is often categorized as a variant of the bootstrap (even though it predates the bootstrap). Since it operates by sample deletion, it may be better suited to smaller data sets for which a few samples may be overrepresented in the synthetic data set created by the bootstrap replacement technique. Ultimately, though, the results are similar in that the jackknife technique creates a distribution of derived observables that can be used to compute an arithmetic mean, an estimate of the standard uncertainty, and confidence intervals.
 
 \subsection{Dark uncertainty analyses}
 %- ‘Dark uncertainty’ analysis [Paul]
