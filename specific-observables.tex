@@ -138,7 +138,7 @@ We stress that this final step of adjusting the block size and recomputing the b
 Oftentimes we run simulations for the purposes of computing derived quantities, i.e.\ those that arise from some analysis applied to raw data.  In such cases, it is necessary to propagate uncertainties in the raw data through the corresponding analysis to arrive at the uncertainties associated with the derived quantity.  Frequently, this can be accomplished through a linear propagation analysis using Taylor series, which yields simple and useful formulas.
 
 The foundation for this approach lies in rigorous results for the propagation of error through linear functions of random variables.
-For a derived observable that is a linear function of uncorrelated raw data, e.g.,
+For a derived observable that is a linear function of $M$ uncorrelated raw data measurements, e.g.,
 %
 \begin{equation}
   F\left( \left\{x_i\right\} \right) = \sum_{i=1}^M a_i x_i,
@@ -149,7 +149,6 @@ the experimental variance of $F$ may be rigorously expressed as\cite{NIST_Semate
 %
 \begin{equation}
   \var{F} = \sum_{i=1}^M a_i^2 \var{x_i}
-  %+ 2 \sum_{i=1}^{M-1} \sum_{j=i+1}^M a_i a_j \text{Cov}\left(x_i,x_j\right)
   \label{def:var_linear_derived}
 \end{equation}
 %
@@ -161,10 +160,10 @@ The situation for a nonlinear derived quantity is much more complicated and, as 
   F\left( \left\{\mean{x_i} + \epsilon_i\right\} \right)
   \approx
   F\left( \left\{\mean{x_i}\right\} \right)
-  + \sum_{i=1}^M \left.
-    \left( \dfrac{\partial F}{\partial x_i}\right)_{x_{j \neq i}}
+  + \sum_{j=1}^M \left.
+    \left( \dfrac{\partial F}{\partial x_j}\right)_{x_{l \neq j}}
   \right|_{\left\{\mean{x_i}\right\}}
-  \epsilon_i + \cdots
+  \epsilon_j + \cdots
   \label{def:nonlinear_derived_obs_taylor}
 \end{equation}
 %
@@ -172,11 +171,11 @@ Note that the ratio $\epsilon_i/\mean{x_i}$ is the so-called ``noise-to-signal''
 With this {\it linear} approximation of $F$, which is analogous to Eq.~\ref{def:linear_derived_obs} with $a_i = \left( \partial F/\partial x_i\right)$, and the assumption that the raw data are uncorrelated, the variance in $F$ may be approximated by
 %
 \begin{eqnarray}
-  \var{F} & \approx & \sum_i
+  \var{F} & \approx & \sum_{j=1}^M
                 \left.
-                \left( \dfrac{\partial F}{\partial x_i} \right)_{x_{l \neq i}} ^2
+                \left( \dfrac{\partial F}{\partial x_j} \right)_{x_{l \neq j}} ^2
                 \right|_{\left\{\mean{x_i}\right\}}
-                \var{x_i}
+                \var{x_j}
   %\\
           %&   & + 2 \sum_i \sum_{j \neq i} \left( \dfrac{\partial F}{\partial x_i} \right)_{x_{l \neq i}}
           %\left( \dfrac{\partial F}{\partial x_i} \right)_{x_{l \neq j}} Cov\left(x_i,x_j\right)
