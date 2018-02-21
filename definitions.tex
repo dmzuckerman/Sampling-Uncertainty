@@ -43,9 +43,9 @@ See Ref.~\cite{Leimkuhler} for more discussion of this rather deep point.}.
 \begin{align}
   \expval{x} = \int {\rm d}x\, P(x) x.
 \end{align}
-In the case that $x$ adopts discrete values $x_1,x_2,...$ {\color{red} with corresponding (absolute) probabilities $P(x_i)$}, we instead write
+In the case that $x$ adopts discrete values $x_1,x_2,...$ with corresponding fractional (absolute) probabilities $P(x_j)$, we instead write
 \begin{align}
-  \expval{x} = \sum_i x_i P(x_i).
+  \expval{x} = \sum_j x_j P(x_j).
 \end{align}
 
 \item {\bf Variance}:\footnote{The true probability density $P(x)$ is inherently unknowable, given that we can only collect a finite amount of data about $x$.  As such, we can only estimate the expectation value of $x$ and its variance.} Taking $P(x)$ as defined previously, the variance of a random quantity is a measure of how much it can fluctuate, given by the formula
@@ -54,7 +54,7 @@ In the case that $x$ adopts discrete values $x_1,x_2,...$ {\color{red} with corr
 \end{align}
 If $x$ assume discrete values, the coresponding definition becomes
 \begin{align}
-\sigma_x^2 = \sum_i P(x_i) \left( x_i  - \expval{x} \right)^2.
+\sigma_x^2 = \sum_j P(x_j) \left( x_j  - \expval{x} \right)^2.
 \end{align}
 %{\bf Remark:} The standard deviation is the square root of the variance.  {\color{red}[[Should this just be a separate definition, %especially since std uncert depends on onit?]]}
 
