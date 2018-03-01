@@ -5,10 +5,9 @@ The self-contained checklist is presented on the following page.
 \begin{Checklists*}[p!]
 \begin{checklist}{Quantifying Uncertainty and Sampling Quality in Molecular Simulation}
 \begin{itemize}
-
 \item
   \textbf{Plan your study carefully by starting with pre-simulation sanity checks.}
-  \emph{Underlying concept:} There is no guarantee that any method, enhanced or otherwise, can sample the system of interest.
+  There is no guarantee that any method, enhanced or otherwise, can sample the system of interest.
   See Sec.\ \ref{sec:sanity}
     \begin{itemize}
     \item Consult best-practices papers on simulation background and planning/setup.
@@ -30,12 +29,12 @@ The self-contained checklist is presented on the following page.
     
 \item
   \textbf{Do not ``cherry-pick'' data that provides hoped-for outcomes.}
-  This practice ethically questionable and, at a minimum, can significantly bias your conclusions.
+  This practice is ethically questionable and, at a minimum, can significantly bias your conclusions.
   Use all of the available data unless there is an objective and compelling reason not to, e.g.\ the simulation setup was incorrect or a sampling metric indicated that the simulation was not equilibrated.
   When used, sampling metrics should be applied uniformly to \emph{all} simulations to further avoid bias.
     
 \item
-\textbf{Perform simple, semi-quantitative checks which can rule out (but not ensure) sufficient sampling.} \emph{Underlying concept:} It is easier to diagnose insufficient sampling than to demonstrate good sampling.  See Sec.\ \ref{sec:quick}.
+\textbf{Perform simple, semi-quantitative checks which can rule out (but not ensure) sufficient sampling.} It is easier to diagnose insufficient sampling than to demonstrate good sampling.  See Sec.\ \ref{sec:quick}.
     \begin{itemize}
     \item Critically examine the time series of a number of observables, both those of interest \emph{and others}.
       Is each time series fluctuating about an average value or drifting overall?
@@ -54,30 +53,28 @@ The self-contained checklist is presented on the following page.
         \vspace{-0.325\baselineskip} %Line spacing after a sub-list is too large
 
 \item
-  \textbf{Remove an ``equilibration'' (a.k.a. ``burn in'', or transient) portion of a single MD or MC trajectory} and perform analyses only on the remaining ``production'' portion of trajectory.
-  \emph{Underlying concept:} An initial configuration is unlikely to be representative of the desired ensemble and the system must be allowed to relax so that low probability states are not overrepresented in collected data.  See Sec.\ \ref{sec:equil}.
+  \textbf{Remove an ``equilibration'' (a.k.a. ``burn in'', or transient) portion of a single MD or MC trajectory} and perform analyses only on the remaining ``production'' portion of trajectory.  An initial configuration is unlikely to be representative of the desired ensemble and the system must be allowed to relax so that low probability states are not overrepresented in collected data.  See Sec.\ \ref{sec:equil}.
  
 \item
-  \textbf{Consider computing a quantitative measure of global sampling}, i.e., attempt to estimate the number of statistically independent samples in a trajectory.
-  \emph{Underlying concept:} Sequential configurations are highly correlated because one configuration is generated from the preceding one, and estimating the degree of correlation is essential to understanding overall simulation quality.
+  \textbf{Consider computing a quantitative measure of global sampling}, i.e., attempt to estimate the number of statistically independent samples in a trajectory.  Sequential configurations are highly correlated because one configuration is generated from the preceding one, and estimating the degree of correlation is essential to understanding overall simulation quality.
   See Secs.\ \ref{sec:global} and \ref{sec:autocorrelation}.
 
 \item
   \textbf{Quantify uncertainty in specific observables of interest using confidence intervals.}
-  \emph{Underlying concept:} The statistical uncertainty in \hyperref[def:arith_mean]{\emph{arithmetic mean}} of an observable decreases as more independent samples are obtained and can be much smaller than the \hyperref[def:exp_st_dev]{experimental standard deviation} of that observable.
+  The statistical uncertainty in, e.g.\ the \hyperref[def:arith_mean]{\emph{arithmetic mean}} of an observable decreases as more independent samples are obtained and can be much smaller than the \hyperref[def:exp_st_dev]{experimental standard deviation} of that observable.
   See Sec.\ \ref{sec:specific}.
  
 \item
   \textbf{Use special care when designing uncertainty analyses for simulations with enhanced sampling methods.}
-  \emph{Underlying concept:} The use of multiple, potentially correlated trajectories within a single enhanced-sampling simulation can invalidate the assumptions underpinning traditional analyses of uncertainty.
+  The use of multiple, potentially correlated trajectories within a single enhanced-sampling simulation can invalidate the assumptions underpinning traditional analyses of uncertainty.
   See Sec.\ \ref{sec:enhanced}.
 
 \item
 \textbf{Report a complete description of your uncertainty quantification procedure, detailed enough to permit reproduction of reported findings.}
 Describe the meaning and basis of uncertainties given in figures or tables in the captions for those items, e.g., "Error bars represent 95\% confidence intervals based on bootstrapping results from the independent simulations."
 Provide expanded discussion of or references for the uncertainty analysis if the method is non-trivial.
-Consider publishing unprocessed simulation data (measurements/observations) and post-processing scripts, perhaps using public data or software repositories, so that readers can exactly reproduce the processed results and uncertainty estimates.
-\emph{Underlying concept:} The non-uniformity of uncertainty quantification procedures in the modern literature underscores the value of clarity and transparency going forward.
+Consider publishing unprocessed simulation data (measurements/observations) and post-processing scripts, perhaps using public data or software repositories, so that readers can exactly reproduce the processed results and uncertainty estimates. 
+The non-uniformity of uncertainty quantification procedures in the modern literature underscores the value of clarity and transparency going forward.
 
 \end{itemize}
 \end{checklist}
