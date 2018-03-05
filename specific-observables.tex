@@ -141,11 +141,11 @@ The foundation for this approach lies in rigorous results for the propagation of
 For a derived observable that is a linear function of $M$ uncorrelated raw data measurements, e.g.,
 %
 \begin{equation}
-  F\left( \left\{x_i\right\} \right) = \sum_{i=1}^M a_i x_i,
+  F\left( \left\{x_i\right\} \right) = c + \sum_{i=1}^M a_i x_i,
   \label{def:linear_derived_obs}
 \end{equation}
 %
-the experimental variance of $F$ may be rigorously expressed as\cite{NIST_Sematech_eHandbook}
+where $c$ is a constant, the experimental variance of $F$ may be rigorously expressed as\cite{NIST_Sematech_eHandbook}
 %
 \begin{equation}
   \var{F} = \sum_{i=1}^M a_i^2 \var{x_i}
@@ -157,16 +157,19 @@ A key assumption in Eq.~\ref{def:var_linear_derived} is that the raw data, $\lef
 The situation for a nonlinear derived quantity is much more complicated and, as a result, rigorous expressions for the uncertainty of such functions are rarely used in practice. As a simplification, however, one approximates the nonlinear derived quantity as a Taylor-series expansion about a reference point, i.e.,
 %
 \begin{equation}
-  F\left( \left\{\mean{x_i} + \epsilon_i\right\} \right)
+  % F\left( \left\{\mean{x_i} + \epsilon_i\right\} \right)
+  F\left( \left\{x_i\right\} \right)
   \approx
   F\left( \left\{\mean{x_i}\right\} \right)
   + \sum_{j=1}^M \left.
     \left( \dfrac{\partial F}{\partial x_j}\right)_{x_{l \neq j}}
   \right|_{\left\{\mean{x_i}\right\}}
-  \epsilon_j + \cdots
+  % \epsilon_j + \cdots
+  \left(x_j - \mean{x_j}\right) + \cdots
   \label{def:nonlinear_derived_obs_taylor}
 \end{equation}
 %
+The deviation of a particular measurement from its mean, $\epsilon_i = x_i - \mean{x_i}$, is itself a random quantity, and the uncertainty in those measurements is propagated into uncertainty in $F$.
 Note that the ratio $\epsilon_i/\mean{x_i}$ is the so-called ``noise-to-signal'' ratio, which vanishes in the limit of a precise measurement. 
 With this {\it linear} approximation of $F$, which is analogous to Eq.~\ref{def:linear_derived_obs} with $a_i = \left( \partial F/\partial x_i\right)$, and the assumption that the raw data are uncorrelated, the variance in $F$ may be approximated by
 %
@@ -184,7 +187,7 @@ With this {\it linear} approximation of $F$, which is analogous to Eq.~\ref{def:
 %
 
 A simple example illustrates this procedure.
-Consider, in particular, the task of estimating the density $\rho=m/V$ from a time-series of volumes output by a constant pressure simulation, where $m$ is the (constant) system mass.
+Consider, in particular, the task of estimating the uncertainty in a measurement of density, $\rho=m/V$, from a time-series of volumes output by a constant pressure simulation, where $m$ is the (constant) system mass and $V$ is the (fluctuating) system volume.
 Application of Eq.~\ref{def:var_nonlinear_derived} to the definition of $\rho$ yields
 %
 \begin{eqnarray}
