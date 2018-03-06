@@ -16,10 +16,11 @@ We emphasize that \emph{no single method described here has emerged as a clear b
 However, because the global assessment methods provide a powerful window into overall sampling quality, which could easily be masked in the analysis of single observables (Sec.\ \ref{sec:specific}), we strongly encourage their use.
 The reader is encouraged to try one or more of the approaches in order to understand the limitations of their data.
 
-\subsection{Scope and a key caveat}
+\textcolor{red}{PNP comment: I removed a full paragraph here because I think that as written, it pigeonholes biomolecular simulations as the only ones for which one can define reasonable distance metrics.  This is simply not true.  I suspect that the materials community hasn't thought as much about distance measures, but I've certainly used them (and am writing a paper where we reference it specifically).  I think this section needs to have a wider scope that embraces the possibility that materials scientists will use ideas like RMSD.}
+%\subsection{Scope and a key caveat}
 %\textcolor{red}{PNP comment; I left a question about this section in the corresponding issue thread.}
-The discussion here will focus largely on biomolecular systems, or more precisely, on systems for which it is straightforward to define a meaningful scalar distance between configurations, such as an RMSD which quantifies configurational similarity or an analogous quantity for the full phase-space.
-Recall that a configuration is full set of $x, y, z$ coordinates describing a system, and ``phase space'' refers to the full set of configurational and momentum coordinates.
+%The discussion here will focus largely on biomolecular systems, or more precisely, on systems for which it is straightforward to define a meaningful scalar distance between configurations, such as an RMSD which quantifies configurational similarity or an analogous quantity for the full phase-space.
+%Recall that a configuration is full set of $x, y, z$ coordinates describing a system, and ``phase space'' refers to the full set of configurational and momentum coordinates.
 
 A key caveat is needed before proceeding.
 Analysis of trajectory data generally cannot make inferences about parts of configuration space not visited \cite{Grossfield2009}.
@@ -31,27 +32,27 @@ That is, each configuration evolves from and is most similar to the immediately 
 This picture holds for standard MD and Markov-chain MC.
 
 Lyman and Zuckerman proposed a global ``decorrelation'' analysis by mapping a trajectory to a discretization of configuration space and analyzing the resulting statistics \cite{Lyman2007a}.  
-%\textcolor{red}{Would be helpful to clarify what this configuration space is.  Am I incorrect in assuming it is the full 6N-dimensional phase-space?  Other comments embedded in the .tex file as commented lines.}
+\textcolor{red}{Would be helpful to clarify what this configuration space is.  Am I incorrect in assuming it is the full 6N-dimensional phase-space?  Other comments embedded in the .tex file as commented lines.}
 Configuration space is discretized into bins based on Voronoi cells of structurally similar configurations,  e.g., using RMSD or another configurational similarity measure.
-%Again, I have no idea what this means.  This problem could potentially be solved by definining the RMSD ideas a few sections up where they are first introduced.
+\textcolor{red}{Again, I have no idea what this means.  This problem could potentially be solved by definining the RMSD ideas a few sections up where they are first introduced.  Voronoi cells as I understand them define a set of ``nearest-neighbor'' domains, relative, e.g.\ to special points.  What are these special points, how are the Voronoi cells drawn?  Can this be stated more intuitively?}
 Once configuration space is discretized, the trajectory frames can be classified accordingly, leading to a discrete (i.e., 'multinomial') distribution.
 The analysis method is based on the observation that the variance for any bin of a multinomial distribution is known, given a specified number of independent samples drawn from the discretized distribution \cite{Lyman2007a}.
-%Is reference to the multinomial distribution necessary?  I find myself distracted by that word, wanting to know why that appears in the discretized phase-space, and why it's relevant for MD.
+\textcolor{red}{Is reference to the multinomial distribution necessary?  I find myself distracted by that word, wanting to know why that appears in the discretized phase-space, and why it's relevant for MD.}
 The knowledge of the expected variance allows testing of increasing waiting times between configurations drawn from the trajectory to determine when and if the variance approaches that expected for independent samples.
-The minimum waiting time yielding agreement with ideal statistics yields an estimate for the decorrelation/memory time, which implies an overall effective sample size. %\textcolor{red}{Is this really about decorrelation times?  Perhaps I'm understanding wrong, but it seems like you're trying to address the problem of testing that all of phase-space has been sampled multiple times.}
+The minimum waiting time yielding agreement with ideal statistics yields an estimate for the decorrelation/memory time, which implies an overall effective sample size. \textcolor{red}{Is this really about decorrelation times?  Perhaps I'm understanding wrong, but it seems like you're trying to address the problem of testing that all of phase-space has been sampled multiple times.}
 
 
 
 A second method, employing block covariance analysis (BCOM), was presented by Romo and Grossfield \cite{Romo2011} building on ideas by Hess \cite{Hess2002}.  In essence, the method combines two standard error analysis techniques, block averaging \cite{Flyvbjerg-1989} and bootstrapping \cite{Tibshirani1998}, with a quantitative assessment of the similarity of modes determined from principal component analysis, covariance overlap \cite{Hess2002}.
-\textcolor{blue}{DWS comment: is ``covariance overlap'' the ``quantitative assessment''? This sentence has serious structural problems.}
-The principal components are computed from subsets of the trajectory, and the similarity of the modes evaluated as a function of subset size; as the subsets get larger, the resulting modes get more similar.  This is done both for contiguous blocks of trajectory data (block averaging), and again for randomly chosen subsets of trajectory frames (bootstrapping); taking the ratio of the two values as a function of block size yields the degree of correlation in the data.  Fitting that ratio to a sum of exponentials allows one to extract the relaxation times in the sampling.  The key value of this method over others is that it implicitly takes into account the number of substates; the longest correlation time is the time required not to make a transition, but to sample a scattering of the relevant states. Both BCOM and the aforementioned global decorrelation analysis are implemented as part of the software package LOOS \cite{LOOS,LOOS-JCC}.
+\textcolor{blue}{DWS comment: is ``covariance overlap'' the ``quantitative assessment''? This sentence has serious structural problems.}\textcolor{red}{PNP comment: can you lend a physical interpretation to what the PCA modes mean in this context?}
+The principal components are computed from subsets of the trajectory, and the similarity of the modes evaluated as a function of subset size; as the subsets get larger, the resulting modes become more similar.  This is done both for contiguous blocks of trajectory data (block averaging), and again for randomly chosen subsets of trajectory frames (bootstrapping); taking the ratio of the two values as a function of block size yields the degree of correlation in the data.  Fitting that ratio to a sum of exponentials allows one to extract the relaxation times in the sampling.  The key value of this method over others is that it implicitly takes into account the number of substates; the longest correlation time is the time required not to make a transition, but to sample a scattering of the relevant states. Both BCOM and the aforementioned global decorrelation analysis are implemented as part of the software package LOOS \cite{LOOS,LOOS-JCC}.
 
 \subsection{Global sampling assessment for multiple independent trajectories}
 When sampling is performed using multiple independent trajectories (whether MD or MC), additional care is required.
 Analyses based solely on the assumption of sequential correlations may break down because of the unknown relationship between separate trajectories.
 
 Zhang et al.\ extended the decorrelation/variance analysis noted above, while still retaining the basic strategy of inferring sample size based on variance \cite{Zhang2010}.
-To enable assessment of multiple trajectories, the new approach focused on conformational state populations, arguing that the states fundamentally underlie equilibrium observables.
+To enable assessment of multiple trajectories, the new approach focused on conformational state populations, arguing that the states fundamentally underlie equilibrium observables.\textcolor{red}{How is the word ``states'' being used in this sentence?  Are these microstates, i.e.\ phase-space points?  What does it mean to say states underlie equilibrium observables?  The latter can be computed as averages over (micro?)states?}
 Employing a fairly simple kinetic-clustering technique to automatically define states, the approach then uses the variances in state populations among trajectories to estimate the effective sample size.  %\textcolor{red}{What is the effective sample size?  Number of independent trajectory frames?}
 
 Nemec and Hoffmann proposed related sampling measures geared specifically for analyzing and comparing multiple trajectories \cite{Nemec2017}.
@@ -60,6 +61,8 @@ Nemec and Hoffmann provide formulas for quantifying the conformational overlap a
 
 
 \subsection{Global sampling assessment for enhanced sampling methods}
+\textcolor{red}{PNP comment: given that we don't really discuss enhanced sampling until Section 8, should this be moved?}
+
 The family of enhanced equilibrium sampling methods, including replica exchange and variants \cite{Swendsen-1986,Sugita1999,Okamoto-2000}, metadynamics \cite{Bussi2006a,Laio2008}, adaptive biasing force \cite{Darve2001,Darve2008,Comer2015} among other methods, are complex and the resulting data may have a highly non-trivial correlation structure.
 In replica exchange, for example, the ensemble at a temperature of interest will be based on multiple return visits of different sequentially correlated trajectories.
 
