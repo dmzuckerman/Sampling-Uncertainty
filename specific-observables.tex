@@ -114,8 +114,6 @@ Briefly, the set of $N$ observations $\left\{x_1, ..., x_N\right\}$ are converte
 \end{equation}
 %
 From this set of block averages, one may then compute the arithmetic mean of the block averages, $\mean{x}^b$, which is an estimator for $\expval{x}$.\footnote{Note that $\mean{x} = \mean{x}^b$ is not necessarily true as the block averages may discard some observations of $x_l$.}
-% (We note that for $mod(N,n)=0$, then $\mean{x}^b = \mean{x}$, as the entire set of $x_j$ is used. This is {\it not} true if $N$ is not evenly divisible by $M$ and $n$.)  PNP comment: this sentence is misleading, and I think the use of modular arithmetic notation may be incorrect, or at least it is not defined.
-%DWS Comment: True, the mod math here is my own convention. It's a subtle point, often confusing to novices, that the mean of the  block averages is only equal to the true mean if 1) the blocks are the same size [we require this later] and 2) every observation of x is included in one and only one block average.
 Following, one computes the \hyperref[def:exp_st_dev]{experimental standard deviation} of the block averages, $\stdev{\mean{x}^b}$, using Eq.~\ref{def:exp_st_dev}.
 Lastly, the standard uncertainty of $\mean{x}^b$ is just the \hyperref[def:exp_st_dev_mean]{experimental standard deviation of the mean} given the set of $M$ block averages:
 %
@@ -131,8 +129,6 @@ We stress that this final step of adjusting the block size and recomputing the b
 
 
 \subsection{Propagation of uncertainty}
-
-%\textcolor{red}{PNP comment: I am largely rewriting this section.  I feel that the current version is confusing and possibly incorrect in some spots.  Generally, notation (e.g.\ $\beta$) is not defined.  The derivation / explanation leading to Eq. 16 does not make sense to me.  I do not see a Taylor expansion as expressed.  }
 
 Oftentimes we run simulations for the purposes of computing derived quantities, i.e.\ those that arise from some analysis applied to raw data.  In such cases, it is necessary to propagate uncertainties in the raw data through the corresponding analysis to arrive at the uncertainties associated with the derived quantity.  Frequently, this can be accomplished through a linear propagation analysis using Taylor series, which yields simple and useful formulas.
 
@@ -197,27 +193,6 @@ Application of Eq.~\ref{def:var_nonlinear_derived} to the definition of $\rho$ y
 %
 with $\mean{\rho} = N/\mean{V}$.
 This approximation of the experimental standard deviation may be used to estimate a confidence interval on $\mean{\rho}$ or for other purposes.
-
-%Letting $\bar V = \langle V \rangle + \sigma_V \mathcal N$, where $\mathcal N$ is a normal random variable with mean zero and unit %variance, we find
-%
-%\begin{align}
-%\rho = \frac{m}{\bar V + \sigma_V \mathcal N} &= \frac{m}{\bar V}\left[1 + \frac{\sigma_V \mathcal N}{\bar V} \right]^{-1} \nonumber %\\
-%& \approx \frac{m}{\bar V} - \frac{m \sigma_V }{\bar V^2} \mathcal N. \label{eq:linear_prop}
-%\end{align}
-%%
-%
-%
-%\begin{eqnarray}
-%  \mean{\rho} = \dfrac{N}{\mean{V}}
-%\end{eqnarray}
-%
-%
-%%
-%\begin{eqnarray}
-%  \var{\mean{\rho}} = \left( \dfrac{N}{\mean{V}^2} \right)^2 \var{V}
-%\end{eqnarray}
-%%
-%In the above, $m \sigma_V/(\bar V^2)$ is the uncertainty associated with the average density $m/\bar V$.
 
 %Note that by virtue of the linear approximation, this uncertainty is also normally distributed, which is a universal feature of such methods.  {\it More generally, linear propagation always yields a derived uncertainty that is a linear combination of the probability distribution(s) associated with the raw data (even if the latter are not Gaussian).}
 
