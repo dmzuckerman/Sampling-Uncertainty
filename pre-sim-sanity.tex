@@ -6,9 +6,6 @@ Therefore, a small amount of effort spent planning a study can pay off many time
 
 With this in mind, one of the objectives of this document is to provide a set of benchmark practices against which reviewers and other scientists can judge the quality of a given work.  If you read this guide in its entirety \emph{before} performing a simulation, you will have a much better sense of what constitutes (in our minds) a thoughtful simulation study.  Thus, we strongly advise that readers review and understand the concepts presented here, as well as in related reviews \cite{Grossfield2009,JCGM:GUM2008,PatroneUQreview}
 
-%criteria applicable to your data -- and which indeed \emph{should} be applied by knowledgeable reviewers of your work.
-%Thus we strongly advise understanding the concepts presented here as well as in related reviews \cite{Grossfield2009,JCGM:GUM2008}.
-
 In a generic sense, the overall goal of a computational study is to be able to draw statistically significant conclusions regarding a particular phenomenon.  To this end, ``good statistics'' usually follow from repeated observations of a quantity-of-interest.  While such information can be obtained in a number of ways, time-series data is a natural output of many simulations and is therefore a commonly used to achieve the desired sampling.\footnote{Note that the ``time-series'' descriptor here can also refer to a sequence of states in the Markov chain of a Monte Carlo simulation.}  
 It is important to recognize that time-series data usually displays a certain amount of autocorrelation in the sense that the numerical values of nearby points in the series tend to cluster close to one another.  Intuition dictates that correlated data does not reveal fully ``new'' information about the quantity-of-interest, and so we require uncorrelated samples to achieve meaningful sampling \cite{PatroneAIAA}.\footnote{This intuition is, strictly speaking, misguided in that anti-correlated samples actually {\it increases} our knowledge of a given random quantity relative to decorrelated samples.  See, for example, the discussion in Ref.~\cite{PatroneAIAA}.}
 
@@ -16,18 +13,9 @@ Thus, it is critical to ask: \emph{what are the pertinent timescales of the syst
 Unfortunately, this question must be answered individually for each system.  You will want to study the experimental and computational literature for your particular system, although we warn that a published prior simulation of a given length does not in itself validate a new simulation of a similar or slightly increased length.  In the end, your data should be examined using statistical tools, such as the autocorrelation analysis described in Secs.~\ref{sec:zeroth} and \ref{sec:autocorrelation}.  Be warned that a system may possess states (regions of configuration space) that, although important, are \emph{never} visited in a given simulation set because of insufficient computational time \cite{Grossfield2009} and, furthermore, this type of error will not be discovered through the analyses presented below.
 Finally, note that "system" here does not necessarily refer to a complete simulation (e.g.~a biological system with protein, solvent, ions, etc); it can also refer to some subset of the simulation for which data is desired.  For example, if one is only interested in the dynamics of a binding site in a protein, it probably is not necessary to observe the unfolding and refolding of that protein as well.
 
-% In addition to autocorrelation analyses (Secs.\ \ref{sec:global} and \ref{sec:specific}), DMZ: seems out of place
 One general strategy that will allow you to understand the relevant timescales in a system is to perform several repeats of the same simulation protocol.  As described below, repeats can be used to assess variance in \emph{any} observable within the time you have run your simulation.
 When performing repeat simulations, it is generally advised to use different starting states which are as diverse as possible; then, differences among the runs can be an indicator of inadequate sampling of the equilibrium distribution.
 Alternatively, performing multiple runs from the same starting state will yield behavior particular to that starting state; information about (potential) equilibrium is obtained only if the runs are long enough.
-
-
-%And ``good statistics'' follow from repeated observations of a phenomenon, which can only happen if the simulation length \emph{exceeds} the pertinent timescales.
-%PNP question: First sentence feels like it's missing something.  Specifically, we state, "the overall goal is to ...."  The overall goal of what though?  A given simulation, a given simulation study (which may involve multiple simulations), something else?  I'm confused here because I think we're mixing more generic statistics language and ideas relevant to time-series data.  The second sentence makes it sound like we're interested in getting good statistics of a time-series.  Statistically significant conclusions could apply to an estimate extracted from multiple simulations because even there, you might want "repeated observations," i.e. multiple simulations.  More generally, is this section about making sure that a single simulation is long enough or making sure that an entire simulation study has a good chance of returning meaningful predictions?
-
-%What are the pertinent timescales?
-
-
 
 \begin{figure}
   \centering
@@ -51,6 +39,6 @@ The two main options would be to consider a more simplified (``coarse-grained'')
 Modelers should keep in mind that enhanced sampling methods are not foolproof but have their own limitations which should be considered carefully.
 
 Lastly, whatever simulation protocol you pursue, be sure to use a well-validated piece of software [\url{https://github.com/shirtsgroup/software-physical-validation}].
-If you are using your own code, check it against independent simulations on other software for a system that can be readily sampled.
-%[benchmark systems???]
+If you are using your own code, check it against independent simulations on other software for a system that can be readily sampled, e.g., Ref.~\cite{NIST_SRSW}.
+%Future: Insert links/references to benchmark results
 
