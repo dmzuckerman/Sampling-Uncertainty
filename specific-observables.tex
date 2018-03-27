@@ -14,30 +14,6 @@ In a related vein, error bars expressed in integer multiples of $\stdevmean{\mea
 
 In recommending 95~\% confidence intervals, we are admittedly attempting to address a social issue that nevertheless has important implications for science as a whole. In particular, the authors of a study and the reputation of their field do not benefit in the long run by under-representing uncertainty, since this may lead to incorrect conclusions. Just as importantly, many of the same problems can arise if uncertainties are reported in a technically correct but obscure and difficult-to-interpret manner. For example, $1\stdevmean{\mean{x}}$ error bars may not overlap and thereby mask the inability to statistically distinguish two quantities, since the corresponding confidence intervals are only 68~\%. With this in mind, we therefore wish to emphasize that visual impressions conveyed by figures in a paper are of primary importance. Regardless of what a research paper may explain carefully in text, error bars on graphs create a lasting impression and must be as informative and accurate as possible. If 95~\% confidence intervals are reported, the expert reader can easily estimate the smaller standard uncertainty (especially if it is noted in the text), but showing a graph with overly small error bars is bound to mislead most readers, even experts who do not search out the fine print.
 
-
-
-
-
-
-%We frequently perform molecular simulations to make quantitative estimates of quantities like pressure, free energy or yield strain.  When reporting these estimates, it is important to also provide an estimate of the uncertainty of the result, typically as a standard error.
-
-%A 90\% confidence interval, as explained in the glossary above, is a range of values which is expected to bracket 90\% of the observable values \emph{if the identical simulation is repeated a large number of times.}  Of course, the interval is estimated based on a single simulation, and so it is only approximate; nevertheless, as explained below, there are statistically sound means for estimating the interval from a single simulation.  If additional simulations are performed and used to estimate the confidence interval, one is then trying to estimate the confidence interval for the set of simulations -- and the corresponding interval should be smaller, in general, than that for a single simulation.
-
-%\begin{table}
-    %\begin{tabular}{S S}
-      %\toprule
-       %{Pressure (MPa)} & {Density (mol/L)} \\
-      %0.001 & 3.007(3)e-4 \\
-      %0.010 & 0.003011(2) \\
-      %0.100 & 0.03039(16) \\
-      %1.000 & 52.1(5) \\
-      %\bottomrule
-    %\end{tabular}
-  %\caption{Density as a function of pressure for water at a temperature of 400K}
-  %\label{tab:uncertainties}
-%\end{table}
-
-%[DMZ: SHOULD WE INCLUDE THIS (AND TABLE) GIVEN THAT IT SEEMS FIELD-SPECIFIC?  IF SO, WE SHOULD BE SPECIFIC ABOUT WHICH FIELDS USE THIS CONVENTION - CERTAINLY NOT BIOMOLECULAR SIMULATION.]
 As a final note, we remind readers that only significant figures should be reported.
 Additional digits beyond the precision implicit in the uncertainty are unhelpful at best, and potentially misleading to readers who may not be aware of the limitations of simulations or statistical analyses generally.
 %When reporting quantities with uncertainties, only the digits that are significant should be included and the standard error should be placed after the value in parenthesis as the uncertainty in the last digit.  In general only one digit of uncertainty need be reported unless the digit is 1, in which case, it is helpful to report two digits (in order to avoid up to 50~\% roundoff error in the uncertainty).  See the \TABLE{uncertainties} for examples from hypothetical isobaric simulations of water.
@@ -54,8 +30,6 @@ For observables passing the qualitative tests noted above in Sec.\ \ref{sec:quic
   In contrast, bootstrapping does not assume an underlying distribution but instead constructs a confidence interval based on the recorded data values, and the limits cannot fall outside the extreme data values.
   Bootstrapping is also sometimes useful for estimating uncertainties associated with \hyperref[def:deriv_obs]{derived observables}.
 \end{itemize}
-
-%The standard error is the standard deviation of the distribution of the results that would be obtained by repeating the simulation.  Several techniques to estimate the uncertainty are described below with varying levels of complexity and robustness.  Ultimately, a technique is robust if it can produce an uncertainty estimate that is consistent with the standard deviation of results from actually repeating the simulation and analysis of the data.
 
 Below we describe approaches for estimating the standard uncertainty $\stdevmean{\mean{x}}$ from a single trajectory with a coverage factor $k$ as well as the bootstrapping approach for direct confidence-interval estimation. Whether using a coverage factor and standard uncertainty or bootstrapping, one requires an estimate for the independent number of observations in a given simulation.  This requires care, but may be accomplished based on the effective sample size described in Sec.~\ref{sec:global}, via block averaging, or by analysis of a time-correlation function. However, these methods have their limitations and must be used with caution.  In particular, both block averaging and autocorrelation analyses will produce effective sample sizes that depend on the quantity of interest.  To produce reliable answers, one must therefore identify and track the slowest relevant degree of freedom in the system, which can be a non-trivial task.  Even apparently fast-varying properties may have significant statistical error if they are coupled to slower varying ones, and this error in uncertainty estimation may not be readily identifiable by solely examining the fast-varying time series.
 
@@ -85,7 +59,6 @@ This observation motivates one to compute an autocorrelation function.  Specific
 %
 where the denominator is the square of the \hyperref[def:exp_st_dev]{experimental standard deviation} of $x$ given by Eq.~\ref{def:exp_st_dev}.
 Then, the number of independent samples is estimated by\footnote{The reader should note that both the autocorrelation function (Eq. \ref{def:obs_ACF}) and the number of independent samples (Eq.~\ref{def:Nind}) may be written in different forms\cite{Grossfield2009,Chodera-2016}. Our convention here presents the observations as a list $\left\{x_j\right\}$ in which the time interval (Molecular Dynamics) or trial spacing (Monte Carlo) of adjacent $x_j$ is implicitly fixed. For time-series data, one could alternately write both the observations and autocorrelation function as continuous functions of time, e.g.~$x\left(t\right)$ and $C\left(\tau\right)$ where $\tau$ is the lag time. In that case, $N_{ind}$ is written as a division of the total simulation time by the time integral of $C\left(\tau\right)$\cite{Grossfield2009}.}
-%\footnote{{\color{red} Explain why this sum is not the same as the integration over $C$; $C$ is stationary and symmetric, 1 comes from the ``zeroth'' lag, 2 is for symmetry. Actually easy to see this if you do an integral from -infty to +infty by a midpoint integration.}}
 %
 \begin{equation}
   N_{ind} = \dfrac{N}{1+2 \sum_{i=1}^{N_{lags}} C_j}
@@ -152,14 +125,12 @@ A key assumption in Eq.~\ref{def:var_linear_derived} is that the raw data, $\lef
 The situation for a nonlinear derived quantity is much more complicated and, as a result, rigorous expressions for the uncertainty of such functions are rarely used in practice. As a simplification, however, one approximates the nonlinear derived quantity as a Taylor-series expansion about a reference point, i.e.,
 %
 \begin{equation}
-  % F\left( \left\{\mean{x_i} + \epsilon_i\right\} \right)
   F\left( \left\{x_i\right\} \right)
   \approx
   F\left( \left\{\mean{x_i}\right\} \right)
   + \sum_{j=1}^M \left.
     \left( \dfrac{\partial F}{\partial x_j}\right)_{x_{l \neq j}}
   \right|_{\left\{\mean{x_i}\right\}}
-  % \epsilon_j + \cdots
   \left(x_j - \mean{x_j}\right) + \cdots
   \label{def:nonlinear_derived_obs_taylor}
 \end{equation}
@@ -193,7 +164,6 @@ Application of Eq.~\ref{def:var_nonlinear_derived} to the definition of $\rho$ y
 %
 with $\mean{\rho} = N/\mean{V}$.
 This approximation of the experimental standard deviation may be used to estimate a confidence interval on $\mean{\rho}$ or for other purposes.
-
 %Note that by virtue of the linear approximation, this uncertainty is also normally distributed, which is a universal feature of such methods.  {\it More generally, linear propagation always yields a derived uncertainty that is a linear combination of the probability distribution(s) associated with the raw data (even if the latter are not Gaussian).}
 
 In general, approximations in the spirit of Eq.~\ref{ex:density_linearized} are useful and easy to generalize to higher-dimensional settings in which the derived observable is a nonlinear combination of many data-points or sets.
@@ -201,28 +171,6 @@ However, the method does have limits.
 In particular, the it rests on the assumption of a small noise-to-signal ratio, which may not be valid for all simulated data.
 If there is doubt as to the quality of the an estimate, the uncertainty should therefore be estimated with alternative approaches such as bootstrapping in order to validate the linear approximation.
 See also the pooling analysis of Ref.~\cite{patrone1} for a method of assessing the validity of linear approximations.
-
-%The quantities we are most interested in may not be simulation observables.  For instance, the free energy difference between two states might be measured by free energy perturbation, expressed as a function of the average of another quantity \cite{Taylor1997}.
-%\begin{equation}
-%\beta \Delta A = -\ln \left< \exp \left(-\beta \Delta U\right) \right>
-%\end{equation}
-%Although $\exp(-\beta \Delta U)$ can be measured during the simulation and its uncertainty can be estimated directly using block averages as described above, $\beta \Delta A$ cannot be handled the same way.  If we compute $\beta \Delta A$ for each block, the values will tend to take extremely positive whenever the perturbation does poorly (where $\Delta U$ is consistently large).  In the pathological case, $\Delta U$ might be $\infty$ for every sample in a block and the $\beta \Delta A=-\ln 0$ cannot be computed.
-
-
-%Instead of using block averages for $\beta \Delta A$, its uncertainty can be expressed as a first-order Taylor series expansion
-%
-%\begin{equation}
-%  \sigma_{\beta \Delta A} = \sigma_{\exp(\beta \Delta U)} / \left< \exp \left(-\beta \Delta U\right) \right>
-%  \label{eq:propagation_bDA}
-%\end{equation}
-%
-%Propagation of uncertainty is needed whenever the derived quantity can be expressed as a function of other random observables.  It might also be needed when the derived quantity is of a function of quantities measured in separate simulations, such as $<U(T_2)>-<U(T_1)>$.  If a derived quantity is a function of multiple observables measured within a single simulation, then terms must be included to account for the correlation between those observables.
-
-%The Taylor series approach works well in most cases and is easy to use, but does have limitations.  Because this approach is based on a first-order Taylor series, propagation of uncertainty can fail in cases where a non-linear formula is used and the uncertainty is very large or the distribution of input averages is not Gaussian.  
-%PNP comment: this last statement is incorrect.  The distribution does not need to be Gaussian for linear propagation to work.  The distribution needs to have a small variance!
-
-
-%For instance, the uncertainty in $\beta \Delta A$ as prescribed by Eq.~\ref{eq:propagation_bDA} cannot exceed unity no matter how short the simulation is or how bad the sampling is.  If there is doubt as to the quality of the computed uncertainty, the uncertainty can be estimated with alternative approaches such as bootstrapping to validate the Taylor series results or to identify an alternative approach that works better.
 
 \subsection{From standard uncertainty to confidence interval for Gaussian variables}\label{sec:conf_int}
 
@@ -251,11 +199,7 @@ As a reminder, multi-modally distributed variables with multiple peaks in their 
 
 \subsection{Bootstrapping}\label{sec:bootstrap}
 
-%The Taylor series approach may fail in some situations, either because a derived quantity cannot be expressed as a function of the measured simulation data or because the first-order truncation of the series is too severe.
 Bootstrapping is an approach to uncertainty estimation that does not assume a particular distribution for the observable of interest or a particular kind of relationship between the observable and variables directly obtained from simulation \cite{Tibshirani1998}.  In nonparametric bootsrapping, new, ``synthetic'' data sets (corresponding to hypothetical simulation runs) are created by drawing $n$ samples (configurations) from the original collection that was generated during the actual run.  The same sample may be selected twice, while others may not be selected at all in a process called ``sampling with replacement.''  In doing so, these synthetic sets will be different even though they all have the same number of samples and draw from the same pool of data.  Having created a new set, the data is analyzed to determine the derived quantity of interest, and this process is repeated to produce multiple estimates of the quantity.  The distribution of ``synthetic'' observables can be directly used to construct a 95~\% confidence interval from the 2.5~\%ile to the 97.5~\%ile value.
-
-% DMZ: deleting this because of redundancy with paragraph below
-%As with bootstrapping, the key issue is how many samples to draw from the original collection - what value of $n$ should be used?  It should be clear that a larger $n$ will yield less variation and hence a tighter confidence interval: implicitly all $n$ samples will be regarded as independent.  Hence, $n$ should be chosen to represent the number of \emph{independent} samples present in the original simulation, which can be gauged using an autocorrelation method \cite{Chodera-2016,Lyman2007a} or implicitly using a block-averaging procedure (cf. Secs.~\ref{sec:blockavg} and \ref{sec:autocorrelation}).
 
 The process described above assumes that the original simulation data is uncorrelated.  If this is not the case, then the resampling method can be reformulated in one of two ways.  The first option is to estimate the number of independent samples in the original set (e.g.\ using an autocorrelation method \cite{Chodera-2016,Lyman2007a}) and to pull only that many samples to create the new data sets.  The second option is to group the samples into blocks that are uncorrelated based on analyzing varying block sizes (see Sec.~\ref{sec:blockavg}) and to then use the block averages as the samples for bootstrapping.
 
@@ -278,7 +222,6 @@ If synthetic samples are drawn for $\exp(-\beta \Delta U)$ from, say, a Gaussian
 Lastly, an alternative to bootstrapping is the ``jackknife'' method \cite{Quenouille_Approximate_1949,Quenouille_Notes_1956,Tukey_Bias_1958} (also outlined in Ref.~\cite{Tibshirani1998}). It operates similar to the bootstrap as a resampling technique, but it uses synthetic data sets created by subtraction of some number of samples rather than replacement; as such it is often categorized as a variant of the bootstrap (even though it predates the bootstrap). Since it operates by sample deletion, it may be better suited to smaller data sets for which a few samples may be overrepresented in the synthetic data set created by the bootstrap replacement technique. Ultimately, though, the results are similar in that the jackknife technique creates a distribution of derived observables that can be used to compute an arithmetic mean, an estimate of the standard uncertainty, and confidence intervals.
 
 \subsection{Dark uncertainty analyses}
-%- ‘Dark uncertainty’ analysis [Paul]
 
 In some cases, multiple simulations of the same physical observable $\tau$ may yield predictions whose error bars do not overlap.  This situation can arise, for example, in simulations of the glass transition temperature when undersampling the crosslinked network structure of certain polymers.  In such cases, it is reasonable to postulate an unaccounted for source of uncertainty, which we colorfully refer to as ``dark uncertainty.''  In the context of a statistical model, we postulate that the probability of a simulation output depends on the unobserved or ``true'' mean value $\bar \tau$, an uncertainty $\sigma_i^2$ whose value is specific to the simulation (estimated, e.g.\ according to uncertainty propagation), and the unaccounted-for dark uncertinty $y^2$.  (For simplicity, the $\sigma_i^2$ and $y^2$ should be treated as variances.)
 
@@ -287,24 +230,3 @@ While details are beyond this scope of this document, such a model motivates an 
 \bar \tau \approx \mathcal T \propto \sum_i \frac{T_i}{\sigma_i^2 + y^2}, \label{eq:darkmean}
 \end{align}
 where $T_i$ is the prediction from the $i$th simulation, $\sigma_i^2$ is its associated ``within-simulation'' uncertainty, and $y^2$ is the dark or between-simulation uncertainty; note that the latter does not depend on $i$.  The variable $y^2$ can be estimated from a maximum-likelihood analysis of the data and amounts to numerically solving a relatively simple nonlinear equation (see Ref.~\cite{patrone1}).  Equation~\eqref{eq:darkmean} is useful insofar as it weights simulated results according to their certainty while reducing the impact of overconfident predictions (e.g. having small $\sigma_i^2$).  Additional details on this method are provided in Ref.~\cite{patrone1} and the references contained therein.
-
-
-
-%- Basics: how to report, what goal to shoot for, significant figures
-%- When should you not trust uncertainties
-%    - Unknown unknowns
-%- If calculating a derived quantity, consider error in conversion from raw data
-%    - Propagation of error (this doesn’t mean publishing your results!)
-%    - Taylor series expansion can handle cases where derived quantity is a direct function of measured data
-%    - Wikipedia: Propagation of uncertainty
-%    - Bootstrapping [Andrew/Dan S]
-%used for cases where the derived quantity is not simple function of the measured data.
-%An Introduction to the Bootstrap
-%    - Need to know correlation to correctly estimate sample size
-%    - Otherwise just gives relative uncertainty
-%- Correlation time analysis [Dan Z]
-%- Block averaging [Dan Z/Alan?/Dan S] Flyvjberg and Petersen
-%- MOST OF THESE ALGORITHMS FAIL IF THE TRAJECTORY IS WAY TOO SHORT
-%    - If you miss the timescale by enough, you can’t tell
-%    - YOU HAVE TO THINK ABOUT THIS IN ADVANCE
-%- Link out to transport doc
