@@ -40,17 +40,10 @@ The self-contained checklist is presented on the following page.
       Is each time series fluctuating about an average value or drifting overall?
       What states are expected and what are seen?
       Are there a significant number of transitions between states?
-    %\item Plot as many properties as you can think of, even if they’re not interesting
     \item If multiple runs have been performed, compare results (e.g., time series, distributions, etc.) from different simulations.
     \item An individual trajectory can be divided into two parts and analyzed as if two simulations had been run.
-    %\item If applicable, perform pairwise RMSD visual analysis for individual runs as described in Sec.\ \ref{sec:bio_RMSD}.
-    %\item Plot pairwise configurational distances (e.g., RMSD values for biomolecules) in greyscale for $\sim$100 evenly spaced frames
-    %\item Visualize the trajectory graphically -- look for slow motions.  BE SKEPTICAL!
-    %\item Compare observable different fractions of a run (DMZ thirds idea)
-    %\item Andrew: short vs. very short [DMZ: this would need to be described somewhere]
-    %\item Daniel R: Compare runs from different initial conditions - be sure initial conditions are ‘different enough’
     \end{itemize}
-        \vspace{-0.325\baselineskip} %Line spacing after a sub-list is too large
+    \vspace{-0.325\baselineskip} %Line spacing after a sub-list is too large
 
 \item
   \textbf{Remove an ``equilibration'' (a.k.a. ``burn in'', or transient) portion of a single MD or MC trajectory} and perform analyses only on the remaining ``production'' portion of trajectory.  An initial configuration is unlikely to be representative of the desired ensemble and the system must be allowed to relax so that low probability states are not overrepresented in collected data.  See Sec.\ \ref{sec:equil}.
