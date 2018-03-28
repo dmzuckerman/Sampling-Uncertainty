@@ -238,16 +238,16 @@
 % \setcounter{secnumdepth}{0}
 \RequirePackage[explicit]{titlesec}
 \titleformat{\section}
-  {\LARGE\bfseries}
+  {\LARGE\bfseries\raggedright}
   {\thesection}{1em}{#1}[]
 \titleformat{\subsection}
-  {\Large\bfseries\color{LiveCoMSMediumGrey}}
+  {\Large\bfseries\raggedright\color{LiveCoMSMediumGrey}}
   {\thesubsection}{1em}{#1}[]
 \titleformat{\subsubsection}
-  {\large\color{LiveCoMSMediumGrey}}
+  {\large\raggedright\color{LiveCoMSMediumGrey}}
   {\thesubsubsection}{1em}{#1}[]
 \titleformat{\paragraph}
-  {\large\color{LiveCoMSMediumGrey}}
+  {\large\raggedright\color{LiveCoMSMediumGrey}}
   {\theparagraph}{1em}{#1}[]
 \titlespacing*{\section}{0pc}{3ex \@plus4pt \@minus3pt}{0pt}
 \titlespacing*{\subsection}{0pc}{2.5ex \@plus3pt \@minus2pt}{0pt}
