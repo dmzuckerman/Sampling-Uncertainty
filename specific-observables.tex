@@ -20,7 +20,7 @@ Additional digits beyond the precision implicit in the uncertainty are unhelpful
 
 
 \subsection{Overview of procedures for computing a confidence interval}
-We remind readers that they should perform the semi-quantitative sampling checks (Sec.\ \ref{sec:quick}) before attempting to quantify uncertainty.  If the observable of interest is not fluctuating about a mean value but largely increasing or decreasing during the course of a simulation, a reliable quantitative estimate for the observable or its associated uncertainty cannot be obtained.
+We remind readers that they should perform the semiquantitative sampling checks (Sec.\ \ref{sec:quick}) before attempting to quantify uncertainty.  If the observable of interest is not fluctuating about a mean value but largely increasing or decreasing during the course of a simulation, a reliable quantitative estimate for the observable or its associated uncertainty cannot be obtained.
 
 For observables passing the qualitative tests noted above in Sec.\ \ref{sec:quick}, we advocate obtaining confidence intervals in one of two ways:
 \begin{itemize}
@@ -96,7 +96,7 @@ Lastly, the standard uncertainty of $\mean{x}^b$ is just the \hyperref[def:exp_s
 %
 This standard uncertainty may then be used to calculate a confidence interval on $\mean{x}^b$.
 
-It is important to note that for statistical purposes, the blocks must all be of the same size in order to identically distributed, and thereby satisfy the requirements of Eq.~\ref{def:exp_st_dev_mean}.  It is also important to  systematically assess the impact of block-size on the corresponding estimates.  In particular, as the blocks get longer, the block averages should decorrelate and $\stdevmean{\mean{x}^b}$ should plateau \cite{Flyvbjerg-1989,Grossfield2009}.
+It is important to note that for statistical purposes, the blocks must all be of the same size in order to be identically distributed, and thereby satisfy the requirements of Eq.~\ref{def:exp_st_dev_mean}.  It is also important to  systematically assess the impact of block-size on the corresponding estimates.  In particular, as the blocks get longer, the block averages should decorrelate and $\stdevmean{\mean{x}^b}$ should plateau \cite{Flyvbjerg-1989,Grossfield2009}.
 Another approach is to measure the block correlation and to use it to improve the selection of the block size and, hence, uncertainty estimate \cite{Kolafa1986}.
 We stress that this final step of adjusting the block size and recomputing the block standard uncertainty is absolutely necessary. Otherwise, the blocks may be correlated, yielding an uncertainty that is not meaningful.
 
@@ -168,7 +168,7 @@ This approximation of the experimental standard deviation may be used to estimat
 
 In general, approximations in the spirit of Eq.~\ref{ex:density_linearized} are useful and easy to generalize to higher-dimensional settings in which the derived observable is a nonlinear combination of many data-points or sets.
 However, the method does have limits.
-In particular, the it rests on the assumption of a small noise-to-signal ratio, which may not be valid for all simulated data.
+In particular, it rests on the assumption of a small noise-to-signal ratio, which may not be valid for all simulated data.
 If there is doubt as to the quality of the an estimate, the uncertainty should therefore be estimated with alternative approaches such as bootstrapping in order to validate the linear approximation.
 See also the pooling analysis of Ref.~\cite{patrone1} for a method of assessing the validity of linear approximations.
 
