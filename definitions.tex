@@ -71,7 +71,7 @@ Note that a proper realization of a random variable (with no systematic bias) wi
   \textbf{\textit{Remark:}} This quantity is often called the ``sample standard deviation.''
   Additionally, $\stdev{x}$ is a statistical property of the specific set of observations $\left\{x_1,x_2,...,x_n\right\}$, not of the random quantity $x$ in general.
   Thus, $\stdev{x}$ is sometimes written as $\stdev{x_j}$ for emphasis of this property.
-%FYI, the data does NOT need to be linearly uncorrelated for this estimate under typical MD conditions.  Assuming correlation times \tau << N (where N is the number of timesteps), the relative error in using correlated data is O(tau/N) << 1.
+%FYI, the data does NOT need to be linearly uncorrelated for this estimate under typical MD conditions.  Assuming correlation times \tau << N (where N is the number of time steps), the relative error in using correlated data is O(tau/N) << 1.
 
   \item {\bf Linearly uncorrelated observables}:  If quantities $x$ and $y$ have mean values $\expval{x}$ and $\expval{x}$, then $x$ and $y$ are linearly uncorrelated if
 \begin{equation}
@@ -96,7 +96,7 @@ Note that a proper realization of a random variable (with no systematic bias) wi
 
 %\item {\bf Precision}: The amount of variability in an estimate (e.g.\ based on repeating a given simulation protocol multiple times).  %Better sampling in an individual simulation leads to higher precision.  
   % I commented out the last phrase because ``better'' seems a bit vague to me in this context.  Should this comment be placed elsewhere?
-  %PNP I say no to placing this elsewhere.  I agree that ``better'' is too vague.  It could refer to a lot of things, including decreasing the timestep to reduce effects of numerical errors, longer sampling, using a different thermostat, etc.  Also, I would get rid of this definition and the next
+  %PNP I say no to placing this elsewhere.  I agree that ``better'' is too vague.  It could refer to a lot of things, including decreasing the time step to reduce effects of numerical errors, longer sampling, using a different thermostat, etc.  Also, I would get rid of this definition and the next
 % \label{def:precision}
 
 %\item {\bf Accuracy}: The degree to which a result agrees with a reference value.

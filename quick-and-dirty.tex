@@ -45,7 +45,7 @@ however, it does not fluctuate repeatedly about an average value, implying it ha
 
 %\textcolor{red}{PNP comment: I think this section needs to cater more towards non-biology applications.  Part of the power of this manuscript is that it is bringing together authors from different fields.  With that in mind, I think we should encourage readers to be more aware of what folks are doing in different fields because materials modelers don't always appreciate the value of what computational biologists are doing, etc.  I've made some edits to reinforce this idea and generalize discussion.}
 
-%A fundamental concept in MD and MC is the notion of a {\it phase-space}, i.e.\ the high-dimensional space consisting of all particle coordinates (and momenta, in the case of MD).  Importantly, statistical mechanics dictates the probability of a system being in any one of these {\it microstates} (i.e.\ phase-space points), given an appropriate thermodynamic ensemble.  Notably, however, MD and MC algorithms do not directly provide these probabilities, but rather generate time-series that draw from the corresponding phase-space distributions.  Thus, the task of assessing sampling quality can be restated as one of determining whether the accessible microstates have been adequately explored. 
+%A fundamental concept in MD and MC is the notion of a {\it phase-space}, i.e.\ the high-dimensional space consisting of all particle coordinates (and momenta, in the case of MD).  Importantly, statistical mechanics dictates the probability of a system being in any one of these {\it microstates} (i.e.\ phase-space points), given an appropriate thermodynamic ensemble.  Notably, however, MD and MC algorithms do not directly provide these probabilities, but rather generate time series that draw from the corresponding phase-space distributions.  Thus, the task of assessing sampling quality can be restated as one of determining whether the accessible microstates have been adequately explored. 
 
 %A mainstream approach for addressing this problem invokes the concepts of subspace projections and distance metrics.  In more detail, phase-space is itself a well-defined (but hard-to-imagine) metric space, meaning that we can quantitatively define notions such as near and far, i.e.\ via the Pythagorean formula.  
 
@@ -84,7 +84,7 @@ systems see the work of Pitera \cite{Pitera2014}.
 %Note that RMSD, like any distance in a high-dimensional space, becomes ``degenerate'' for larger values: given a reference configuration, there are a large number of configurations which differ from the reference by a given large RMSD. This is analogous to the increasing number of points in three-dimensional space with increasing radial distance from a reference point, except much worse because of the dimensionality. For a detailed exploration of expected RMSD distributions for biomolecular systems see the work of Pitera \citep{Pitera2014}.
 
 Some qualitative tools for assessing global sampling based on RMSD were reviewed
-in prior work \cite{Grossfield2009}.   The classic time series plot of RMSD with
+in prior work \cite{Grossfield2009}.   The classic time-series plot of RMSD with
 respect to a crystal or other single reference structure (Fig.\ \ref{f:rmsd}) can immediately
 indicate whether the structure is still systematically changing.  Although this
 kind of plot was historically used as a sampling test, it should really be
@@ -162,7 +162,7 @@ Another way to obtain independent measurements is to divide a single simulation 
 %\textcolor{green}{DMZ comments: I think the paragraph below better belongs in Sec.\ 4.4 which discusses the use of blocks.  Also the eqn here is redundant with eq (10) ... although without normalization.}
 %\textcolor{red}{
 %In the case of visually ambiguous datasets, 
-Autocorrelation analyses applied to trajectory blocks can be used to better understand the extent to which a time-series represents an equilibrated system.  In particular, systems in steady-state (which includes equilibrium) by definition have statistical properties that are time-invariant.  Thus, correlations between a single observable at different times depend only on the relative lag between the timesteps.  That is, the correlation function has the stationarity property
+Autocorrelation analyses applied to trajectory blocks can be used to better understand the extent to which a time series represents an equilibrated system.  In particular, systems in steady-state (which includes equilibrium) by definition have statistical properties that are time-invariant.  Thus, correlations between a single observable at different times depend only on the relative lag between the time steps.  That is, the correlation function has the stationarity property
 %}
 % \begin{align}
 % C(x_j,x_{j+\tau}) &= \expval{ \left(x_j - \expval{x} \right) \left(x_{j+\tau} - \expval{x} \right) } = C(\tau)
@@ -173,7 +173,7 @@ Autocorrelation analyses applied to trajectory blocks can be used to better unde
 \end{equation}
 %
 %\textcolor{red}{
-where $C(\tau)$ is independent of the time-step $j$.  With this in mind, one can partition a given time-series into continuous blocks, compute the autocorrelation for a collection of lags $\tau$, and compare between blocks.  Estimates of $C(\tau)$ that are independent of the block suggest an equilibrated (or at least a steady-state) system, whereas significant changes in the autocorrelation may indicate an unequilibrated system.  Importantly, this technique can help to distinguish long-timescale trends in apparently equilibrated data.
+where $C(\tau)$ is independent of the time step $j$.  With this in mind, one can partition a given time series into continuous blocks, compute the autocorrelation for a collection of lags $\tau$, and compare between blocks.  Estimates of $C(\tau)$ that are independent of the block suggest an equilibrated (or at least a steady-state) system, whereas significant changes in the autocorrelation may indicate an unequilibrated system.  Importantly, this technique can help to distinguish long-timescale trends in apparently equilibrated data.
 %from truly non-equilibrated systems.
 %}
 %\textcolor{green}{DMZ comment: I don't understand the preceding sentence.}\textcolor{red}{PNP comment: can you be more specific about what doesn't make sense about it?}
