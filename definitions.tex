@@ -35,7 +35,7 @@ In the case that $x$ adopts discrete values $x_1,x_2,...$ with corresponding fra
 \begin{align}
 \sigma_x^2 = \int {\rm d}x\, P(x) \left( x  - \expval{x} \right)^2.
 \end{align}
-If $x$ assume discrete values, the coresponding definition becomes
+If $x$ assume discrete values, the corresponding definition becomes
 \begin{align}
 \sigma_x^2 = \sum_j P(x_j) \left( x_j  - \expval{x} \right)^2.
 \end{align}
@@ -62,7 +62,7 @@ Note that a proper realization of a random variable (with no systematic bias) wi
 \item {\bf Experimental standard deviation:\footnote{
       The term ``experimental'' can refer to simulated data, since these are the results of numerical experiments.
 }
-} An \emph{estimate} of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the demonimator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the variance estimate is {\it unbiased}, meaning that on average $\var{x}$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) is lost via the appearance of $\mean{x}$ in the definition of $\stdev{x}$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $x_j$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated Observables}).}
+} An \emph{estimate} of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the denominator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the variance estimate is {\it unbiased}, meaning that on average $\var{x}$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) is lost via the appearance of $\mean{x}$ in the definition of $\stdev{x}$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $x_j$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated Observables}).}
   \begin{equation}
     \stdev{x} = \sqrt{\dfrac{\sum_{j=1}^n\left(x_j - \mean{x}\right)^2}{n-1}} \label{def:exp_st_dev}
   \end{equation}
@@ -73,7 +73,7 @@ Note that a proper realization of a random variable (with no systematic bias) wi
   Thus, $\stdev{x}$ is sometimes written as $\stdev{x_j}$ for emphasis of this property.
 %FYI, the data does NOT need to be linearly uncorrelated for this estimate under typical MD conditions.  Assuming correlation times \tau << N (where N is the number of time steps), the relative error in using correlated data is O(tau/N) << 1.
 
-  \item {\bf Linearly uncorrelated observables}:  If quantities $x$ and $y$ have mean values $\expval{x}$ and $\expval{x}$, then $x$ and $y$ are linearly uncorrelated if
+  \item {\bf Linearly uncorrelated observables}:  If quantities $x$ and $y$ have mean values $\expval{x}$ and $\expval{y}$, then $x$ and $y$ are linearly uncorrelated if
 \begin{equation}
   \expval{ \left(x - \expval{x} \right) \left(y - \expval{y} \right) } = 0 \label{def:unc_obs}
 \end{equation}
@@ -132,7 +132,7 @@ Roughly speaking, the total simulation time divided by the longest correlation t
 As surveyed by Refs.~\citep{JCGM:GUM2008,JCGM:VIM2012}, the discussion that originally motivated many of theses definitions appears rather philosophical.  However, there are practical issues at stake related to both the content of the definitions as well as the need to adopt their usage.  We review such issues now.
 %Nonetheless, it bears repeating here, if only to force a level of honesty regarding what we can actually hope to achieve with simulations.
 
-At the heart of the matter is the observation that any uncertainty analysis, no matter how thorough, is inherently subjective.  This can can be understood, for example, by noting that the arithmetic mean is itself actually a random quantity that only approximates the true expectation value.\footnote{Notably, the same observation applies to the experimental standard deviation and the corresponding experimental standard deviation of the mean.}  Because its variation relative to the true value depends on the number of samples (notwithstanding a little bad luck), one could therefore argue that a better mean is always obtained by collecting more data.   We cannot collect data indefinitely, however, so the {\it quality} of an estimate necessarily depends on a {\it choice} of when to stop.  Ultimately, this discussion forces us to acknowledge that {\it the role of any uncertainty estimate is to facilitate decision making,} and, as such, the thorougness of any analysis should be tailored to the decision at hand.  
+At the heart of the matter is the observation that any uncertainty analysis, no matter how thorough, is inherently subjective.  This can can be understood, for example, by noting that the arithmetic mean is itself actually a random quantity that only approximates the true expectation value.\footnote{Notably, the same observation applies to the experimental standard deviation and the corresponding experimental standard deviation of the mean.}  Because its variation relative to the true value depends on the number of samples (notwithstanding a little bad luck), one could therefore argue that a better mean is always obtained by collecting more data.   We cannot collect data indefinitely, however, so the {\it quality} of an estimate necessarily depends on a {\it choice} of when to stop.  Ultimately, this discussion forces us to acknowledge that {\it the role of any uncertainty estimate is to facilitate decision making,} and, as such, the thoroughness of any analysis should be tailored to the decision at hand.  
 
 Practically speaking, the definitions as put forth by the VIM attempt to reflect this perspective while also capturing ideas that the statistics community have long found useful.  For example, the concept of an ``experimental standard deviation of the mean'' is nothing more than the ``standard error of the mean.''  However, the adjective ``experimental'' explicitly acknowledges that the estimate is in fact obtained from observation (and not analytical results), while the use of ``deviation'' in place of ``error'' emphasizes that the latter is unknowable.  Similar considerations apply to the term ``experimental standard deviation,'' which is more commonly referred to as the ``sample standard deviation.''
 
