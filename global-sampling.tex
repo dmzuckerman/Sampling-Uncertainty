@@ -27,15 +27,26 @@ Analysis of trajectory data generally cannot make inferences about parts of conf
 It is generally impossible to know whether configurational states absent from a trajectory are appropriately absent because they are highly improbable (extremely high energy) or because the simulation simply failed to visit them because of a high barrier or random chance.
 
 \subsection{Global sampling assessment for a single trajectory}
-Two methods applicable for a single trajectory have been previously introduced by some of the present authors, exploiting the fact that trajectories are often correlated in time.
-That is, each configuration evolves from and is most similar to the immediately preceding configuration.
-This picture holds for standard MD and Markov-chain MC.
+Two methods applicable for a single trajectory were previously introduced by some of the present authors, exploiting the fact that trajectories typically are correlated in time.
+That is, each configuration evolves from and is most similar to the immediately preceding configuration;
+this picture holds for standard MD and Markov-chain MC.
+Both analysis methods are implemented as part of the software package LOOS \cite{LOOS,LOOS-JCC}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{decorr-graphic.png}
+  \caption{The basis for ``decorrelation analysis'' \cite{Lyman2007a}.
+  From a continuous trajectory (blue curve), configurations can be extracted at equally spaced time points (filled circles) with each such configuration categorized as belonging to one of a set of arbitrary states (delineated by straight black lines).  
+  If the configurations are statistically independent -- if they are sufficiently decorrelated -- then their statistical behavior will match that predicted by a multinomial distribution consistent with the trajectory's fractional populations in each state.
+  A range of time-spacings can be analyzed to determined if and when such independence occurs.}
+  \label{fig:decorr}
+\end{figure}
 
 Lyman and Zuckerman proposed a global ``decorrelation'' analysis by mapping a trajectory to a discretization of configuration space (set of all $x, y, z$ coordinates) and analyzing the resulting statistics \cite{Lyman2007a}.
 %\textcolor{red}{Would be helpful to clarify what this configuration space is.  Am I incorrect in assuming it is the full 6N-dimensional phase-space?  Other comments embedded in the .tex file as commented lines.}
 Configuration space is discretized into bins based on Voronoi cells of structurally similar configurations,  e.g., using RMSD defined in Eq.\ \eqref{eq:rmsd} or another configurational similarity measure; reference configurations for the Voronoi binning are chosen at random or more systematically as described in \cite{Lyman2007a}.
 %\textcolor{red}{Again, I have no idea what this means.  This problem could potentially be solved by definining the RMSD ideas a few sections up where they are first introduced.  Voronoi cells as I understand them define a set of ``nearest-neighbor'' domains, relative, e.g.\ to special points.  What are these special points, how are the Voronoi cells drawn?  Can this be stated more intuitively?}
-Once configuration space is discretized, the trajectory frames can be classified accordingly, leading to a discrete (i.e., 'multinomial') distribution.
+Once configuration space is discretized, the trajectory frames can be classified accordingly, leading to a discrete (i.e., 'multinomial') distribution (Fig.\ \ref{fig:decorr}).
 The analysis method is based on the observation that the variance for any bin of a multinomial distribution is known, given the bin populations (from trajectory counts) and a specified number of independent samples drawn from the distribution \cite{Lyman2007a}.
 %\textcolor{red}{Is reference to the multinomial distribution necessary?  I find myself distracted by that word, wanting to know why that appears in the discretized phase-space, and why it's relevant for MD.}
 The knowledge of the expected variance allows testing of increasing waiting times between configurations drawn from the trajectory to determine when and if the variance approaches that expected for independent samples.
@@ -46,7 +57,7 @@ The minimum waiting time yielding agreement with ideal (i.e., uncorrelated) stat
 
 A second method, employing block covariance analysis (BCOM), was presented by Romo and Grossfield \cite{Romo2011} building on ideas by Hess \cite{Hess2002}.  In essence, the method combines two standard error analysis techniques --- block averaging \cite{Flyvbjerg-1989} and bootstrapping \cite{Tibshirani1998} --- with covariance overlap, which quantitatively measures the similarity of modes determined from principal component analysis (PCA)\cite{Hess2002}.  PCA in essence generates a new coordinate system for representing the fluctuation in the system while tracking the importance of each vector; the central idea of the method is to exploit the fact that as sampling improves, the modes generated by PCA should become more similar, and the covariance overlap will approach unity in the limit of infinite sampling.
 
-When applying BCOM, the principal components are computed from subsets of the trajectory, and the similarity of the modes evaluated as a function of subset size; as the subsets get larger, the resulting modes become more similar.  This is done both for contiguous blocks of trajectory data (block averaging), and again for randomly chosen subsets of trajectory frames (bootstrapping); taking the ratio of the two values as a function of block size yields the degree of correlation in the data.  Fitting that ratio to a sum of exponentials allows one to extract the relaxation times in the sampling.  The key advantage of this method over others is that it implicitly takes into account the number of substates; the longest correlation time is the time required not to make a transition, but to sample a scattering of the relevant states. Both BCOM and the aforementioned global decorrelation analysis are implemented as part of the software package LOOS \cite{LOOS,LOOS-JCC}.
+When applying BCOM, the principal components are computed from subsets of the trajectory, and the similarity of the modes evaluated as a function of subset size; as the subsets get larger, the resulting modes become more similar.  This is done both for contiguous blocks of trajectory data (block averaging), and again for randomly chosen subsets of trajectory frames (bootstrapping); taking the ratio of the two values as a function of block size yields the degree of correlation in the data.  Fitting that ratio to a sum of exponentials allows one to extract the relaxation times in the sampling.  The key advantage of this method over others is that it implicitly takes into account the number of substates; the longest correlation time is the time required not to make a transition, but to sample a scattering of the relevant states. 
 
 \subsection{Global sampling assessment for multiple independent trajectories}
 \label{sec:globalMultiTraj}

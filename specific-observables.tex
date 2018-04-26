@@ -18,6 +18,7 @@ In recommending 95~\% confidence intervals, we are admittedly attempting to addr
 
 As a final note, we remind readers that only significant figures should be reported.
 Additional digits beyond the precision implicit in the uncertainty are unhelpful at best, and potentially misleading to readers who may not be aware of the limitations of simulations or statistical analyses generally.
+For example, if the mean of a quantity is calculated to be $1.23456$ with uncertainty $\pm 0.1$ based on a 95\% confidence interval, then only two significant figures should be reported for the mean ($1.2$).
 %When reporting quantities with uncertainties, only the digits that are significant should be included and the standard error should be placed after the value in parenthesis as the uncertainty in the last digit.  In general only one digit of uncertainty need be reported unless the digit is 1, in which case, it is helpful to report two digits (in order to avoid up to 50~\% roundoff error in the uncertainty).  See the \TABLE{uncertainties} for examples from hypothetical isobaric simulations of water.
 
 
@@ -29,7 +30,8 @@ For observables passing the qualitative tests noted above in Sec.\ \ref{sec:quic
 \item For observables that are Gaussian-distributed (or assumed to be, as an approximation or due to lack of information), an appropriately chosen \emph{coverage factor} $k$ (typically in the range of 2 to 3; see Sec.~\ref{sec:conf_int} for further details) is multiplied by the standard uncertainty $\stdevmean{\mean{x}}$ to yield the expanded uncertainty, which estimates the 95~\% confidence interval.
 \item For non-Gaussian observables, a \emph{bootstrapping} approach (Sec.~\ref{sec:bootstrap}) should be used.
   An example of a potentially non-Gaussian observable is a rate-constant, which must be positive but could exhibit significant variance.  As such, a confidence interval estimated with a coverage factor may lead to an unphysical negative lower limit.
-  In contrast, bootstrapping does not assume an underlying distribution but instead constructs a confidence interval based on the recorded data values, and the limits cannot fall outside the extreme data values.
+  In contrast, bootstrapping does not assume an underlying distribution but instead constructs a confidence interval based on the recorded data values, and the limits cannot fall outside the extreme data values;
+  nevertheless, bootstrapped confidence intervals can have shortcomings \cite{Schenker1985,Chernick2009}.
   Bootstrapping is also sometimes useful for estimating uncertainties associated with \hyperref[def:deriv_obs]{derived observables}.
 \end{itemize}
 
@@ -202,6 +204,7 @@ As a reminder, multi-modally distributed variables with multiple peaks in their 
 \subsection{Bootstrapping}\label{sec:bootstrap}
 
 Bootstrapping is an approach to uncertainty estimation that does not assume a particular distribution for the observable of interest or a particular kind of relationship between the observable and variables directly obtained from simulation \cite{Tibshirani1998}.  In nonparametric bootstrapping, new, ``synthetic'' data sets (corresponding to hypothetical simulation runs) are created by drawing $n$ samples (configurations) from the original collection that was generated during the actual run.  The same sample may be selected twice, while others may not be selected at all in a process called ``sampling with replacement.''  In doing so, these synthetic sets will be different even though they all have the same number of samples and draw from the same pool of data.  Having created a new set, the data are analyzed to determine the derived quantity of interest, and this process is repeated to produce multiple estimates of the quantity.  The distribution of ``synthetic'' observables can be directly used to construct a 95~\% confidence interval from the 2.5 percentile to the 97.5 percentile value.
+Readers are cautioned that bootstrapping confidence intervals are not quantitatively reliable in certain cases such as with small-sample sizes or distributions that are skewed or heavy-tailed \cite{Schenker1985,Chernick2009}.
 
 The process described above assumes that the original simulation data are uncorrelated.  If this is not the case, then the resampling method can be reformulated in one of two ways.  The first option is to estimate the number of independent samples in the original set (e.g.\ using an autocorrelation method \cite{Chodera-2016,Lyman2007a}) and to pull only that many samples to create the new data sets.  The second option is to group the samples into blocks that are uncorrelated based on analyzing varying block sizes (see Sec.~\ref{sec:blockavg}) and to then use the block averages as the samples for bootstrapping.
 

@@ -108,8 +108,8 @@ transition occurring roughly 800 ns into the trajectory.  Off diagonal ``peaks''
 (regions of low RMSD between structures sampled far apart in time) indicate that
 the system is revisiting previously sampled states, a necessary condition for
 good statistics.  In this case, the initial state is never sampled after the
-first transition, but there are a number of small transitions within the second
-state.
+first transition as seen from the lack of low RMSD values following $\sim$800 ns with respect to configurations prior to that point;
+however, there are a number of small transitions within the second state based on low RMSD values occurring among configurations following $\sim$800 ns.
 
 %\subsection{Analyzing qualitative behavior: Testing for linear behavior in material properties}
 \subsection{Analyzing the qualitative behavior of data}
@@ -145,7 +145,7 @@ While extending this approach to other types of simulations invariably depends o
 %\end{wrapfigure}
 \end{figure}
 
-When estimating any statistical property, multiple measurements are often required to capture the uncertainties involved. Consider, for example, the probability that an unbiased coin will land heads-up as estimated in terms of the relative fraction coin-flips that give this result.  This fraction approximated in terms of a single flip (measurement) will always yield a grossly incorrect probability, since only one outcome (heads or tails) can ever be represented by this procedure.  However, as more flips (measurements) are made, the relative fraction of outcomes will converge to the correct probability, i.e.\ the former represents and increasingly good estimate of the latter.  
+When estimating any statistical property, multiple measurements are required to characterize the underlying model with high confidence. Consider, for example, the probability that an unbiased coin will land heads-up as estimated in terms of the relative fraction coin-flips that give this result.  This fraction approximated in terms of a single flip (measurement) will always yield a grossly incorrect probability, since only one outcome (heads or tails) can ever be represented by this procedure.  However, as more flips (measurements) are made, the relative fraction of outcomes will converge to the correct probability, i.e.\ the former represents and increasingly good estimate of the latter.  
 
 %PNP comment: I removed biomolecular from the next paragraph because I think these considerations apply to all simulations
 In an analogous way, we often use ``convergence'' in the context of simulations to describe the extent to which an estimator (e.g.\ an arithmetic mean) approaches some true value (i.e.\ the corresponding expectation of an observable) with increasing amounts of data.  In many cases, however, the true value is not known {\it a priori}, so that we cannot be sure what value a given estimator should be approaching.  In such cases, it is common to use the overlap of independent estimates and confidence intervals as a proxy for convergence because the associated clustering suggests a shared if unknown mean.  Conversely, lack of such ``convergence'' is a strong indication that sampling is poor.
