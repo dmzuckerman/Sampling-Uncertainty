@@ -60,10 +60,10 @@ To understand the basic idea behind using a distance to assess sampling, conside
 The same basic procedures (and more) can be followed once we precisely define a configurational distance between two configurations.  A typical example is the root-mean-square deviation,
 \begin{equation}
 \label{eq:rmsd}
-\mathrm{RMSD}(\mathbf{r}, \mathbf{s}) = \min \sqrt{\frac{1}{N}\sum_{i=1}^{N} |\mathbf{r}_i - \mathbf{s}_i|^2} \;,
+\mathrm{RMSD}(\mathbf{r}, \mathbf{s}) = \min_{\boldsymbol \Theta, \boldsymbol {\rm d}} \sqrt{\frac{1}{N}\sum_{i=1}^{N} |\boldsymbol \Theta \mathbf{r}_i - \mathbf{s}_i + \boldsymbol {\rm d}|^2} \;,
 \end{equation}
 where $\mathbf{r}_i$ and $\mathbf{s}_i$ are typically the Cartesian coordinates of atom $i$ in configurations $\mathbf{r}$ and $\mathbf{s}$ respectively; sometimes only a subset of atoms is considered (e.g., backbone heavy atoms in a protein.
-The minimization in Eq.\ \eqref{eq:rmsd} is performed over all possible translations and rotations of configuration $\mathbf{r}$, so that the RMSD value represents the smallest configurational ``distance'' based on the best possible alignment of the two configurations.
+The minimization in Eq.\ \eqref{eq:rmsd} is performed over all admissible translations $\boldsymbol {\rm d}$ and rotations $\boldsymbol \Theta$ of configuration $\mathbf{r}$ (where $\boldsymbol \Theta$ is a rotation matrix), so that the RMSD value represents the smallest configurational ``distance'' based on the best possible alignment of the two configurations.
 Another configuration-space metric is the dihedral angle distance which sums over all distances for pairs of selected angles.
 Note that configurational distances \emph{generally} suffer from the degeneracy problem: the fact that many different configurations can be the same distance from any given reference.  This is analogous to
 the increasing number of points in three-dimensional space
