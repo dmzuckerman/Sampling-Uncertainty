@@ -133,7 +133,7 @@ The situation for a nonlinear derived quantity is much more complicated and, as 
   \approx
   F\left( \left\{\mean{x_i}\right\} \right)
   + \sum_{j=1}^M \left.
-    \left( \dfrac{\partial F}{\partial x_j}\right)_{x_{l \neq j}}
+    \left( \dfrac{\partial F}{\partial x_j}\right)%_{x_{l \neq j}}
   \right|_{\left\{\mean{x_i}\right\}}
   \left(x_j - \mean{x_j}\right) + \cdots
   \label{def:nonlinear_derived_obs_taylor}
@@ -146,7 +146,7 @@ With this {\it linear} approximation of $F$, which is analogous to Eq.~\ref{def:
 \begin{eqnarray}
   \var{F} & \approx & \sum_{j=1}^M
                 \left.
-                \left( \dfrac{\partial F}{\partial x_j} \right)_{x_{l \neq j}} ^2
+                \left( \dfrac{\partial F}{\partial x_j} \right)^2 %_{x_{l \neq j}} 
                 \right|_{\left\{\mean{x_i}\right\}}
                 \var{x_j}
   %\\
