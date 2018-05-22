@@ -55,14 +55,14 @@ If $x$ assume discrete values, the corresponding definition becomes
 Note that a proper realization of a random variable (with no systematic bias) will yield values distributed according to $P(x)$, so $\mean{x} \rightarrow \expval{x}$ as $n \rightarrow \infty$.
 
 
-\item {\bf Standard Uncertainty}: Uncertainty in a result (e.g.\ estimation of a true value) as expressed in terms of a \hyperref[def:st_dev]{standard deviation}.\footnote{The definition of standard uncertainty does not specify how to calculate the standard deviation. This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.  Intuitively, this quantity should reflect the degree to which an estimate would vary if recomputed using new and independent data.}
+\item {\bf Standard Uncertainty}: Uncertainty in a result (e.g., estimation of a true value) as expressed in terms of a \hyperref[def:st_dev]{standard deviation}.\footnote{The definition of standard uncertainty does not specify how to calculate the standard deviation. This choice ultimately rests with the modeler and should be dictated by the details of the uncertainty relevant to the problem at hand.  Intuitively, this quantity should reflect the degree to which an estimate would vary if recomputed using new and independent data.}
 %{\color{red}[[I think this will be opaque to many readers, especially beginners.  How about adding "i.e., it is an estimate of the standard deviation expected if the same procedure were repeated multiple times."  Also this defn uses standard deviation, so I guess std dev defn should precede it.]]}
   \label{def:std_unc}
 
 \item {\bf Experimental standard deviation:\footnote{
       The term ``experimental'' can refer to simulated data, since these are the results of numerical experiments.
 }
-} An \emph{estimate} of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the denominator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the variance estimate is {\it unbiased}, meaning that on average $\var{x}$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g.\ piece of data) is lost via the appearance of $\mean{x}$ in the definition of $\stdev{x}$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $x_j$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated Observables}).}
+} An \emph{estimate} of the (true) standard deviation of a random variable, given by the formula\footnote{The factor of $n-1$ (as opposed to $n$) appearing in the denominator of Eq.~\ref{def:exp_st_dev} is needed to ensure that the variance estimate is {\it unbiased}, meaning that on average $\var{x}$ is equal to the true variance. Physically, we can interpret the $-1$ as accounting for the fact that one degree-of-freedom (e.g., piece of data) is lost via the appearance of $\mean{x}$ in the definition of $\stdev{x}$.  Equivalently, it accounts for the fact that the arithmetic mean is linearly correlated with each $x_j$ (cf.\ \hyperref[def:unc_obs]{Linearly Uncorrelated Observables}).}
   \begin{equation}
     \stdev{x} = \sqrt{\dfrac{\sum_{j=1}^n\left(x_j - \mean{x}\right)^2}{n-1}} \label{def:exp_st_dev}
   \end{equation}
@@ -94,7 +94,7 @@ Note that a proper realization of a random variable (with no systematic bias) wi
 \smallskip
 \textbf{\textit{Remark:}} This quantity is often called the ``standard error.''
 
-%\item {\bf Precision}: The amount of variability in an estimate (e.g.\ based on repeating a given simulation protocol multiple times).  %Better sampling in an individual simulation leads to higher precision.  
+%\item {\bf Precision}: The amount of variability in an estimate (e.g., based on repeating a given simulation protocol multiple times).  %Better sampling in an individual simulation leads to higher precision.  
   % I commented out the last phrase because ``better'' seems a bit vague to me in this context.  Should this comment be placed elsewhere?
   %PNP I say no to placing this elsewhere.  I agree that ``better'' is too vague.  It could refer to a lot of things, including decreasing the time step to reduce effects of numerical errors, longer sampling, using a different thermostat, etc.  Also, I would get rid of this definition and the next
 % \label{def:precision}
@@ -106,11 +106,11 @@ Note that a proper realization of a random variable (with no systematic bias) wi
 \item {\bf Raw data}: The numbers that the computer program directly generates as it proceeds through a sequence of states.
 For example, a MC simulation generates a sequence of configurations, for which there are associated properties such as the instantaneous pressure, temperature, volume, etc.
 \label{def:raw_data}
-\item {\bf Derived observables}: Quantities derived from ``non-trivial'' analyses of raw data, e.g.\ properties that may not be computed for a single configuration such as free energies.
+\item {\bf Derived observables}: Quantities derived from ``non-trivial'' analyses of raw data, e.g., properties that may not be computed for a single configuration such as free energies.
   \label{def:deriv_obs}
  
 
-\item {\bf Correlation time}: In time-series data of a random quantity $x(t)$ (e.g.\ a physical property from a MC or MD trajectory), this is the time $\tau$ over which $x(t)$ and $x(t+\tau)$ remain (linearly) correlated\footnote{Generally speaking, MC and MD trajectories generate new configurations from preceding ones.
+\item {\bf Correlation time}: In time-series data of a random quantity $x(t)$ (e.g., a physical property from a MC or MD trajectory), this is the time $\tau$ over which $x(t)$ and $x(t+\tau)$ remain (linearly) correlated\footnote{Generally speaking, MC and MD trajectories generate new configurations from preceding ones.
 Thus, the correlation time can be interpreted as the time over which the system retains memory of its previous states.
 Such correlations are often {\bf stationary}, meaning that $\tau$ is independent of $t$.
 Roughly speaking, the total simulation time divided by the longest correlation time yields an order-of-magnitude estimate of the number of (linearly) {\it uncorrelated} samples generated by a simulation. See Sec.~\ref{sec:autocorrelation}.}.
@@ -118,7 +118,7 @@ Roughly speaking, the total simulation time divided by the longest correlation t
 
 \item {\bf Two-sided confidence interval}: An interval, typically stated as $\expval{x} = \mean{x} \pm U$, which is expected to contain the possible values attributed to $\expval{x}$ given the experimental measurements of $x_j$ and a certain {\it level of confidence}, denoted $p$.
   The size of the confidence interval, known as the {\it expanded uncertainty}, is defined by $U = k \stdevmean{\mean{x}}$ where $k$ is the \hyperref[def:coveragefactor]{\it coverage factor}\cite{JCGM:VIM2012}.\footnote{This conceptual description of a confidence interval is only applicable when certain conditions are met, including the important stipulation that all uncertainty contained in $\stdevmean{\mean{x}}$ is determined only by statistical evaluation of the random experimental measurements of $x_j$\cite{JCGM:GUM2008}.}
-  The level of confidence $p$ is typically given as a percentage, e.g.~95~\%. Hence, the confidence interval is typically described as ``the $p$~\% confidence interval'' for a given value of $p$.
+  The level of confidence $p$ is typically given as a percentage, e.g., 95~\%. Hence, the confidence interval is typically described as ``the $p$~\% confidence interval'' for a given value of $p$.
   \label{def:conf_int}
 
 \item {\bf Coverage Factor}:
