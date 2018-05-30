@@ -18,12 +18,10 @@ However, a caveat for the approach of Zhang et al.\ \cite{Zhang2010} is that som
 
 \subsection{Replica Exchange Molecular Dynamics}
 One of the most popular enhanced sampling methods is replica exchange MD (REMD) \citep{Sugita1999}; see also \cite{Swendsen-1986}. Broadly speaking, REMD consists of running parallel MD simulations on a number of non-interacting replicas of a system, each with a different Hamiltonian and/or thermodynamics parameters (e.g., temperature), and periodically exchanging system coordinates between replicas according to a Metropolis criterion which maintains Boltzmann-factor sampling for all replicas.  
-%\textcolor{red}{PNP comment: I think we need a sentence or two explaining this metropolis criterion.}
-
-%PNP question: I suspect that REMD doesn't actually change the Hamiltonian, but I could be wrong.  Are energy barriers actually modified, and if so, is it through a force-field modification?  I always thought replica exchange only changes temperatures.  Also, the notion of different replicates having different Hamiltonians means they can't be replicas representative of the same system, correct?
 
 
-In order to assess the results of a REMD simulation, it is important to consider not just the overall convergence of the simulation to the correct Boltzmann-weighted ensemble of structures (via e.g., combined clustering, see \ref{sec:quick}), but how efficiently the REMD simulation is doing so. These concepts are termed "thermodynamic efficiency" and "mixing efficiency" by Abraham and Gready,\citep{Abraham2008} and it is quite possible to achieve one without the other; both must be assessed. In order for sampling to be efficient, coordinates must be able to move freely in replica space.
+
+In order to assess the results of a REMD simulation, it is important to consider not just the overall convergence of the simulation to the correct Boltzmann-weighted ensemble of structures (via e.g., combined clustering, see \ref{sec:quick}), but how efficiently the REMD simulation is doing so. These concepts are termed "thermodynamic efficiency" and "mixing efficiency" by Abraham and Gready \citep{Abraham2008}, and it is quite possible to achieve one without the other; both must be assessed. In order for sampling to be efficient, coordinates must be able to move freely in replica space.
 
 In practical settings, several metrics are often used to assess these two efficiencies, a few of which we list below.  In these definitions, note that we refer to both "coordinate trajectories" and "replica trajectories". A "coordinate trajectory" follows an individual system's continuous trajectory as it traverses replica space (e.g., a system experiencing multiple temperatures as it is exchanged during a temperature REMD simulation). A "replica trajectory" is the sequence of configurations corresponding to a single replica under fixed Hamiltonian and thermodynamic conditions, (e.g., all structures at a temperature of 300 K in a temperature REMD simulation).  Thus, a replica trajectory consists of concatenated coordinate-trajectory segments and \textit{vice versa}.
 
@@ -41,7 +39,7 @@ If they are not, it is likely due to one or more bottlenecks in replica space wh
   \item Distributions of quantities calculated from coordinate trajectories. If all coordinates are moving freely in replica space, they should eventually converge to the same ensemble of structures. Comparing distributions of various quantities from coordinate trajectories can provide a measure of how converged the simulation is. For example, one can compare the distribution of RMSD values of coordinate trajectories to a common reference structure; see e.g., Fig.\ 8 in Ref.\ \citep{Henriksen2013}. Poor overlap can be an indication that replica efficiency is poor or the simulation is not yet converged.
 \end{itemize}
 
-All of the above quantities (replica residence time, round trip time, lifetimes etc) can be calculated with CPPTRAJ,\citep{Roe2013} which is freely available from \url{https://github.com/Amber-MD/cpptraj} or as part of AmberTools (\url{http://ambermd.org}).
+All of the above quantities (replica residence time, round trip time, lifetimes etc) can be calculated with CPPTRAJ \citep{Roe2013}, which is freely available from \url{https://github.com/Amber-MD/cpptraj} or as part of AmberTools (\url{http://ambermd.org}).
 
 It may also be useful to perform multiple REMD runs.  Using the standard uncertainty among runs can quantify uncertainty and provide the basis for a confidence interval with an appropriate coverage factor - see definitions in Sec.\ \ref{sec:scope}.  If the ensembles produced depend significantly on the set of starting configurations, that is a sign of incomplete sampling.
 
