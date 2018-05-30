@@ -19,14 +19,12 @@ Alternatively, performing multiple runs from the same starting state will yield 
 
 \begin{figure}
   \centering
-  % \includegraphics[width=5.8cm]{figures/1d-landscape-tslow}
   \includegraphics[width=0.9\linewidth]{figures/1d-landscape-tslow}
   \caption{
   \label{fig:landscape} 
   Schematic illustration of a free energy landscape dominated by a slow process.
   The timescales associated with a system will often reflect ``activated'' (energy-climbing) processes, although they could also indicate diffusion times for traversing a rough landscape with many small barriers.
   In the figure, the largest barrier is associated with the slowest timescale $t_{\mathrm{slow}}$, and the danger for conventional MD simulations is that the total length of the simulation may be inadequate to generate the barrier crossing.
- % The presence of stochasticity implies that even a simulation as long as $t_{\mathrm{slow}}$ may not yield the key event.
   }
 \end{figure}
 
@@ -40,5 +38,4 @@ Modelers should keep in mind that enhanced sampling methods are not foolproof bu
 
 Lastly, whatever simulation protocol you pursue, be sure to use a well-validated piece of software [\url{https://github.com/shirtsgroup/software-physical-validation}].
 If you are using your own code, check it against independent simulations on other software for a system that can be readily sampled, e.g., Ref.~\cite{NIST_SRSW}.
-%Future: Insert links/references to benchmark results
 
