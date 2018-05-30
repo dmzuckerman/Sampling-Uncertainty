@@ -117,7 +117,7 @@ For a derived observable that is a linear function of $M$ uncorrelated raw data 
   \label{def:linear_derived_obs}
 \end{equation}
 %
-where $c$ is a constant, the experimental variance of $F$ may be rigorously expressed as\cite{NIST_Sematech_eHandbook}
+where $c$ is a constant, the experimental variance of $F$ may be rigorously expressed as \cite{NIST_Sematech_eHandbook}
 %
 \begin{equation}
   \var{F} = \sum_{i=1}^M a_i^2 \var{x_i}
@@ -228,7 +228,7 @@ Lastly, an alternative to bootstrapping is the ``jackknife'' method \cite{Quenou
 
 \subsection{Dark uncertainty analyses}
 
-In some cases, multiple simulations of the same physical observable $\tau$ may yield predictions whose error bars do not overlap.  This situation can arise, for example, in simulations of the glass transition temperature when undersampling the crosslinked network structure of certain polymers.  In such cases, it is reasonable to postulate an unaccounted for source of uncertainty, which we colorfully refer to as ``dark uncertainty.''\cite{patrone1}  In the context of a statistical model, we postulate that the probability of a simulation output depends on the unobserved or ``true'' mean value $\bar \tau$, an uncertainty $\sigma_i^2$ whose value is specific to the simulation (estimated, e.g., according to uncertainty propagation), and the unaccounted-for dark uncertainty $y^2$.  (For simplicity, the $\sigma_i^2$ and $y^2$ should be treated as variances.)
+In some cases, multiple simulations of the same physical observable $\tau$ may yield predictions whose error bars do not overlap.  This situation can arise, for example, in simulations of the glass transition temperature when undersampling the crosslinked network structure of certain polymers.  In such cases, it is reasonable to postulate an unaccounted for source of uncertainty, which we colorfully refer to as ``dark uncertainty'' \cite{patrone1}.  In the context of a statistical model, we postulate that the probability of a simulation output depends on the unobserved or ``true'' mean value $\bar \tau$, an uncertainty $\sigma_i^2$ whose value is specific to the simulation (estimated, e.g., according to uncertainty propagation), and the unaccounted-for dark uncertainty $y^2$.  (For simplicity, the $\sigma_i^2$ and $y^2$ should be treated as variances.)
 
 While details are beyond this scope of this document, such a model motivates an estimate of $\bar \tau$ of the form
 \begin{align}
