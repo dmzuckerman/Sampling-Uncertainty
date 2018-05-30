@@ -94,7 +94,7 @@ kind of plot was historically used as a sampling test, it should really be
 considered as another equilibration test like those discussed above.  Moreover,
 it is not even a particularly good test of equilibration, because the degeneracy
 of RMSD means you cannot tell if the simulation is exploring new states that are
-equidistant from the chosen reference.  The upper panel of Figure \ref{f:rmsd}
+equidistant from the chosen reference.  The upper panel of Fig.\ \ref{f:rmsd}
 shows a typical curve of this sort, taken from a simulation of the G
 protein-coupled receptor rhodopsin \cite{Grossfield-2015}; the curve increases
 rapidly over the few nanoseconds and then roughly plateaus.  It is difficult to
@@ -103,7 +103,7 @@ assign meaning to the other features on the curve.
 A better RMSD-based convergence measure is the all-to-all RMSD plot; taking the
 RMSD of each snapshot in the trajectory with respect to all others allows you to
 use RMSD for what it does best, identifying very similar structures.  The lower
-panel of Figure \ref{f:rmsd} shows an example of this kind of plot, applied to
+panel of Fig.\ \ref{f:rmsd} shows an example of this kind of plot, applied to
 the same rhodopsin trajectory.  By definition, all such plots have values of zero
 along the diagonal, and occupation of a given state shows up as a block of
 similar RMSD along the diagonal; in this case, there are 2 main states, with one
