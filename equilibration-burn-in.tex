@@ -5,7 +5,6 @@
 
 \begin{figure}
   \centering
-  % \includegraphics[width=7cm]{figures/tequil-time-trace}
   \includegraphics[width=0.9\linewidth]{figures/tequil-time-trace}
   \caption{
   \label{fig:tequil}
@@ -31,19 +30,12 @@ The RMSD trace in Fig. \ref{f:rmsd} illustrates typical behavior of a system und
 
 Accepting that some data should be discarded, it is not hard to see that we want to avoid discarding too much data, given that many systems of interest are extremely expensive to simulate.  In statistical terms, we want to remove bias but also minimize uncertainty (variance) through adequate sampling.  Before addressing this problem, however, we emphasize that the very notion of separating a trajectory into equilibration and production segments only makes sense if the system has indeed reached configurations important in the equilibrium ensemble. While it is generally impossible to guarantee this has occurred, some easy checks for determining that this has not occurred are described in Sec.\ \ref{sec:quick}. \emph{It is essential to perform those basic checks before analyzing data with a more sophisticated approach} that may assume a trajectory has a substantial amount of true equilibrium sampling.
 
-%\textcolor{red}{PNP comment: The below paragraph has a few ambiguities. See .tex file for my comments}
-%\textcolor{green}{DMZ comment: I made some edits but it's not really my expertise.  I will ask John Chodera to clean it up for us.}
-%PNP comment:  The sentence, "The key idea is to analyze data as a function of the amount of data removed," sounds oxymoronic.  Is the idea to track estimators of an observable as data in the corresponding time series is removed?  If so, consider rephrasing.  Also, how is bias monitored if we don't know the true value of the observable?  This needs to be flushed out a little more.  Also, how can the effective sample size increase as I remove data...?  I suspect that the burn-in time shifts the mean if I keep all of the data, so I have the appearance of small but long-time correlations.  If this intuition is correct, we should probably be a little more explicit.
 
 A robust approach to determining the equilibration time is discussed in \cite{Chodera-2016}, which generalizes the notion of reverse cumulative averaging~\cite{Yang2004} to observables that do not necessarily have Gaussian distributions.
 The key idea is to analyze time-series data considering the effect of discarding various trial values of the initial equilibration interval, $t_{\mathrm{equil}}$ (Fig.\ \ref{fig:tequil}), and selecting the value that maximizes the effective number of uncorrelated samples of the remaining production region.
 This effective sample size is estimated from the number of samples in the production region divided by the number of temporally correlated samples required to produce one effectively uncorrelated sample, based on an auto-correlation analysis.
 At sufficiently large $t_{\mathrm{equil}}$, the majority of the initial relaxation transient is excluded, and the method selects the largest production region for which correlation times remain short to maximize the number of uncorrelated samples.
 Care must be taken in the case that the simulation is insufficiently long to sample many transitions among kinetically metastable states, however, or else this approach can simply result in restricting the production region to the last sampled metastable basin.
-%As described by Chodera \cite{Chodera-2016}, one can monitor both the variance and the effective sample size, which is roughly quantified by the total simulation time considered divided by the auto-correlation time.
-%If the transient data in the interval $t_{\mathrm{equil}}$ is anomalous and removed, one expects the variance to decrease.
-%Chodera indicates that the effective sample size peaks at the optimal $t_{\mathrm{equil}}$, making the latter easy to discern.
-%We caution that estimating the correlation time may require care, and 
 Readers may want to compare auto-correlation times for individual observables to the global ``decorrelation time'' \cite{Lyman2007a} described in Sec.\ \ref{sec:global}.  
 As another general check, if values of observables estimated from the production phase depend sensitively on the choice of $t_{\mathrm{equil}}$, it is likely that further sampling is required.
 
