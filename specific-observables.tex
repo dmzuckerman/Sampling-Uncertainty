@@ -87,7 +87,7 @@ This observation motivates a technique known as block-averaging \cite{Friedberg1
 Briefly, the set of $N$ observations $\left\{x_1, ..., x_N\right\}$ are converted to a set of $M$ ``block averages'' $\left\{x^b_1, ..., x^b_{M}\right\}$, where a block average $x^b_j$ is the \hyperref[def:arith_mean]{arithmetic mean} of $n$ (the block size) sequential measurements of $x$:
 %
 \begin{equation}
-  x^b_j = \dfrac{\sum\limits_{l=1+(j-1)n}^{jn} x_l}{n}
+  x^b_j = \dfrac{\sum\limits_{k=1+(j-1)n}^{jn} x_k}{n}
 \end{equation}
 %
 From this set of block averages, one may then compute the arithmetic mean of the block averages, $\mean{x}^b$, which is an estimator for $\expval{x}$.\footnote{Note that $\mean{x} = \mean{x}^b$ is not necessarily true as the block averages may discard some observations of $x_l$.}
