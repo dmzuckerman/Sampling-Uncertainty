@@ -46,7 +46,7 @@ Our overall recommendations are summarized in the checklist  presented on the fo
     \vspace{-0.325\baselineskip} %Line spacing after a sub-list is too large
 
 \item
-  \textbf{Remove an ``equilibration'' (a.k.a. ``burn in'', or transient) portion of a single MD or MC trajectory} and perform analyses only on the remaining ``production'' portion of trajectory.  An initial configuration is unlikely to be representative of the desired ensemble and the system must be allowed to relax so that low probability states are not overrepresented in collected data.  See Sec.\ \ref{sec:equil}.
+  \textbf{Remove an ``equilibration'' (a.k.a. ``burn-in'', or transient) portion of a single MD or MC trajectory} and perform analyses only on the remaining ``production'' portion of trajectory.  An initial configuration is unlikely to be representative of the desired ensemble and the system must be allowed to relax so that low probability states are not overrepresented in collected data.  See Sec.\ \ref{sec:equil}.
  
 \item
   \textbf{Consider computing a quantitative measure of global sampling}, i.e., attempt to estimate the number of statistically independent samples in a trajectory.  Sequential configurations are highly correlated because one configuration is generated from the preceding one, and estimating the degree of correlation is essential to understanding overall simulation quality.

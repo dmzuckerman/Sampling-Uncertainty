@@ -13,7 +13,7 @@ Generally speaking, analysis routines that extract information from raw simulate
 
 The simplest test for poor sampling is lack of equilibration: if the system is still noticeably relaxing from its starting conformation, statistical sampling has not even begun, and thus by definition is poor.  As a result, the very first test should be to verify that the basic equilibration has occurred.  To check for this, one should inspect the time series for a number of simple scalar values, such as potential energy, system size (and area, if you are simulating a membrane or other system where one dimension is distinct from the others), temperature (if you are simulating in the NVE ensemble), and/or density (if simulating in the isothermal-isobaric ensemble).  
 
-Simple visual inspection is often sufficient to determine that the simulation is systematically changing, although more sophisticated methods have been proposed -- see Sec.\ \ref{sec:equil}.  If \emph{any} value appears to be systematically changing, %then the system is not equilibrated.
+Simple visual inspection is often sufficient to determine that the simulation is systematically changing, although more sophisticated methods have been proposed (see Sec.\ \ref{sec:equil}).  If \emph{any} value appears to be systematically changing, %then the system is not equilibrated.
 then the system may not be equilibrated and further investigation is warranted.
 See, for example, the time trace in Fig.\ \ref{f:rmsd}.
 After the rapid rise, the value shows slower changes;
@@ -125,7 +125,7 @@ There are two approaches to obtaining independent measurements. Arguably the bes
 Another way to obtain independent measurements is to divide a single simulation into two or more subsets (``blocks''). However this can at times be problematic because it can be more difficult to tell if the system is biased by shared initial conditions (e.g., trapped in a local energy minimum). Those employing this approach should take extra care to assess their results (see in particular sections on 'block averaging' below).
 
 
-Autocorrelation analyses applied to trajectory blocks can be used to better understand the extent to which a time series represents an equilibrated system.  In particular, systems in steady-state (which includes equilibrium) by definition have statistical properties that are time-invariant.  Thus, correlations between a single observable at different times depend only on the relative spacing (or ``lag'') between the time steps.  That is, the correlation function has the stationarity property
+Autocorrelation analyses applied to trajectory blocks can be used to better understand the extent to which a time series represents an equilibrated system.  In particular, systems at steady state (which includes equilibrium) by definition have statistical properties that are time-invariant.  Thus, correlations between a single observable at different times depend only on the relative spacing (or ``lag'') between the time steps.  That is, the correlation function has the stationarity property
 \begin{equation}
  C(x_j,x_{j+\tau}) = \left< \left(x_j - \expval{x} \right) \left(x_{j+\tau} - \expval{x} \right) \right> = C(\tau)
 \end{equation}
