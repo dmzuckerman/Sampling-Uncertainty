@@ -10,6 +10,8 @@
 # ignore the crap that vim generates
 *.sw*
 
+# ignore backups from XFig
+*.fig.bak
 
 # ignore the pdf that latex produces
 # can't say *.pdf because there will be pdfs in the figures directory
