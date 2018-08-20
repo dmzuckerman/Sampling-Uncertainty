@@ -88,7 +88,7 @@ Briefly, the set of $N$ observations $\left\{x_1, ..., x_N\right\}$ are converte
   x^b_j = \dfrac{\sum\limits_{k=1+(j-1)n}^{jn} x_k}{n}
 \end{equation}
 %
-From this set of block averages, one may then compute the arithmetic mean of the block averages, $\mean{x}^b$, which is an estimator for $\expval{x}$.\footnote{Note that $\mean{x} = \mean{x}^b$ is not necessarily true as the block averages may discard some observations of $x_l$.}
+From this set of block averages, one may then compute the arithmetic mean of the block averages, $\mean{x}^b$, which is an estimator for $\expval{x}$.\footnote{Note that $\mean{x} = \mean{x}^b$ is not necessarily true as the block averages will discard some observations of $x_l$ when the total number of observations is not a multiple of the block size.}
 Following, one computes the \hyperref[def:exp_st_dev]{experimental standard deviation} of the block averages, $\stdev{\mean{x}^b}$, using Eq.~\ref{def:exp_st_dev}.
 Lastly, the standard uncertainty of $\mean{x}^b$ is just the \hyperref[def:exp_st_dev_mean]{experimental standard deviation of the mean} given the set of $M$ block averages:
 %
