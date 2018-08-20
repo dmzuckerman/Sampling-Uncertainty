@@ -103,7 +103,7 @@ Another approach is to measure the block correlation and to use it to improve th
 We stress that this final step of adjusting the block size and recomputing the block standard uncertainty is absolutely necessary. Otherwise, the blocks may be correlated, yielding an uncertainty that is not meaningful.
 
 
-\subsection{Propagation of uncertainty}
+\subsection{Propagation of uncertainty}\label{subsec:linear}
 
 Oftentimes we run simulations for the purposes of computing derived quantities, i.e., those that arise from some analysis applied to raw data.  In such cases, it is necessary to propagate uncertainties in the raw data through the corresponding analysis to arrive at the uncertainties associated with the derived quantity.  Frequently, this can be accomplished through a linear propagation analysis using Taylor series, which yields simple and useful formulas.
 
@@ -231,3 +231,8 @@ While details are beyond this scope of this document, such a model motivates an 
 \bar \tau \approx \mathcal T \propto \sum_i \frac{T_i}{\sigma_i^2 + y^2}, \label{eq:darkmean}
 \end{align}
 where $\mathcal T$ is a ``consensus'' or weighted-mean estimate of the true mean $\bar \tau$, $T_i$ is the prediction from the $i$th simulation, $\sigma_i^2$ is its associated ``within-simulation'' uncertainty, and $y^2$ is the ``dark'' or ``between-simulation'' uncertainty; note that the latter does not depend on $i$.  The variable $y^2$ can be estimated from a maximum-likelihood analysis of the data and amounts to numerically solving a relatively simple nonlinear equation (see Ref.~\cite{patrone1}).  Equation~\ref{eq:darkmean} is useful insofar as it weights simulated results according to their certainty while reducing the impact of overconfident predictions (e.g., having small $\sigma_i^2$).  Additional details on this method are provided in Ref.~\cite{patrone1} and the references contained therein.
+
+\subsection{Propagation across multiple steps}
+In some instances, it is useful and/or necessary to propagate uncertainty across different simulation steps.  This occurs, for example, when the property of a constant pressure system can only be computed using constant volume simulations (e.g.\ for certain viscosity calculations).  In such cases, uncertainty in the sytsem volume must be accounted for in the final property prediction, which carries its own uncertainties associated with the simulation protocol, input parameters, etc.  Related issues arise when attempting to account for uncertainty force-field parameters.  
+
+In some cases, addressing these uncertainty propagation tasks is as simple as performing a linear or bootstrap analysis as previously described, but at each step of the simulation protocol.  In other cases, and especially when propagation must be performed between different simulations, such approaches are computationally expensive, and thus infeasible.  A variety of methods (surrogate modeling, polynomial chaos, Gaussian-process regression, etc.) are actively being explored by the community, but in many instances, few, if any strategies have emerged as widely accepted strategies.  Thus, we encourage the reader to stay informed of current literature, some of which is referenced herein.\textcolor{red}{Cite Ralph Smith's book, among other things}
