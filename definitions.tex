@@ -84,7 +84,7 @@ Note that a proper realization of a random variable (with no systematic bias) wi
   \begin{equation}
     \stdevmean{\mean{x}} = \dfrac{\stdev{x}}{\sqrt{n}}, \label{def:exp_st_dev_mean}
   \end{equation}
-  where the realizations of $x_j$ are assumed to be linearly uncorrelated.\footnote{The true variance of the mean goes as $\sigma_x^2/n$, which assumes exact knowledge of $\sigma_x$.  Thus, the factor of $n$ (as opposed to $n-1$) appearing in Eq.~\eqref{def:exp_st_dev_mean} is motivated by the observation that $\langle s(x)^2 \rangle = \sigma_x^2$, i.e.\ the experimental standard deviation provides and unbiased estimate of the experimental standard deviation of the mean.  It is important and somewhat counterintuitive, however, Eq.~\eqref{def:exp_st_dev_mean} actually {\it underestimates} the true standard deviation, which is a trivial consequence of Jensen's inequality. }
+  where the realizations of $x_j$ are assumed to be linearly uncorrelated.\footnote{The true variance of the mean goes as $\sigma_x^2/n$, which assumes exact knowledge of $\sigma_x$.  Thus, the factor of $n$ (as opposed to $n-1$) appearing in Eq.~\eqref{def:exp_st_dev_mean} is motivated by the observation that $\langle \stdev{x}^2 \rangle = \sigma_x^2$, i.e., the experimental standard deviation provides an unbiased estimate of the experimental standard deviation of the mean.  It is important and somewhat counterintuitive, however, that Eq.~\eqref{def:exp_st_dev_mean} actually {\it underestimates} the true standard deviation of the mean, which is a trivial consequence of Jensen's inequality. }
 
 \smallskip
 \textbf{\textit{Remark:}} This quantity is often called the ``standard error.''
