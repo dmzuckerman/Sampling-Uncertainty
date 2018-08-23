@@ -63,12 +63,11 @@ where the denominator is the square of the \hyperref[def:exp_st_dev]{experimenta
 Then, the number of independent samples is estimated by\footnote{The reader should note that both the autocorrelation function (Eq. \ref{def:obs_ACF}) and the number of independent samples (Eq.~\ref{def:Nind}) may be written in different forms\cite{Grossfield2009,Chodera-2016}. Our convention here presents the observations as a list $\left\{x_j\right\}$ in which the time interval (Molecular Dynamics) or trial spacing (Monte Carlo) of adjacent $x_j$ is implicitly fixed. For time-series data, one could alternately write both the observations and autocorrelation function as continuous functions of time, e.g., $x\left(t\right)$ and $C\left(\tau\right)$ where $\tau$ is the lag time. In that case, $N_{\rm ind}$ is written as a division of the total simulation time by the time integral of $C\left(\tau\right)$\cite{Grossfield2009}.}
 %
 \begin{equation}
-  N_{\rm ind} = \dfrac{N}{1+2 \sum_{j=1}^{N_{\rm lags}} C_j}
+  N_{\rm ind} = \dfrac{N}{1+2 \sum_{j=1}^{N_{\rm max}} C_j}
   \label{def:Nind}
 \end{equation}
 %
-where $N_{\rm lags}$ is the number of lags for which the $C_j$ was computed.  Note that $N_{\rm ind}$ need not be an integer.
-Finally, the standard uncertainty is estimated via
+where $N_{\rm max}$ is an appropriately chosen maximum number of lags (see below).  Note that $N_{\rm ind}$ need not be an integer.  Finally, the standard uncertainty is estimated via
 %
 \begin{equation}
   \stdevmean{\mean{x}} = \dfrac{\stdev{x}}{\sqrt{N_{\rm ind}}}
@@ -76,6 +75,8 @@ Finally, the standard uncertainty is estimated via
 \end{equation}
 %
 We note that the \hyperref[def:exp_st_dev]{experimental standard deviation} of the observable $x$ is used in Eq.~\ref{def:ACF_std_unc} to estimate the uncertainty. Strictly speaking, the standard uncertainty should be estimated using the true standard deviation of $x$ (e.g., $\sigma_x$); given that the true standard deviation is unknown, the experimental standard deviation is used in its place as an estimate of $\sigma_x$ \cite{PatroneAIAA}.
+
+In evaluating Eq.~\eqref{def:Nind}, we observe that in principle, N_{\rm max} can be set to any value greater than $\tau$, since $C_j=0$ for all $j > \tau$.  In practice, however, setting $N_{\rm max}$ too large can sometimes cause the sum to be dominated by noise appearing in the estimate of $C_j$.  See, for example, Ref.\ \cite{acfnoise} and references contained therein.  Thus, care must be taken when choosing an appropriate value of $N_{\rm max}$, making sure that the estimate is sufficiently large so that the sum is converged but otherwise independent independent of this upper limit.  
 
 \subsubsection{Block averaging method for estimating the standard uncertainty}\label{sec:blockavg}
 
