@@ -63,7 +63,7 @@ where the denominator is the square of the \hyperref[def:exp_st_dev]{experimenta
 Then, the number of independent samples is estimated by\footnote{The reader should note that both the autocorrelation function (Eq. \ref{def:obs_ACF}) and the number of independent samples (Eq.~\ref{def:Nind}) may be written in different forms\cite{Grossfield2009,Chodera-2016}. Our convention here presents the observations as a list $\left\{x_j\right\}$ in which the time interval (Molecular Dynamics) or trial spacing (Monte Carlo) of adjacent $x_j$ is implicitly fixed. For time-series data, one could alternately write both the observations and autocorrelation function as continuous functions of time, e.g., $x\left(t\right)$ and $C\left(\tau\right)$ where $\tau$ is the lag time. In that case, $N_{\rm ind}$ is written as a division of the total simulation time by the time integral of $C\left(\tau\right)$\cite{Grossfield2009}.}
 %
 \begin{equation}
-  N_{\rm ind} = \dfrac{N}{1+2 \sum_{i=1}^{N_{\rm lags}} C_j}
+  N_{\rm ind} = \dfrac{N}{1+2 \sum_{j=1}^{N_{\rm lags}} C_j}
   \label{def:Nind}
 \end{equation}
 %
