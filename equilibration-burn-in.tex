@@ -36,6 +36,7 @@ The key idea is to analyze time-series data considering the effect of discarding
 This effective sample size is estimated from the number of samples in the production region divided by the number of temporally correlated samples required to produce one effectively uncorrelated sample, based on an auto-correlation analysis.
 At sufficiently large $t_{\mathrm{equil}}$, the majority of the initial relaxation transient is excluded, and the method selects the largest production region for which correlation times remain short to maximize the number of uncorrelated samples.
 Care must be taken in the case that the simulation is insufficiently long to sample many transitions among kinetically metastable states, however, or else this approach can simply result in restricting the production region to the last sampled metastable basin.
+A simpler qualitative analysis based on comparing forward and reverse estimates of observables \cite{Klimovich2015} may also be helpful.
 Readers may want to compare auto-correlation times for individual observables to the global ``decorrelation time'' \cite{Lyman2007a} described in Sec.\ \ref{sec:global}.  
 As another general check, if values of observables estimated from the production phase depend sensitively on the choice of $t_{\mathrm{equil}}$, it is likely that further sampling is required.
 
