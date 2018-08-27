@@ -36,7 +36,8 @@ Both analysis methods are implemented as part of the software package LOOS \cite
 \end{figure}
 
 Lyman and Zuckerman proposed a global ``decorrelation'' analysis by mapping a trajectory to a discretization of configuration space (set of all $x, y, z$ coordinates) and analyzing the resulting statistics \cite{Lyman2007a}.
-Configuration space is discretized into bins based on Voronoi cells of structurally similar configurations,  e.g., using RMSD defined in Eq.\ \ref{eq:rmsd} or another configurational similarity measure; reference configurations for the Voronoi binning are chosen at random or more systematically as described in \cite{Lyman2007a}.
+See Fig.\ \ref{fig:decorr}.
+Configuration space is discretized into bins based on Voronoi cells \footnote{A Voronoi cell is defined to be the set of configurations closest to a given reference structure.} of structurally similar configurations,  e.g., using RMSD defined in Eq.\ \ref{eq:rmsd} or another configurational similarity measure; reference configurations for the Voronoi binning are chosen at random or more systematically as described in \cite{Lyman2007a}.
 Once configuration space is discretized, the trajectory frames can be classified accordingly, leading to a discrete (i.e., 'multinomial') distribution (Fig.\ \ref{fig:decorr}).
 The analysis method is based on the observation that the variance for any bin of a multinomial distribution is known, given the bin populations (from trajectory counts) and a specified number of independent samples drawn from the distribution \cite{Lyman2007a}.
 The knowledge of the expected variance allows testing of increasing waiting times between configurations drawn from the trajectory to determine when and if the variance approaches that expected for independent samples.
