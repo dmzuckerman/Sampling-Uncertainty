@@ -25,6 +25,7 @@ See Ref.~\cite{Leimkuhler} for more discussion of this rather deep point.}.
 \item {\bf Expectation value}:  If $P(x)$ is the probability density of a continuous random quantity $x$, then the expectation value is given by the formula
 \begin{align}
   \expval{x} = \int {\rm d}x\, P(x) x.
+  \label{linavg_cont}
 \end{align}
 In the case that $x$ adopts discrete values $x_1,x_2,...$ with corresponding fractional (absolute) probabilities $P(x_j)$, we instead write
 \begin{align}
@@ -32,8 +33,8 @@ In the case that $x$ adopts discrete values $x_1,x_2,...$ with corresponding fra
   \label{linavg}
 \end{align}
 Note that $P(x)$ is dimensionless when $x$ is discrete as shown agove.
-When $x$ is continuous, the sum in Eq.~\ref{linavg} becomes an integral and $P(x)$ must have units reciprocal to $x$, e.g., if $x$ has units of kg, then $P(x)$ has units of 1/kg. 
-Furthermore, whether $x$ is discrete or continuous, $P(x)$ should always be normalized to ensure a total probability of one.
+When $x$ is continuous, as in Eq.~\ref{linavg_cont}, $P(x)$ must have units reciprocal to $x$, e.g., if $x$ has units of kg, then $P(x)$ has units of 1/kg. 
+Furthermore, whether $x$ is discrete or continuous, $P(x)$ should always be normalized to ensure a total probability of unity.
 
 \item {\bf Variance}:\footnote{The true probability density $P(x)$ is inherently unknowable, given that we can only collect a finite amount of data about $x$.  As such, we can only estimate its properties (e.g., mean and variance) and approximate its analytical form (e.g.\ see the end of Ref.\ \cite{SMC}).} Taking $P(x)$ as defined previously, the variance of a random quantity is a measure of how much it can fluctuate, given by the formula
 \begin{align}
@@ -44,7 +45,7 @@ If $x$ assume discrete values, the corresponding definition becomes
 \sigma_x^2 = \sum_j P(x_j) \left( x_j  - \expval{x} \right)^2.
 \end{align}
 
-\item {\bf Standard Deviation}: The positive square root of the variance, denoted $\sigma_x$.\label{def:st_dev}  This is a measure of the width of the distribution of $x$, and in itself is \emph{not} a measure of the statistical uncertainty: see below.
+\item {\bf Standard Deviation}: The positive square root of the variance, denoted $\sigma_x$.\label{def:st_dev}  This is a measure of the width of the distribution of $x$, and is, in itself, \emph{not} a measure of the statistical uncertainty; see below.
 
 \item {\bf Arithmetic mean}: An \emph{estimate} of the (true) expectation value of a random quantity, given by the formula
   %
@@ -80,7 +81,7 @@ Note that a proper realization of a random variable (with no systematic bias) wi
   \expval{ \left(x - \expval{x} \right) \left(y - \expval{y} \right) } = 0 \label{def:unc_obs}
 \end{equation}
 
-\textbf{\textit{Remark:}} The concepts of linear uncorrelation and independence of random variables are often conflated.  However, two variables can be correlated even if Eq.~\ref{def:unc_obs} is 0, as for example when a scatter plot of the two variables forms a circle.  Truly independent variables have zero linear and higher-order correlations, such that the joint density of two random variables $x$ and $y$ can be decomposed as $P(x,y)=P(x)P(y)$, which is a stronger condition than linear uncorrelation.  Empirically testing for independence, however, is not practical, nor is it necessary for any of the estimates discussed in this work.
+\textbf{\textit{Remark:}} The concepts of linear uncorrelation and independence of random variables are often conflated. Two variables can be correlated even if Eq.~\ref{def:unc_obs} is 0, e.g.~when a scatter plot of the two variables forms a circle. Truly independent variables have zero linear and higher-order correlations, such that the joint density of two random variables $x$ and $y$ can be decomposed as $P(x,y)=P(x)P(y)$, which is a stronger condition than linear uncorrelation.  Empirically testing for independence, however, is not practical, nor is it necessary for any of the estimates discussed in this work.
 
 \item {\bf Experimental standard deviation of the mean}: An estimate of the standard deviation of the distribution of the \hyperref[def:arith_mean]{arithmetic mean}, given by the formula
   %
