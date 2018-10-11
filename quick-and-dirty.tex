@@ -127,14 +127,17 @@ However, the ``many short trajectories'' strategy has a number of limitations th
 One can also try to estimate statistical uncertainties directly from a single simulation by dividing it into two or more subsets (``blocks''). However this can at times be problematic because it can be more difficult to tell if the system is biased by shared initial conditions (e.g., trapped in a local energy minimum). Those employing this approach should take extra care to assess their results (see Sec.~\ref{sec:blockavg}).
 
 
-Autocorrelation analyses applied to trajectory blocks can be used to better understand the extent to which a time series represents an equilibrated system.  In particular, systems at steady state (which includes equilibrium) by definition have statistical properties that are time-invariant.  Thus, correlations between a single observable at different times depend only on the relative spacing (or ``lag'') between the time steps.  That is, the correlation function has the stationarity property
+Autocorrelation analyses applied to trajectory blocks can be used to better understand the extent to which a time series represents an equilibrated system.  In particular, systems at steady state (which includes equilibrium) by definition have statistical properties that are time-invariant.  Thus, correlations between a single observable at different times depend only on the relative spacing (or ``lag'') between the time steps.  That is, the autocorrelation function of observable $x$, denoted $C$, has the stationarity property
 \begin{equation}
- %C(x_k,x_{k+j}) = \left< \left(x_k - \expval{x} \right) \left(x_{k+j} - \expval{x} \right) \right> = C_j
-  C(x_k,x_{k+j}) = \overline{
-   \left(x_{j{\color{white}k}} - \overline{x} \right)
-   \left(x_{j+k} - \overline{x} \right)
+  C(x_k,x_{k+j}) \equiv \dfrac{
+    \overline{
+      \left(x_{j{\color{white}k}} - \overline{x} \right)
+      \left(x_{j+k} - \overline{x} \right)
+    }
   }
-  = C_j
+  {s\left(x\right)^2}
+  \Rightarrow C_j
+  \label{def:obs_ACF}
 \end{equation}
 where $C_j$ is independent of the time step $k$.  With this in mind, one can partition a given time series into continuous blocks, compute the autocorrelation for a collection of lags $j$, and compare between blocks.  Estimates of $C_j$ that are independent of the block suggest an equilibrated (or at least a steady-state) system, whereas significant changes in the autocorrelation may indicate an unequilibrated system.  Importantly, this technique can help to distinguish long-timescale trends in apparently equilibrated data.
 
