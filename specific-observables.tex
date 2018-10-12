@@ -46,20 +46,7 @@ When samples of a simulated observable are independent, the experimental standar
 
 Conceptually, autocorrelation analyses directly compute the effective number of independent samples $N_{\rm ind}$ in a time series, taking into account ``redundant'' (or even possibly new) information arising from correlations.\footnote{It is worth pointing out that correlations do not always provide redundant information.  Consider, for example, the time series $1,-1,1,-1,1,-1,...$.  In the limit that the number of elements goes to infinity, the arithmetic mean also converges to zero.  However, a block of $2n$ entries also has a mean of zero, so that (anti)correlations effectively increase the amount of information.  See also Ref.~\cite{PatroneAIAA}. }  In particular, this approach invokes the fact that the statistical properties of steady-state simulations (e.g., those in equilibrium or non-equilibrium steady state) are, by definition, time-invariant.  As such, correlations between an observable computed at two different times depends only on the lag (i.e., difference) between those times, not their absolute values.
 
-This observation motivates one to compute an autocorrelation function.  Specifically, given a sequence of observations $\left\{x_1, ..., x_N\right\}$, the autocorrelation function $C$ is defined for a set of lags $j$ via:
-%
-\begin{equation}
-  C_j = \dfrac{
-   \overline{
-      \left( x_{k{\color{white}j}}\hspace{-1pt} - \mean{x} \right)
-      \left( x_{k+j} - \mean{x} \right)
-    }
-  }
-  {\stdev{x}^2}
-  \label{def:obs_ACF}
-\end{equation}
-%
-where the denominator is the square of the \hyperref[def:exp_st_dev]{experimental standard deviation} of $x$ given by Eq.~\ref{def:exp_st_dev}.
+This observation motivates one to compute an autocorrelation function.  Specifically, one computes the stationary autocorrelation function $C_j$ as given in Eq.~\ref{def:obs_ACF} for a set of lags $j$.
 Then, the number of independent samples is estimated by\footnote{The reader should note that both the autocorrelation function (Eq.~\ref{def:obs_ACF}) and the number of independent samples (Eq.~\ref{def:Nind}) may be written in different forms\cite{Grossfield2009,Chodera-2016}. Our convention here presents the observations as a list $\left\{x_j\right\}$ in which the time interval (Molecular Dynamics) or trial spacing (Monte Carlo) of adjacent $x_j$ is implicitly fixed. For time-series data, one could alternately write both the observations and autocorrelation function as continuous functions of time, e.g., $x\left(t\right)$ and $C\left(\tau\right)$ where $\tau$ is the lag time. In that case, $N_{\rm ind}$ is written as a division of the total simulation time by the time integral of $C\left(\tau\right)$\cite{Grossfield2009}.}
 %
 \begin{equation}
