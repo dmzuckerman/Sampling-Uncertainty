@@ -1,6 +1,7 @@
 # Sampling-Uncertainty
-Best Practices article intended for LiveCoMS (Living Journal of Computational 
+Best Practices article for LiveCoMS (Living Journal of Computational 
 Molecular Science) [http://www.livecomsjournal.org/]
+ACCEPTED ON 17 OCT 2018
 
 This is an article motivated by the Best Practices workshop organized by Michael Shirts on behalf of MolSSI,
 held at NIST on Aug 24-25, 2017.
@@ -17,8 +18,3 @@ This article is geared toward studies attempting to quantify observables and der
 based on “standard” canonical sampling methods (e.g., molecular dynamics and Monte Carlo) and 
 associated “enhanced” sampling methods.  Some problems and systems may be better studied with 
 cruder techniques and analyses, which will not be covered here.
-
-
-
-Note: Edit in main.tex, or better yet in \include{} statements from main
-
