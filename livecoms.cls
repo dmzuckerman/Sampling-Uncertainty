@@ -330,11 +330,11 @@
   }{}{}%
 }
 
-\newcommand{\orcid}[3]{%
+\newcommand{\orcid}[2]{%
   \ifx\empty\@orcidblock\else\appto{\@orcidblock}{\\}{}{}\fi
   \appto{\@orcidblock}{%
     #1:\space%
-    \ifx\empty#2\else\href{#2#3}{#3} \fi
+    \ifx\empty#2\else\href{https://orcid.org/#2}{#2} \fi
   }{}{}%
 }
 
