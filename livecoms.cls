@@ -247,6 +247,9 @@
 \newcommand{\pubvolume}[1]{%
   \appto{\@publishedvolume}{#1}{}{}
 }
+\newcommand{\pubissue}[1]{%
+  \appto{\@publishedissue}{#1}{}{}
+}
 \newcommand{\pubyear}[1]{%
   \appto{\@publishedyear}{#1}{}{}
 }
@@ -269,8 +272,8 @@
 %\lfoot{\small\color{LiveCoMSMediumGrey}Received: \@publisheddatereceived \\
 %  Accepted: \@publisheddateaccepted}%
 \cfoot{\small\color{white} \vspace{\baselineskip} \small\color{LiveCoMSMediumGrey} \thepage\space of\space\pageref{LastPage}}%
-\rfoot{\small\color{LiveCoMSMediumGrey}DOI: \href{https://dx.doi.org/\@publishedDOI}{\@publishedDOI}\\
-  {\it Living J. Comp. Mol. Sci.} \@publishedyear, \@publishedvolume, \@publishedarticlenum }%
+\rfoot{\small\color{LiveCoMSMediumGrey}\href{https://doi.org/\@publishedDOI}{https://doi.org/\@publishedDOI}\\
+  {\it Living J. Comp. Mol. Sci.} \@publishedyear, \@publishedvolume\nobreak\hspace{.05em}(\@publishedissue), \@publishedarticlenum }%
 \else
 \cfoot{\small\color{white} \vspace{\baselineskip} \small\color{LiveCoMSMediumGrey} \thepage\space of\space\pageref{LastPage}}%
 %\rfoot{\small\color{LiveCoMSMediumGrey}Page \thepage\space of\space\pageref{LastPage}}%
@@ -317,9 +320,9 @@
 \def\@contribution{}
 \def\@presentaddress{}
 \def\@deceased{}
-\def\@orcidblock{}
 % Added blurb for LiveComs
 \def\@blurb{}
+\def\@orcidblock{}
 
 
 \newcommand{\corr}[2]{%
@@ -327,14 +330,6 @@
   \appto{\@correspondence}{%
     \url{#1}%
     \ifx\empty#2\else\space(#2)\fi
-  }{}{}%
-}
-
-\newcommand{\orcid}[2]{%
-  \ifx\empty\@orcidblock\else\appto{\@orcidblock}{\\}{}{}\fi
-  \appto{\@orcidblock}{%
-    #1:\space%
-    \ifx\empty#2\else\href{https://orcid.org/#2}{#2} \fi
   }{}{}%
 }
 
@@ -357,6 +352,16 @@
 
 % Added for LiveComs
 \newcommand{\blurb}[1]{\def\@blurb{#1}}
+
+\newcommand{\orcid}[2]{%
+  \ifx\empty\@orcidblock\else\appto{\@orcidblock}{\\}{}{}\fi
+  \appto{\@orcidblock}{%
+    #1:\space%
+    \ifx\empty#2\else\href{https://orcid.org/#2}{#2} \fi
+  }{}{}%
+}
+
+
 
 \reversemarginpar
 
