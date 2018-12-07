@@ -49,6 +49,9 @@
 \newif\if@pubversion
 \DeclareOption{pubversion}{\@pubversiontrue}
 
+\newif\if@ASAPversion
+\DeclareOption{ASAPversion}{\@ASAPversiontrue}
+
 %% Linespacing.
 \newif\if@onehalfspacing
 \newif\if@doublespacing
@@ -273,7 +276,11 @@
 %  Accepted: \@publisheddateaccepted}%
 \cfoot{\small\color{white} \vspace{\baselineskip} \small\color{LiveCoMSMediumGrey} \thepage\space of\space\pageref{LastPage}}%
 \rfoot{\small\color{LiveCoMSMediumGrey}\href{https://doi.org/\@publishedDOI}{https://doi.org/\@publishedDOI}\\
-  {\it Living J. Comp. Mol. Sci.} \@publishedyear, \@publishedvolume\nobreak\hspace{.05em}(\@publishedissue), \@publishedarticlenum }%
+  {\it Living J. Comp. Mol. Sci.} \@publishedyear, \@publishedvolume\nobreak\hspace{.05em}(\@publishedissue), \@publishedarticlenum
+  \if@ASAPversion
+  \\ ASAP Version
+  \fi
+}%
 \else
 \cfoot{\small\color{white} \vspace{\baselineskip} \small\color{LiveCoMSMediumGrey} \thepage\space of\space\pageref{LastPage}}%
 %\rfoot{\small\color{LiveCoMSMediumGrey}Page \thepage\space of\space\pageref{LastPage}}%
