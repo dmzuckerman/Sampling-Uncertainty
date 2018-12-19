@@ -267,24 +267,36 @@
 }
 
 % Footers
+% 1. Error Check for conflicting class options
 \if@pubversion
-\lfoot{\ifthenelse{\value{page}=1}
-  {\small\color{LiveCoMSMediumGrey}Received: \@publisheddatereceived \\ Accepted: \@publisheddateaccepted}
-  {~\\~}
-}%
-%\lfoot{\small\color{LiveCoMSMediumGrey}Received: \@publisheddatereceived \\
-%  Accepted: \@publisheddateaccepted}%
-\cfoot{\small\color{white} \vspace{\baselineskip} \small\color{LiveCoMSMediumGrey} \thepage\space of\space\pageref{LastPage}}%
-\rfoot{\small\color{LiveCoMSMediumGrey}\href{https://doi.org/\@publishedDOI}{https://doi.org/\@publishedDOI}\\
-  {\it Living J. Comp. Mol. Sci.} \@publishedyear, \@publishedvolume\nobreak\hspace{.05em}(\@publishedissue), \@publishedarticlenum
   \if@ASAPversion
-  \\ ASAP Version
+      \ClassError{livecoms}
+      {Nope nope nope, you cannot invoke 'pubversion' and 'ASAPversion' simultaneously. Please correct the class options.}
   \fi
-}%
-\else
-\cfoot{\small\color{white} \vspace{\baselineskip} \small\color{LiveCoMSMediumGrey} \thepage\space of\space\pageref{LastPage}}%
-%\rfoot{\small\color{LiveCoMSMediumGrey}Page \thepage\space of\space\pageref{LastPage}}%
 \fi
+% 2. Publication Version: put submission/acceptance dates in left footer and citation information in right footer
+%%% DWS NOTE: would be nice if the left footer was in an if A-or-B type logical statement
+\if@pubversion
+  \lfoot{\ifthenelse{\value{page}=1}
+    {\small\color{LiveCoMSMediumGrey}Received: \@publisheddatereceived \\ Accepted: \@publisheddateaccepted}
+    {~\\~}
+  }%
+  \rfoot{\small\color{LiveCoMSMediumGrey}\href{https://doi.org/\@publishedDOI}{https://doi.org/\@publishedDOI}\\
+    {\it Living J. Comp. Mol. Sci.} \@publishedyear, \@publishedvolume\nobreak\hspace{.05em}(\@publishedissue), \@publishedarticlenum
+  }%
+\fi
+% 3. ASAP Version: put submission/acceptance dates in left footer and "ASAP Version" in right footer
+\if@ASAPversion
+  \lfoot{\ifthenelse{\value{page}=1}
+    {\small\color{LiveCoMSMediumGrey}Received: \@publisheddatereceived \\ Accepted: \@publisheddateaccepted}
+    {~\\~}
+  }%
+  \rfoot{\small\color{LiveCoMSMediumGrey}\href{https://doi.org/\@publishedDOI}{https://doi.org/\@publishedDOI}\\
+    {\it Living J. Comp. Mol. Sci.} ASAP Version
+  }%
+\fi
+% 4. Page Number in center of footer
+\cfoot{\small\color{white} \vspace{\baselineskip} \small\color{LiveCoMSMediumGrey} \thepage\space of\space\pageref{LastPage}}%
 \preto{\footrule}{\color{LiveCoMSMediumGrey}}
 \renewcommand{\headrulewidth}{0pt}% % No header rule
 \renewcommand{\footrulewidth}{0.4pt}% % No footer rule
@@ -401,7 +413,7 @@
 
 %% Abstract outside frontmatter will throw an error!
 \RenewEnviron{abstract}{%
-  \ClassError{livecome}
+  \ClassError{livecoms}
   {Nope nope nope, please put the abstract inside the frontmatter environment.}
   {Please put the abstract inside the frontmatter environment.}
 }
