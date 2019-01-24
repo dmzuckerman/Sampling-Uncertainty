@@ -344,7 +344,7 @@
 % Added blurb for LiveComs
 \def\@blurb{}
 \def\@orcidblock{}
-
+\def\@licenseblock{}
 
 \newcommand{\corr}[2]{%
   \ifx\empty\@correspondence\else\appto{\@correspondence}{; }{}{}\fi
@@ -382,6 +382,43 @@
   }{}{}%
 }
 
+\newcommand{\license}[2]{%
+  \appto{\@licenseblock}{%
+
+    %Creative Commons Attribution 3.0 Unported
+    \ifstrequal{#1}{CC-BY-3UP}{
+      \begin{center}
+        \includegraphics[width=0.65\linewidth]{cc-by.eps}
+      \end{center}
+      This work is licensed under a
+      \href{https://creativecommons.org/licenses/by/3.0/deed.en\_US}{Creative Commons Attribution 3.0 Unported License.}
+    }{}
+
+    %Creative Commons Attribution 4.0 International
+    \ifstrequal{#1}{CC-BY-4INT}{
+      \begin{center}
+        \includegraphics[width=0.65\linewidth]{cc-by.eps}
+      \end{center}
+      This work is licensed under a 
+      \href{https://creativecommons.org/licenses/by/4.0/deed.en\_US}{Creative Commons Attribution
+4.0 International License}.
+    }{}
+
+    %US Government work; Public Domain, using text suggested in https://theunitedstates.io/licensing/
+    \ifstrequal{#1}{USGOVT}{
+      \begin{center}\includegraphics[width=0.65\linewidth]{cc-zero.png}\end{center}
+      As a work of the United States Government, this work is in the public domain within the
+United States. Additionally, the #2 waives copyright and related
+rights in the work worldwide through the
+\href{https://creativecommons.org/publicdomain/zero/1.0/deed.en_US}{CC0 1.0 Universal Public
+Domain Dedication}.
+    }{}
+
+    %Custom License: direct TeX input in #2 argument
+    \ifstrequal{#1}{custom}{#2}{}
+    
+  }
+}
 
 
 \reversemarginpar
@@ -426,6 +463,7 @@
      \setlength{\parindent}{0pt} %\raggedright
      \raisebox{-16pt-\baselineskip}[0pt][0pt]{\makebox[0pt][r]{\parbox[t]{3cm}{%
        \raggedright\itshape\footnotesize\@blurb\par\medskip%
+       \@licenseblock\par \medskip
        This version dated \@date%
      }\hspace*{1cm}}}%
      \textcolor{LiveCoMSMediumGrey}{\rule{\textwidth}{2pt}}
