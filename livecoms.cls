@@ -461,11 +461,11 @@ Domain Dedication}.
   %% Define abstract's behavior when placed in frontmatter
   \renewenvironment{abstract}{%
      \setlength{\parindent}{0pt} %\raggedright
-     \raisebox{-16pt-\baselineskip}[0pt][0pt]{\makebox[0pt][r]{\parbox[t]{3cm}{%
-       \raggedright\itshape\footnotesize\@blurb\par\medskip%
-       \@licenseblock\par \medskip
-       This version dated \@date%
-     }\hspace*{1cm}}}%
+     %\raisebox{-16pt-\baselineskip}[0pt][0pt]{\makebox[0pt][r]{\parbox[t]{3.75cm}{%
+     %  \raggedright\itshape\footnotesize\@blurb\par\medskip%
+     %  \@licenseblock\par \medskip
+     %  This version dated \@date%
+     %}\hspace*{0.25cm}}}%
      \textcolor{LiveCoMSMediumGrey}{\rule{\textwidth}{2pt}}
      \vskip16pt
      \textcolor{LiveCoMSLightBlue}{\large\bfseries\abstractname\space}
@@ -475,11 +475,18 @@ Domain Dedication}.
      \vskip16pt
   }
   \twocolumn[%
-    \protecting{%\begin{minipage}[b]{3cm}
-    % \small\itshape
-    % \raggedright\@blurb
-    % \end{minipage}
-    \hfill
+    \protecting{
+      \begin{minipage}{4cm}
+        \raisebox{13.6cm}[0pt][0pt]{  %
+          \parbox[t]{3cm}{
+            \raggedright\itshape\footnotesize\@blurb\par\medskip%
+            \@licenseblock\par \medskip
+            This version dated \@date%
+            \hspace*{0.25cm}%
+          }%
+        }%
+      \end{minipage}
+      \hfill
     \begin{minipage}[b]{\textwidth-4cm}
     \BODY
     \themetadata%
