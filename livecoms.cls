@@ -406,7 +406,7 @@
 
     %US Government work; Public Domain, using text suggested in https://theunitedstates.io/licensing/
     \ifstrequal{#1}{USGOVT}{
-      \begin{center}\includegraphics[width=0.65\linewidth]{cc-zero.png}\end{center}
+      \begin{center}\includegraphics[width=0.65\linewidth]{cc-zero.eps}\end{center}
       As a work of the United States Government, this work is in the public domain within the
 United States. Additionally, the #2 waives copyright and related
 rights in the work worldwide through the
@@ -477,17 +477,16 @@ Domain Dedication}.
   \twocolumn[%
     \protecting{
       \begin{minipage}{4cm}
-        \raisebox{13.6cm}[0pt][0pt]{  %
           \parbox[t]{3cm}{
+            \vspace{\baselineskip}
             \raggedright\itshape\footnotesize\@blurb\par\medskip%
             \@licenseblock\par \medskip
             This version dated \@date%
             \hspace*{0.25cm}%
           }%
-        }%
       \end{minipage}
       \hfill
-    \begin{minipage}[b]{\textwidth-4cm}
+    \begin{minipage}{\textwidth-4cm}
     \BODY
     \themetadata%
     \end{minipage}}\vspace*{2\baselineskip}
