@@ -10,7 +10,7 @@ The full-text of the CC0 Legal Code is in the LICENSE.txt file associated with t
 
 This is a human-readable summary of the [Legal Code (read the full text)](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
 
-​### No Copyright
+### No Copyright
 
 The person who associated a work with this deed has dedicated the work to the public domain by waiving all of their rights to the work worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law.
 
