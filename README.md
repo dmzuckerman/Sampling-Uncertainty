@@ -3,6 +3,8 @@ Best Practices article for LiveCoMS (Living Journal of Computational
 Molecular Science) [http://www.livecomsjournal.org/]
 ACCEPTED ON 17 OCT 2018
 
+Link to published versions: [https://doi.org/10.33011/livecoms.1.1.5067]
+
 This is an article motivated by the Best Practices workshop organized by Michael Shirts on behalf of MolSSI,
 held at NIST on Aug 24-25, 2017.
 
