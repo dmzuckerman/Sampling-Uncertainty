@@ -10,6 +10,7 @@
 \RequirePackage{etoolbox}
 \RequirePackage{regexpatch}
 \RequirePackage{ifxetex,ifluatex}
+\RequirePackage[hyphens]{url}
 
 \newif\ifxetexorluatex
 \ifxetex
@@ -26,7 +27,7 @@
 \DeclareOption{lineno}{\@reqslinenotrue}
 
 %% the type of document this is.  The current types:
-% bestpractices, editorial, tutorial, review, comparison, lessons
+% bestpractices, editorial, tutorial, training, review, software, lessons
 \newif\if@bestpractices
 \DeclareOption{bestpractices}{\@bestpracticestrue}
 
@@ -36,11 +37,14 @@
 \newif\if@tutorial
 \DeclareOption{tutorial}{\@tutorialtrue}
 
+\newif\if@training
+\DeclareOption{training}{\@trainingtrue}
+
 \newif\if@review
 \DeclareOption{review}{\@reviewtrue}
 
-\newif\if@comparison
-\DeclareOption{comparison}{\@comparisontrue}
+\newif\if@software
+\DeclareOption{software}{\@softwaretrue}
 
 \newif\if@lessons
 \DeclareOption{lessons}{\@lessonstrue}
@@ -49,8 +53,9 @@
 \newif\if@pubversion
 \DeclareOption{pubversion}{\@pubversiontrue}
 
-\newif\if@ASAPversion
-\DeclareOption{ASAPversion}{\@ASAPversiontrue}
+%Review Version (includes line numbers to aid reviewers)
+\newif\if@reviewversion
+\DeclareOption{reviewversion}{\@reviewversiontrue}
 
 %% Linespacing.
 \newif\if@onehalfspacing
@@ -67,7 +72,7 @@
 \RequirePackage{amssymb}
 \RequirePackage{mdframed}
 
-\RequirePackage{lineno}
+\RequirePackage[pagewise,switch]{lineno}
 \if@reqslineno\linenumbers\fi
 
 \ifxetexorluatex
@@ -206,6 +211,13 @@
 % nothing
 \fi
 
+\if@training
+\documenttypetrue
+\newcommand{\documenttype}{Training Article}
+\else
+% nothing
+\fi
+
 \if@review
 \documenttypetrue
 \newcommand{\documenttype}{Perpetual Review}
@@ -213,9 +225,9 @@
 % nothing
 \fi
 
-\if@comparison
+\if@software
 \documenttypetrue
-\newcommand{\documenttype}{Molecular Simulation Comparison}
+\newcommand{\documenttype}{Software Analysis}
 \else
 % nothing
 \fi
@@ -267,16 +279,17 @@
 }
 
 %--------------------------------------------------------
-% Footers
-% 1. Error Check for conflicting class options
-\if@pubversion
-  \if@ASAPversion
+% Reviewer Aids
+\if@reviewversion
+  \if@pubversion
       \ClassError{livecoms}
-      {Nope nope nope, you cannot invoke 'pubversion' and 'ASAPversion' simultaneously. Please correct the class options.}
+      {Nope nope nope, you cannot invoke 'reviewversion' and 'pubversion' simultaneously. Please correct the class options.}
   \fi
+  \linenumbers
 \fi
-% 2. Publication Version: put submission/acceptance dates in left footer and citation information in right footer
-%%% DWS NOTE: would be nice if the left footer was in an if A-or-B type logical statement
+%--------------------------------------------------------
+% Footers
+% 1. Publication Version: put submission/acceptance dates in left footer and citation information in right footer
 \if@pubversion
   \lfoot{\ifthenelse{\value{page}=1}
     {\small\color{LiveCoMSMediumGrey}Received: \@publisheddatereceived \\ Accepted: \@publisheddateaccepted}
@@ -286,17 +299,7 @@
     {\it Living J. Comp. Mol. Sci.} \@publishedyear, \@publishedvolume\nobreak\hspace{.05em}(\@publishedissue), \@publishedarticlenum
   }%
 \fi
-% 3. ASAP Version: put submission/acceptance dates in left footer and "ASAP Version" in right footer
-\if@ASAPversion
-  \lfoot{\ifthenelse{\value{page}=1}
-    {\small\color{LiveCoMSMediumGrey}Received: \@publisheddatereceived \\ Accepted: \@publisheddateaccepted}
-    {~\\~}
-  }%
-  \rfoot{\small\color{LiveCoMSMediumGrey}\href{https://doi.org/\@publishedDOI}{https://doi.org/\@publishedDOI}\\
-    {\it Living J. Comp. Mol. Sci.} ASAP Version
-  }%
-\fi
-% 4. Page Number in center of footer
+% 2. Page Number in center of footer
 \cfoot{\small\color{white} \vspace{\baselineskip} \small\color{LiveCoMSMediumGrey} \thepage\space of\space\pageref{LastPage}}%
 \preto{\footrule}{\color{LiveCoMSMediumGrey}}
 \renewcommand{\headrulewidth}{0pt}% % No header rule
